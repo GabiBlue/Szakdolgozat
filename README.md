@@ -46,8 +46,52 @@ Egyelőre ez tünik az a menetrendalkalmazás elsődleges funkcionalitásának. 
 
 Ezt a fejezetet fel lehet építeni például úgy is, hogy először a naív, irányított gráfban való keresés kerül bemutatásra, és utána fokozatosan kerülnek bele a további feltételek (megszorítások/constraints). Mindegyikhez érdemes lesz majd minél több ábrát, minimálpéldát is készíteni, illetve becsléseket adni a számítási időkre vonatkozóan.
 
-* További funkciók
-------------------
+A gráfok ábrázolási módjait megnézni.
+
+Illeszkedési mátrix
+~~~~~~~~~~~~~~~~~~~
+
+* A csomópont tárolja a szomszédos pontok listáját,
+* illeszkedési mátrix
+* https://en.wikipedia.org/wiki/Incidence_matrix
+
+Szomszédsági mátrix
+~~~~~~~~~~~~~~~~~~~
+
+* van egy külön lista a párokhoz
+* Mivel ritka mátrix, elég a párok listáját tárolni
+* https://en.wikipedia.org/wiki/Adjacency_matrix
+
+1. leírni az adatok ábrázolási módját
+
+* gráf, csomópontok, indulási idők.
+* absztraktabb, matematikai megfogalmazás
+
+2. Egyszerű keresési algoritmust csinálni csak az útvonalakra
+
+* még időmegszorítás nélkül
+* Dijkstra algoritmusról írni pár dolgot
+* Floyd-Warshall algoritmus előnyeit megnézni
+
+3. Csak indulási idők figyelembevétele
+
+* átszálásokkal itt még nem kell számolni
+
+4. Átszállási időkkel együtt a számítások
+
+* visszakeresni, hogy hol vannak egyáltalán csatlakozások
+* Megnézni, hogy a Floyd-Warshall-t hogyan lehet alkalmazni itt.
+
+Hasonló implementációk
+
+* Open Trip Planner
+
+Az útvonalkereséshez használható adatstruktúráról írni pár dolgot.
+
+* Mennyiben különbözik a GTFS formátumától
+
+További funkciók
+----------------
 
 Külön fejezetekbe kerülhetnek a további funkciók, vagy komplikáltabb megoldások. Csak ötlet szintjén:
 - Következő ajánlott útvonal számítása az aktuális idő, kiindulópont és a célállomás ismeretében. (Az útvonalkereső is gyakorlatilag ezt csinálja, itt annyi a különbség, hogy kvázi kiírja a felhasználónak, hogy merre érdemes indulnia, és vált, ha közben megváltozik a javaslat az eltelt idő miatt.)
