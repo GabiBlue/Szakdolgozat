@@ -32,12 +32,38 @@ Ez itt az adatmodell részletezésével foglalkozó fejezet. Ide jöhet majd az 
 
 A Python-os GTFS library-t is itt érdemes közelebbről bemutatni. Több alternatíva esetén azokról készülhet ide egy összehasonlító elemzés.
 
+A Backend felépítése és megvalósítása
+-------------------------------------
+
+A menetrend library
+~~~~~~~~~~~~~~~~~~~
+
+A menetrend library, mint wrapper a GTFSDB felé
+
+* Az előnye, hogy így más kliensekkel is lehet használni (mobil, desktop app, vagy másik webapp).
+
+Flask webalkalmazás
+~~~~~~~~~~~~~~~~~~~
+
+Azt kellene bemutatni, hogy az menetrend lib funkcióit hogy sikerült kivezetni, hogy REST API-n keresztül elérhető legyen.
+
 Felhasználói felület
 --------------------
 
-A cím itt is lehet majd beszédesebb, de gyakorlatilag azt kellene itt kifejteni, hogy a felhasználó szemszögéből mi és hogy látszik majd a rendszerben. Még ez is inkább a tervezés részhez tartozik, tehát elsősorban specifikáció jellegű.
+A felhasználói felület kialakítása
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A komplikáltabb kliens oldali megoldásokat (például térképek megjelentése, vagy egyéb vizualizáció féle) majd akár külön fejezetben is lehet részletezni.
+* A cím itt is lehet majd beszédesebb, de gyakorlatilag azt kellene itt kifejteni, hogy a felhasználó szemszögéből mi és hogy látszik majd a rendszerben. Még ez is inkább a tervezés részhez tartozik, tehát elsősorban specifikáció jellegű.
+
+A megvalósítás módja
+~~~~~~~~~~~~~~~~~~~~
+
+* Az előzőekben említett dolgok pontosan hogy kerültek megvalósításra.
+* Mi az ami körülményesebb volt.
+* A komplikáltabb kliens oldali megoldásokat (például térképek megjelentése, vagy egyéb vizualizáció féle) majd akár külön fejezetben is lehet részletezni.
+* Felhasznált plugin-ok (például útvonalkeresésnél)
+* Angular-os dolgok.
+
 
 Útvonalak keresése
 ------------------
@@ -108,6 +134,16 @@ Tesztelés
 Itt már a rendszer egészére, illetve a felhasználásra vonatkozó tesztekre kell kitérni.
 Egységtesztekről már a tervezés és implementációs részekben is érdemes beszélni.
 Össze kell majd gyűjteni lehetőleg minél több (publikus :)) GTFS adatbázist, és az eredményeikről lehet valamilyen összehasonlító elemzés félét is csinálni (táblázatok, grafikonok).
+
+Táblázat
+* menetrend neve (város)
+* zip-elt fájl mérete
+* betöltési idő
+* megállók száma
+* járatok száma
+
+Útvonalkereső számítási idejét meg lehetne vizsgálni.
+* Melyik megállópárok esetén mennyi a válaszideje.
 
 Összefoglalás
 -------------
