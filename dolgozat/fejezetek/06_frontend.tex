@@ -1,0 +1,170 @@
+\Chapter{A frontend megvalósítása}
+
+% TODO: Minden képet be kell majd hivatkozni!
+
+% TODO: A szövegben ki kell emelni a kódrészeket texttt{}-vel! ..vagy textit-vel, csak következetes legyen!
+
+\Section{Felhasználói felület}
+
+Az alkalmazás főoldalán egy ismertető található, a program funkcionalitását bemutatva.
+A felhasználói felületének két fő része van, a menetrendadatok böngészése és az útvonaltervezés. Ezeket a navigációs sávon külön menüpontokból érhetjük el.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.32]{kepek/navbar.png}
+\caption{}
+\label{fig:navbar}
+\end{figure}
+
+A navigációs sávon a Viszonylatok menüpontra kattintva láthatjuk a különböző viszonylatokat, ahol többféle módon is kiválaszthatjuk azt, amelyiknek a menetrendjére kíváncsiak vagyunk. Található az oldal tetején egy gombsor a vonalszámokkal, alatta pedig egy részletes táblázat, csoportosítva a különböző típusú viszonylatokat (autóbusz vagy villamos).
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.32]{kepek/viszonylatok_gombsor.png}
+\caption{}
+\label{fig:viszonylatok_gombsor}
+\end{figure}
+
+A táblázat három oszlopból áll: vonalszám, induló állomás és érkező állomás. Lehetőség van bármelyik oszlop szerint csökkenő vagy növekvő sorrendben rendezni a táblázatot vagy keresni benne. A Keresés mezőbe beírt szöveg alapján a táblázat mindegyik oszlopában keres egyezőséget, a szűrés az oldal újratöltése nélkül megtörténik. A keresés kis- és nagybetű-érzéketlen.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.32]{kepek/vonalak_tablazat.png}
+\caption{}
+\label{fig:vonalak_tablazat}
+\end{figure}
+
+Ha kiválasztunk egy viszonylatot, akkor annak az aznapi menetrendjét látjuk egy óra-perc táblázatban. A táblázat mellett egy legördülő menüből lehet a napot választani, ha a vonal egy másik napi menetrendjére vagyunk kíváncsiak.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.4]{kepek/menetrend.png}
+\caption{}
+\label{fig:menetrend}
+\end{figure}
+
+A táblázatban a percek linkek, amire ha rákattintunk, akkor egy másik oldal töltődik be. Ez az oldal is két részre van felosztva. Bal oldalt egy táblázatban láthatjuk a kiválasztott járat részletes menetrendjét: sorrendben az állomásokat, amiket érint. Három oszlopból áll a táblázat: indulási idő, megálló neve, és az addigi menetidő percben kifejezve. A táblázat mellett pedig a járat útvonala jelenik meg Google Mapsen. A térképen a járat útvonala és az érintett megállók is fel vannak tüntetve. A megállókat jelző markerekre kattintva egy Info Window ugrik fel, a megálló nevét és a járat végállomását tartalmazva.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.35]{kepek/trip_tablazat_es_terkep.png}
+\caption{}
+\label{fig:trip_tablazat_es_terkep}
+\end{figure}
+
+Az alkalmazás másik fő funkcióját is a navigációs sávról érhetjük el, ez nem más, mint az útvonaltervezés. Az oldal két részre van felosztva.
+
+Bal oldalt az útvonaltervezés beállításait adhatjuk meg. Az első sorban a kezdő- és a célmegállót állíthatjuk be két input mező segítségével, amit autocomplete támogatás is segít. Ez azt jelenti, hogy ha elkezdünk gépelni a beviteli mezőbe, akkor megjelenik egy legördülő listához hasonlító elem, amiből kiválaszthatjuk a megfelelő megálló nevét. A következő ábrán megfigyelhető, hogy ez mit is jelent a gyakorlatban.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.6]{kepek/autocomplete.png}
+\caption{}
+\label{fig:autocomplete}
+\end{figure}
+
+A második sorban három beállítási lehetőség található. Az első egy legördülő menü, ahol az Indulás most, Indulási idő választása, Érkezési idő választása opciók közül választhatunk. A másik két beállítás a nap és az időpont kiválasztására szolgál. (egyelőre még nincs implementálva…) A harmadik sorban a „Tervezés” gomb található.
+
+Jobb oldalt, miután a Tervezés gombra kattintottunk, a kérés eredménye látható. Ha megfelelő adatokat adtunk meg, és létezik útvonal a két megálló közt, akkor megjelenik a javasolt útvonal. Ellenkező esetben egy hibaüzenet jelenik meg.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.5]{kepek/trip_planner.png}
+\caption{}
+\label{fig:trip_planner}
+\end{figure}
+
+\Section{Térképek megjelenítése}
+
+A járatok útvonalának térképen történő megjelenítésére a Google Mapset használtam. Döntésemet az indokolta, hogy véleményem szerint a piacon jelenlévő térképszolgáltatások közül messze a Google-é a legfejlettebb, legtámogatottabb. A térkép programozására a Google Maps JavaScript API-t használtam. Ennek segítségével JavaScriptben írt kóddal tudjuk programozni a térképet. Számos funkciót kínál erre az API, én legfőképp az útvonalak kirajzolását és jelölőpontok megjelenítését használtam. Ahhoz, hogy oldalunkon használni tudjuk az API-t, be kell szereznünk egy úgynevezett API key-t. Ezt a következő oldalon tudjuk megtenni: https://code.google.com/apis/console/
+
+Az oldalon létre kell hozni egy projektet, majd ki kell választani, hogy melyik API-ra van szükségünk. Én a Google Maps JavaScript API-t választottam ki, és meg is kaptam API kulcsomat. Lehetőség van arra is, hogy lekorlátozzuk a kulcs használatát. Megadhatjuk, hogy mely domain címekről használhatják a kulcsunkat. Ingyenesen napi 25 000 darab kérésünk lehet, ami egy átlagos forgalmú weboldal esetén elegendő. Ha azonban mégis átlépné az oldalunk ezt a napi limitet, akkor vásárolhatunk üzleti csomagot, amivel lehetőségünk van kibővíteni ezt a keretet.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.5]{kepek/google_maps_api_1.jpg}
+\caption{}
+\label{fig:google_maps_api_1}
+\end{figure}
+
+A fent hivatkozott honlapon a kérések monitorozására is lehetőségünk van. Ugyanezen a felületen beállíthatjuk a napi, a 100 másodpercenkénti és a 100 másodperc / felhasználó kérések limitjét.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.5]{kepek/google_maps_api_2.jpg}
+\caption{}
+\label{fig:google_maps_api_2}
+\end{figure}
+
+Ha beszereztük a szükséges API key-t, akkor azt az oldalunkra be kell linkelni a következő módon:
+
+\begin{verbatim}
+<script src="https://maps.googleapis.com/maps/api/js?key=IDE_KELL_A_KEY-T_BEMASOLNI&callback=drawMap"></script>
+\end{verbatim}
+
+A HTML oldalon elhelyeztem egy div-et, ami a térképet tartalmazza, id-nak „map”-ot állítottam be. Létrehoztam egy scriptet, ami a drawMap függvényt tartalmazza, ez végzi a térkép manipulálását. A továbbiakban ennek a függvénynek néhány érdekesebb részét ismertetem.
+
+A járatok útvonalai az adatbázisban tárolva vannak. Az adott járathoz tartozó GPS koordinátákat lekérdezi a függvény a szervertől. Majd egy for cikluson belül ezekből úgynevezett LatLng objektumokat hoz létre a függvény, amit eltárol egy tömbben:
+
+\begin{cpp}
+var latlng = new google.maps.LatLng(value["shape_pt_lat"], value["shape_pt_lon"]);
+shapePoints.push(latlng);
+\end{cpp}
+
+Az első paraméter a szélességi, a második a hosszúsági koordináta. Még egy fontos dolog történik a for cikluson belül. Egy LatLngBounds objektumot használok a térkép pozícionálásához.
+
+\begin{cpp}
+var bounds = new google.maps.LatLngBounds();
+\end{cpp}
+
+Ez LatLng objektumok által meghatározott téglalapot reprezentál. A LatLngBounds objektum extend metódusa hívódik meg a cikluson belül, paraméterként átadva az adott iterációban lévő LatLng objektumot, ezáltal a befoglaló téglalapban benne lesz az adott iteráció pontja is:
+
+\begin{cpp}
+bounds.extend(latlng);
+\end{cpp}
+
+A for ciklus lefutása után a bounds objektum az adott járat összes pontját tartalmazó minimális területű téglalapot fogja tartalmazni.
+Hogy a pontokból útvonal legyen, ahhoz egy Polyline objektumot hoz létre a függvény, megadva a tömböt path property-ként. Egyéb beállítási lehetőségeink is vannak, én a vonal színét, átlátszóságát és vastagságát állítottam át, ezt mutatja a következő kódrészlet:
+
+\begin{cpp}
+var tripPath = new google.maps.Polyline({
+                        path: shapePoints,
+                        strokeColor: "#2cc124",
+                        strokeOpacity: 0.8,
+                        strokeWeight: 4
+});
+\end{cpp}
+
+Miután ez az objektum is rendelkezésre áll, az útvonalat hozzárendeli a függvény a térképhez, valamint a térképet a befoglaló téglalapra pozícionálja:
+
+\begin{cpp}
+tripPath.setMap(map);
+map.fitBounds(bounds);
+\end{cpp}
+
+A megállók megjelenítése markerekkel történik, megkülönböztetve a végállomásokat és a köztes megállókat. A végállomások tömött zöld körökkel, a köztes megállók zöld szegélyű, fehér közepű körökkel vannak reprezentálva. Az útvonalhoz hasonlóan ebben az esetben is a szervertől lekérdezi a függvény a megállók koordinátáit. Majd szintén egy for cikluson belül ezeken végigiterál, és iterációnként létrehoz egy-egy LatLng objektumot, illetve markert. A marker létrehozását láthatjuk a következő kódrészletben:
+
+\begin{cpp}
+var marker = new google.maps.Marker({
+                                    position: latlng,
+                                    icon: {
+                                        path: google.maps.SymbolPath.CIRCLE,
+                                        strokeColor: '#2cc124',
+                                        fillColor: '#FFF',
+                                        fillOpacity: 1,
+                                        scale: 7
+                                    },
+                                    map: map,
+                                    title: value["stop_name"]
+                                });
+\end{cpp}
+
+Beállításra kerül a marker pozíciója a létrehozott LatLng objektumból. Az alapértelmezett ikon helyett az icon property megadásával használható más. Mint említettem, én köröket használok, megadva a szegély színét, a kitöltési színt, az átlátszóságot és az ikon nagyságát. A markert hozzá kell rendelni a térkép objektumhoz a map property megadásával. Végül én a title property-t is beállítom, a megálló nevét értékül adva neki. Ezáltal, ha rávisszük a kurzort az ikonra, akkor megjelenik a megálló neve. Ezenkívül InfoWindow ablakokat is használok, ezek akkor jönnek elő, ha egy markerre rákattintunk. Az adott megálló és a járat végállomásának a megállóját tartalmazza. Mindez jól látható a következő ábrán.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.7]{kepek/terkep.png}
+\caption{}
+\label{fig:terkep}
+\end{figure}
+
