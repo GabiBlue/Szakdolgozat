@@ -1,10 +1,10 @@
-\Chapter{A frontend megvalósítása}
+\Chapter{A front end megvalósítása}
 
 % TODO: Minden képet be kell majd hivatkozni!
 
 % TODO: A szövegben ki kell emelni a kódrészeket texttt{}-vel! ..vagy textit-vel, csak következetes legyen!
 
-\Section{Felhasználói felület}
+\Section{Felhasználói felület elemei}
 
 Az alkalmazás főoldalán egy ismertető található, a program funkcionalitását bemutatva.
 A felhasználói felületének két fő része van, a menetrendadatok böngészése és az útvonaltervezés. Ezeket a navigációs sávon külön menüpontokból érhetjük el.
@@ -74,7 +74,66 @@ Jobb oldalt, miután a Tervezés gombra kattintottunk, a kérés eredménye lát
 \label{fig:trip_planner}
 \end{figure}
 
-\Section{Térképek megjelenítése}
+\Section{Megvalósítás AngularJS segítségével}
+
+A bemutatott felületek kialakítása AngularJS-sel történt. Az AngularJS kontrollerei kommunikálnak a szerverrel, az adatok nézeteken való megjelenítését biztosítják. Ezt az app.js fájl valósítja meg.
+Az alkalmazás single-page application, ami azt jelenti, hogy egy oldal tartalma változik dinamikusan az alkalmazás használata során, nem teljesen különböző oldalak töltődnek le a szerverről. Különböző állapotok vannak definiálva, amiket a \texttt{\$stateProvider} modul kezel. Egy állapot definiálása a \texttt{\$stateProvider .state()} metódusával történik.
+Egy állapot definiálása a következőképpen történik:
+\begin{cpp}
+.state("/trip", {
+            url: "/trip/{trip_id:int}",
+            templateUrl: "/static/partials/trip.html",
+            controller: "tripController"
+        })
+\end{cpp}
+Meg kell adni az állapot nevét, milyen URL-re aktiválódjon, melyik nézetet töltse be és melyik kontrollert használja hozzá.
+Az \texttt{\$urlRouterProvider} segítségével létrehoztam egy úgynevezett \textit{otherwise} állapotot, ami akkor aktiválódik, ha az adott URL egyik állapot URL-ére sem illeszkedik. Ilyenkor egy erre figyelmeztető hibaüzenetet tartalmazó nézet töltődik be. Ezt mutatja \aref{fig:404}. ábra.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.7]{kepek/404.png}
+\caption{404-es hibajelzés abban az esetben, ha a lap nem található}
+\label{fig:404}
+\end{figure}
+
+A nézetek \texttt{.html} fájlokban vannak tárolva, ezek azonban nem teljes \texttt{.html} fájlok, csupán HTML-kódrészletek. Minden nézethez definiáltam egy kontrollert is, ezáltal jól elkülönítve az egyes állapotok kódjait.
+
+Az elkészített nézetek és kontrollerek összefoglalása látható \aref{tab:routing}. táblázatban.
+
+\begin{figure}[h!]
+\centering
+\begin{tabular}{|l|p{4cm}|l|}
+\hline
+\textbf{Nézet} & \textbf{URL} & \textbf{Kontroller neve} \\
+\hline
+\texttt{/static/partials/home.html} & \texttt{/} & \texttt{-} \\
+\hline
+\texttt{/static/partials/list-routes.html} & \texttt{/list-routes} & \texttt{listRoutesController} \\
+\hline
+\texttt{/static/partials/trip.html} & \texttt{/trip/{trip\_id:int}} & \texttt{tripController} \\
+\hline
+\texttt{/static/partials/schedule.html} &
+\texttt{/schedule/}
+
+\texttt{:route\_short\_name/}
+
+\texttt{\{direction\_id:int\}} & \texttt{scheduleController} \\
+\hline
+\texttt{/static/partials/trip-planner.html} & \texttt{/trip-planner} & \texttt{tripPlannerController} \\
+\hline
+\texttt{/static/partials/error-404.html} & \texttt{/error-404} & \texttt{-} \\
+\hline
+\end{tabular}
+\caption{Routing: nézet, url, controller}
+\label{tab:routing}
+\end{figure}
+
+A listRoutesController a viszonylatokat kéri le a szervertől a viszonylatok típusa szerint csoportosítva. A megjelenített táblázatokban a különböző oszlopok szerinti rendezést és a bennük való keresést valósítja meg.
+A tripController egy járat adatait kéri le a szervetől. Amennyiben hibás paramétert kap, a 404-es hibaoldalra irányít át.
+A scheduleController az adatbázisban található dátumokat és egy viszonylat napi indulási adatait kéri le a szervertől. Alapértelmezetten az aktuális dátum szerinti menetrendet kérdezi le. Ha a nézeten a napválasztó legördülőmenüből egy másik napot választ ki a felhasználó, akkor a kiválasztott nap menetrendjét kérdezi le.
+A tripPlannerController lekérdezi az adatbázisban található megállók neveit, és a dátumokat. A hozzátartozó nézeten található formon bevitt adatokat validálja, ha hibásak, akkor megjeleníti a hibaüzenetet a nézeten. Ha a megadott adatok megfelelőek, elküldi azokat a szervernek, a válaszként kapott megtervezett útvonalat pedig megjeleníti a nézeten.
+
+\Section{Térképadatok kezelése és megjelenítése}
 
 A járatok útvonalának térképen történő megjelenítésére a Google Mapset használtam. Döntésemet az indokolta, hogy véleményem szerint a piacon jelenlévő térképszolgáltatások közül messze a Google-é a legfejlettebb, legtámogatottabb. A térkép programozására a Google Maps JavaScript API-t használtam. Ennek segítségével JavaScriptben írt kóddal tudjuk programozni a térképet. Számos funkciót kínál erre az API, én legfőképp az útvonalak kirajzolását és jelölőpontok megjelenítését használtam. Ahhoz, hogy oldalunkon használni tudjuk az API-t, be kell szereznünk egy úgynevezett API key-t. Ezt a következő oldalon tudjuk megtenni: https://code.google.com/apis/console/
 
@@ -167,4 +226,3 @@ Beállításra kerül a marker pozíciója a létrehozott LatLng objektumból. A
 \caption{}
 \label{fig:terkep}
 \end{figure}
-

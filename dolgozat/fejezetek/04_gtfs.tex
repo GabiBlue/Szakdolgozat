@@ -17,7 +17,7 @@ A GTFS-formátum kötelező és opcionális táblákat egyaránt tartalmaz. A k�
 
 \Section{Kötelező táblák}
 
-\SubSection*{agency}
+\SubSection{agency}
 
 A tömegközlekedési hálózat üzemeltetőjéről tartalmaz információkat. Több rekord is megadható, ha a járatokat több vállalat is üzemelteti. A route táblában minden viszonylatra meg lehet adni, hogy ki az üzemeltetője.
 
@@ -33,7 +33,7 @@ agency\_timezone & Az időzónát tartalmazza, ahol a vállalat található. \\
 \hline
 \end{tabular}
 
-\SubSection*{routes}
+\SubSection{routes}
 
 Az aktuálisan elérhető viszonylatokat tartalmazza. Minden viszonylat rendelkezik egy azonosítóval, egy rövid és egy hosszú névvel, valamint a viszonylat típusának az azonosítójával.
 Kötelező mezők:
@@ -56,7 +56,7 @@ route\_type & Típusazonosító, lehetséges értékek:
 \hline
 \end{tabular}
 
-\SubSection*{trips}
+\SubSection{trips}
 
 Ez a tábla tartalmazza a járatokat. Mindegyik egy viszonylathoz tartozik, a direction\_id mezőben adható meg, hogy melyik irányban közlekedik a járat az adott viszonylaton (0 vagy 1 értékkel). Kötelező megadni még egy service\_id-t, ami alapján be lehet azonosítani, hogy a járat mely napokon közlekedik. Egy járathoz tartozhat még egy shape is, amely GPS koordináták sorozataként a járat útvonalát tartalmazza.
 Kötelező mezők:
@@ -71,7 +71,7 @@ service\_id & Idegen kulcs, a calendar és a calendar\_dates táblákra hivatkoz
 \hline
 \end{tabular}
 
-\SubSection*{stops}
+\SubSection{stops}
 
 Az egyes megállókat tárolja névvel és földrajzi koordinátákkal.
 Kötelező mezők:
@@ -88,7 +88,7 @@ stop\_lon & A megálló hosszúsági fokát tartalmazza. A megadott értéknek W
 \hline
 \end{tabular}
 
-\SubSection*{stop\_times}
+\SubSection{stop\_times}
 
 Ez a tábla azt tárolja, hogy egy viszonylat egy járata egy megállóba mikor érkezik meg, mikor indul el onnan, és ez hányadik megállója az adott járatnak.
 Kötelező mezők:
@@ -107,7 +107,7 @@ stop\_sequence & Azt tartalmazza, hogy hányadik megállója ez a járatnak. Nem
 \hline
 \end{tabular}
 
-\SubSection*{calendar}
+\SubSection{calendar}
 
 Itt úgynevezett szolgáltatásokat lehet megadni. Egy szolgáltatás azt mondja meg, hogy a járatok, amelyek ehhez a szolgáltatáshoz tartoznak, a hét mely napjain közlekednek. Továbbá meg kell adni egy érvényességi intervallumot is.
 Kötelező mezők:
@@ -140,7 +140,7 @@ end\_date & A szolgáltatás érvényességi idejének a vége. Az értéket YYY
 
 Opcionális táblák:
 
-\SubSection*{shapes}
+\SubSection{shapes}
 
 A járatok útvonalát tartalmazza a tábla. Egy útvonal több pontból áll, amelyek ugyanazzal a shape\_id-val vannak ellátva.
 Kötelező mezők:
@@ -157,7 +157,7 @@ shape\_pt\_sequence & Azt tartalmazza, hogy hányadik pontja ez a útvonalnak. N
 \hline
 \end{tabular}
 
-\SubSection*{calendar\_dates}
+\SubSection{calendar\_dates}
 
 A táblának két felhasználási módja van.
 Ajánlott: A calendar táblával együttesen, ilyenkor a normál menetrend szerinti kivételes eseteket kell itt megadni.
@@ -176,7 +176,7 @@ exception\_type & Lehetséges értékei:
 \hline
 \end{tabular}
 
-\SubSection*{fare\_attributes}
+\SubSection{fare\_attributes}
 
 A különböző viteldíjtípusok megadására szolgál.
 Kötelező mezők:
@@ -203,7 +203,7 @@ Lehetséges értékei:
 \hline
 \end{tabular}
 
-\SubSection*{fare\_rules}
+\SubSection{fare\_rules}
 
 A táblával megadható, hogy a fare\_attributes táblában található viteldíjak hogyan vonatkozzanak az útvonalakra.
 Kötelező mező:
@@ -228,7 +228,7 @@ contains\_id & \\
 \hline
 \end{tabular}
 
-\SubSection*{frequencies}
+\SubSection{frequencies}
 
 Ha egy járat szerepel ebben a táblában, akkor az útvonaltervező figyelmen kívül hagyja a stop\_times tábla arrival\_time és departure\_time mezőjét. Ehelyett a stop\_times tábla a megállók sorrendjét és az egyes megállók közötti időkülönbséget határozza meg.
 Kötelező mezők:
@@ -245,7 +245,7 @@ headway\_secs & Másodpercekben kifejezve, hogy a start\_time és az end\_time m
 \hline
 \end{tabular}
 
-\SubSection*{transfers}
+\SubSection{transfers}
 
 Útvonaltervezők általában az átszállási pontokat az egyes viszonylatok megállóinak a távolságai alapján számítják ki. Az esetlegesen kétértelmű megálló párok egyértelműsítésére vagy egy konkrét csatlakozási lehetőség megadására szolgál ez a tábla.
 Kötelező mezők:
@@ -265,7 +265,7 @@ Lehetséges értékek:
 \hline
 \end{tabular}
 
-\SubSection*{feed\_info}
+\SubSection{feed\_info}
 
 Ez a tábla az adatokat publikáló szervezetről tartalmaz információkat. Abban az esetben van fontosabb szerepe, ha a tömegközlekedési hálózat üzemeltetője és az adatok publikálója nem ugyanaz a szervezet.
 Kötelező mezők:
@@ -324,15 +324,17 @@ gtfsdb/model/base.py
 \begin{python}
 -except Exception, e:
 +except Exception as e:
-gtfsdb/model/db.py
 \end{python}
+
+gtfsdb/model/db.py
 
 82. sor:
 \begin{python}
 -except Exception, e:
 +except Exception as e:
-gtfsdb/model/gtfs.py
 \end{python}
+
+gtfsdb/model/gtfs.py
 
 6. sor:
 \begin{python}
@@ -344,15 +346,17 @@ gtfsdb/model/gtfs.py
 \begin{python}
 -except Exception, e:
 +except Exception as e:
-gtfsdb/model/route_stop.py
 \end{python}
+
+gtfsdb/model/route\_stop.py
 
 260. sor:
 \begin{python}
 -print unique_stops
 +print(unique_stops)
-gtfsdb/model/stop_time.py
 \end{python}
+
+gtfsdb/model/stop\_time.py
 
 75. sor:
 \begin{python}
