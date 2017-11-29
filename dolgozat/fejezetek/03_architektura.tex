@@ -69,3 +69,20 @@ Támogatja azt, hogy egy időben több fejlesztő dolgozhasson ugyan azon a fela
 A GitHub egy Git-alapú webes verziókezelő tárhelyszolgáltatás \cite{github}. A GitHub mára a legnépszerűbb közösségi fejlesztői szolgáltatássá vált, fejlett verziókezelési és kollaborációs megoldásokkal rendelkezik. Az alkalmazásom verziókövetésére a GitHubot használtam, több alkalommal is hasznos volt számomra, hogy visszatérhettem egy adott fájl előző változatára.
 
 Az alkalmazás forráskódja az alábbi linken megtekinthető és letölthető: https://github.com/GabiBlue/MEnetrend
+
+\Section{Az alkalmazás fő részei}
+
+Az alkalmazás szerveroldalon a Python/Flask keretrendszert, kliensoldalon pedig AngularJS-t használ. A nyers GTFS-adatok feldolgozására és adatbázisba való betöltésére a GTFSDB csomagot használom. Az adatbázisból a lekérdezéseket az SQLAlcehmy ORM-en keresztül végzem. Létrehoztam egy menetrend nevű csomagot, ami tulajdonképpen egy wrapperként szolgál a GTFSDB felé. A wrapper egy alacsonyabb szintű programészre épülve magasabb szintű funkciókat valósít meg, elfedve a technikai részleteket, ezáltal egyszerűbbé téve azt. Az alkalmazás logikai felépítést szemlélteti \aref{fig:architecture} ábra.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.7]{kepek/architecture.png}
+\caption{Az alkalmazás architektúrája}
+\label{fig:architecture}
+\end{figure}
+
+A felhasználó egy böngészőn keresztül használja az alkalmazást. Ilyenkor az AngularJS-sel kialakított különböző nézeteket látja az alkalmazás használója. Az adatok a szerverről érkeznek, kliensoldalon az Angular kontrollerjei végzik a kérések elküldését a szerver irányába. A kapott válaszokat is a kontrollerek dolgozzák fel, biztosítják, hogy a kapott adatok a nézeteken megjelenjenek. A felhasználói felület a hatodik fejezetben kerül részletes bemutatásra.
+
+Szerveroldalon egy többrétegű struktúrát alakítottam ki. A legalsó réteg maga az adatbázis. Ezt a GTFSDB nevű library segítségével hozom létre a nyers adatokból. Az adatbázisból való lekérdezéseket az SQLAlchemy-vel végzem. A GTFSDB csomagnak a lekérdezéseknél is szerepe van, hiszen a csomagban lévő mapper osztályokat használom. A GTFSDB-vel a negyedik fejezet foglalkozik részletesebben.
+
+Az alkalmazás a Flask keretrendszert használja. A klienstől érkező kéréseket ez a réteg dolgozza fel. Ehhez, az esetleges paraméterellenőrzések után, az általam kialakított menetrend csomagot használja. A csomagban található metódusok kerülnek meghívásra, amelyek a már ismertetett, alsóbb rétegeket szólítják meg. A metódusok az így létrejött lekérdezések eredményeivel térnek vissza a flaskos rétegbe, amely pedig azokból előállítja a HTTP-válaszokat a kliens számára. Az adatok JSON formátumban kerülnek továbbításra. A lekérdezések megfogalmazása történhetne a flaskos rétegben is, azonban előnyösebbnek véltem egy közbenső réteg bevezetését. A legnagyobb előnye a későbbi továbbfejleszthetőségben rejlik. A szerveroldali két felső réteg, a Flask és a menetrend csomag, bemutatása a hatodik fejezetben történik.

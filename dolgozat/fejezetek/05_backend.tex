@@ -1,11 +1,125 @@
 \Chapter{A szerver oldali rész megvalósítása}
 
-\Section{A menetrend library}
-
-A menetrend library, mint wrapper a GTFSDB felé
-
-* Az előnye, hogy így más kliensekkel is lehet használni (mobil, desktop app, vagy másik webapp).
-
 \Section{Flask webalkalmazás}
 
-Azt kellene bemutatni, hogy az menetrend lib funkcióit hogy sikerült kivezetni, hogy REST API-n keresztül elérhető legyen.
+% Azt kellene bemutatni, hogy az menetrend lib funkcióit hogy sikerült kivezetni, hogy REST API-n keresztül elérhető legyen.
+
+Szerveroldalon egy többrétegű struktúrát alakítottam ki, mint azt már említettem az alkalmazás felépítésének a részletezésénél. A fejezetben a két felső réteg, a Flask-alkalmazás és a menetrend csomag kerül bemutatásra.
+Flask-webalkalmazás
+Ez a réteg dolgozza fel a klienstől érkező kéréseket a menetrend csomagra építve. Ha vannak a kérésnek paraméterei, akkor először azoknak a helyességét vizsgálja. Számos esetben ezt egy, a menetrend csomagban lévő, függvény segítségével végzi. A válaszokhoz az adatokat szintén a menetrend csomag egyes függvényeinek a meghívásával állítja elő. Az így előállt eredményadatokat JSON formátumban küldi a kliens felé.
+A réteg a server.py fájlban van megvalósítva. A benne található függvények route() dekorátorokkal vannak ellátva. Ezek írják le, hogy mely URL-re hívódjon meg az adott függvény. Az URL-ek és a függvények nevei az egyszerűség kedvéért megegyeznek.
+A függvényeket és leírásukat tartalmazza a következő táblázat.
+
+\begin{longtable}{|p{4.5cm}|p{9cm}|}
+\hline
+\textbf{URL} & \textbf{Leírás} \\
+\hline
+\texttt{/} &
+Az alkalmazás megnyitásakor vagy a főoldal gombra történő kattintáskor elküldi az index.html fájlt. \\
+\hline
+\texttt{/favicon.ico} &
+A favicon megjelenítésére szolgál. A favicon a weboldalhoz tartozó ikon, amely a böngészőben megjelenhet a címsorban, a fül elején és a könyvjelzők előtt. \\
+\hline
+\texttt{/get\_bus\_routes} &
+Az autóbuszvonalakat adja vissza. A lekérdezéshez a \texttt{query\_routes\_by\_route\_type()} függvényt hívja meg. A paraméter adja meg a típust, a 3-as jelenti az autóbuszt. \\
+\hline
+\texttt{/get\_tram\_routes} &
+A villamosvonalakat adja vissza. A fent említett függvényt hívja meg, 0-t adva paraméterként, hiszen ez jelenti a villamostípust. \\
+\hline
+\texttt{/get\_start\_times} &
+Egy viszonylat egy irányának egy adott napi indulási idejeit adja vissza.
+Paraméterek:
+\begin{itemize}
+\item \texttt{route\_short\_name}: a viszonylatot határozza meg
+\item \texttt{direction\_id}: az irányt határozza meg
+\item \texttt{date}: a dátumot határozza meg
+\end{itemize}
+A függvény először a paraméterek helyességét vizsgálja. Ha a direction\_id értéke nem 0 vagy 1, vagy ha egy járat sem található a megadott route\_short\_name és direction\_id értékekkel, akkor 404-es hibakóddal tér vissza. Ennek az az oka, hogy ez normál használat során nem fordulhat elő, csak ha kézzel át lett írva az URL.
+Ha helyesek a paraméterek, akkor a query\_trips\_schedule() függvény segítségével lekérdezi a paramétereknek megfelelő járatokat. Ha egyet sem talál, akkor az adott napon nem közlekedik a viszonylat. Ellenkező esetben a generate\_schedule\_dictionary()  függvénnyel elkészíti az aznapi indulási időket tartalmazó dictionary-t. \\
+\hline
+\texttt{/get\_dates} &
+Az adatbázisban a menetrendi adatokhoz tartozó dátumokat adja vissza. Ezekből a dátumokból lehet választani a menetrendböngésző oldalon. A lekérdezéshez a query\_dates() függvényt használja.  \\
+\hline
+\texttt{/get\_trip\_stops} &
+Egy járat részletes menetrendjét adja vissza. Paraméterként egy trip\_id-t kap, először teszteli, hogy valós-e. Ha nem, 400-as hibakóddal tér vissza. Ha igen, akkor a query\_trip\_stops() függvénnyel lekérdezi a járat menetrendjét.  \\
+\hline
+\texttt{/get\_trip\_shapes} &
+Egy járat útvonalát adja vissza. Paraméterként egy trip\_id-t kap, először teszteli, hogy valós-e. Ha nem, 400-as hibakóddal tér vissza. Ha igen, akkor a query\_trip\_shapes() függvénnyel lekérdezi a járat útvonalát. \\
+\hline
+\texttt{/get\_trip\_terminals} \\ \texttt{\_coordinates} &
+Egy járat induló és végállomásának a koordinátáit adja vissza. Paraméterként egy trip\_id-t kap, először teszteli, hogy valós-e. Ha nem, 400-as hibakóddal tér vissza. Ha igen, akkor a query\_trip\_terminals\_coordinates() függvénnyel lekérdezi az említett koordinátákat. \\
+\hline
+\texttt{/get\_trip\_stops\_} \\ \texttt{coordinates} &
+Egy járat megállóinak a koordinátáit adja vissza, kivéve az indulóét és a végállomásét. Paraméterként egy trip\_id-t kap, először teszteli, hogy valós-e. Ha nem, 400-as hibakóddal tér vissza. Ha igen, akkor a query\_trip\_stops\_coordinates() függvénnyel lekérdezi az említett koordinátákat. \\
+\hline
+\texttt{/get\_all\_stops} &
+Az adatbázisban található összes megálló nevét adja vissza. A lekérdezéshez a query\_all\_stops() függvényt használja. \\
+\hline
+\texttt{/plan\_trip} &
+A megadott induló és célmegálló közt tervezett útvonalat adja vissza. Az útvonaltervezéshez a dijkstra() függvényt használja. \\
+\hline
+\end{longtable}
+
+\Section{A menetrend library}
+
+A csomagban található függvényekkel lehet az adatbázisból adatok lekérdezni, az SQLAlchemy és a GTFSDB segítségével. A következő táblázat a csomagban lévő fájlokat és az azokban lévő függvényeket ismerteti.
+
+\begin{longtable}{|p{4.5cm}|p{9cm}|}
+\hline
+\textbf{Fájlnév} & \textbf{Függvények leírásai} \\
+\hline
+\texttt{graph.py} &
+\texttt{generate\_graph()}:
+
+Az adatbázisban található megállókból egy súlyozott, irányított gráfot épít fel, az alapján, hogy honnan hova és mennyi idő alatt lehet eljutni. A függvény működése a hetedik fejezetben részletesen ki van fejtve.
+\\
+\hline
+\texttt{routes.py} &
+\texttt{query\_routes\_by\_route\_type(route\_type)}:
+
+Az adatbázisból a paraméterként megadott típusú viszonylatokat kérdezi le, dictionary-k listájaként visszaadva az eredményt.
+
+\bigskip
+
+\texttt{test\_route\_short\_name(route\_short\_name, direction\_id)}:
+
+Megvizsgálja, hogy a paraméterként megadott viszonylatnév létezik-e az adatbázisban. Ha igen, akkor visszatér vele.
+\\
+\hline
+\texttt{schedule.py} &
+query\_dates():
+Az adatbázisban a menetrendi adatokhoz tartozó dátumokat adja vissza egy listában.
+query\_trips\_schedule(route\_short\_name, direction\_id, date, trip):
+A paramétereknek megfelelő járatokat és a járatok adatait tartalmazó dictionary-t adja vissza.
+generate\_schedule\_dictionary(trips, trips\_dict):
+A paraméterként kapott járatok indulási időivel kibővíti a paraméterként átadott dictionary-t, majd ezzel a kibővített dictionary-vel tér vissza. \\
+\hline
+\texttt{stops.py} &
+query\_all\_stops():
+Az adatbázisban található összes megálló nevét adja vissza egy listában. \\
+\hline
+\texttt{trip\_planner.py} &
+dijkstra(graph, src, dest, visited=[], distances={}, predecessors={}):
+Dijkstra-algoritmus a gráfban való legrövidebb út megkeresésére két megálló között. Az algoritmus a hetedik fejezetben kerül részletes bemutatásra. \\
+\hline
+\texttt{trips.py} &
+test\_trip(trip\_id):
+Megvizsgálja, hogy a paraméterként kapott azonosítójú járat létezik-e az adatbázisban. Ha létezik, visszatér vele.
+\texttt{query\_trip\_stops(trip):}
+Egy dictionary-ben visszaadja a paraméterként kapott járat nevét, induló és végállomását, valamint a dictionary-n belül egy listában a sorrendben érintett megállókat, indulási idővel és az adott megállóig eltelt menetidővel.
+query\_trip\_shapes(trip):
+A paraméterként megadott járat útvonalát adja vissza egy listában.
+query\_trip\_terminals\_coordinates(trip):
+A paraméterként megadott járat induló és végállomásának a koordinátáit adja vissza egy listában.
+query\_trip\_stops\_coordinates(trip):
+Egy listában a paraméterként megadott járat megállóinak a koordinátáit adja vissza, kivéve az indulóét és a végállomásét. \\
+\hline
+\end{longtable}
+
+A menetrend csomagnak számos előnye van véleményem szerint. Egyrészt ennek a rétegnek a bevezetésével jobban el tudtam különíteni az egyes funkciókat. A flaskos réteg csak a kérések helyességének vizsgálatával és a válaszok generálásával foglalkozik. A lekérdezések megfogalmazása és az eredmények feldolgozása a menetrend csomag függvényeiben történik, ezáltal átláthatóbb is lett a Flask-fájl, hiszen rövidebbek az egyes függvények törzsei.
+
+A legnagyobb előny, véleményem szerint, a jövőbeli továbbfejleszthetőség nagymértékű megkönnyítésében rejlik. Ha később úgy döntök (vagy bárki más úgy dönt), hogy a MEnetrend webalkalmazásnak el kívánom (kívánja) készíteni a mobilos vagy asztali változatát, akkor a back enden csak a Flaskot kell lecserélni, az alsóbb rétegekben megvalósított funkciók ugyanazok maradhatnak. Esetleg egy másik, hasonló tematikájú webalkalmazás is építkezhet a menetrend csomagban megvalósított néhány funkcióra.
+
+% A menetrend library, mint wrapper a GTFSDB felé
+
+% Az előnye, hogy így más kliensekkel is lehet használni (mobil, desktop app, vagy másik webapp).
