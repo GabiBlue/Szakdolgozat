@@ -128,10 +128,10 @@ Az elkészített nézetek és kontrollerek összefoglalása látható \aref{tab:
 \label{tab:routing}
 \end{figure}
 
-A listRoutesController a viszonylatokat kéri le a szervertől a viszonylatok típusa szerint csoportosítva. A megjelenített táblázatokban a különböző oszlopok szerinti rendezést és a bennük való keresést valósítja meg.
-A tripController egy járat adatait kéri le a szervetől. Amennyiben hibás paramétert kap, a 404-es hibaoldalra irányít át.
-A scheduleController az adatbázisban található dátumokat és egy viszonylat napi indulási adatait kéri le a szervertől. Alapértelmezetten az aktuális dátum szerinti menetrendet kérdezi le. Ha a nézeten a napválasztó legördülőmenüből egy másik napot választ ki a felhasználó, akkor a kiválasztott nap menetrendjét kérdezi le.
-A tripPlannerController lekérdezi az adatbázisban található megállók neveit, és a dátumokat. A hozzátartozó nézeten található formon bevitt adatokat validálja, ha hibásak, akkor megjeleníti a hibaüzenetet a nézeten. Ha a megadott adatok megfelelőek, elküldi azokat a szervernek, a válaszként kapott megtervezett útvonalat pedig megjeleníti a nézeten.
+A \texttt{listRoutesController} a viszonylatokat kéri le a szervertől a viszonylatok típusa szerint csoportosítva. A megjelenített táblázatokban a különböző oszlopok szerinti rendezést és a bennük való keresést valósítja meg.
+A \texttt{tripController} egy járat adatait kéri le a szervetől. Amennyiben hibás paramétert kap, a 404-es hibaoldalra irányít át.
+A \texttt{scheduleController} az adatbázisban található dátumokat és egy viszonylat napi indulási adatait kéri le a szervertől. Alapértelmezetten az aktuális dátum szerinti menetrendet kérdezi le. Ha a nézeten a napválasztó legördülőmenüből egy másik napot választ ki a felhasználó, akkor a kiválasztott nap menetrendjét kérdezi le.
+A \texttt{tripPlannerController} lekérdezi az adatbázisban található megállók neveit, és a dátumokat. A hozzátartozó nézeten található formon bevitt adatokat validálja, ha hibásak, akkor megjeleníti a hibaüzenetet a nézeten. Ha a megadott adatok megfelelőek, elküldi azokat a szervernek, a válaszként kapott megtervezett útvonalat pedig megjeleníti a nézeten.
 
 \Section{Térképadatok kezelése és megjelenítése}
 
@@ -161,29 +161,29 @@ Ha beszereztük a szükséges API key-t, akkor azt az oldalunkra be kell linkeln
 <script src="https://maps.googleapis.com/maps/api/js?key=IDE_KELL_A_KEY-T_BEMASOLNI&callback=drawMap"></script>
 \end{verbatim}
 
-A HTML oldalon elhelyeztem egy div-et, ami a térképet tartalmazza, id-nak „map”-ot állítottam be. Létrehoztam egy scriptet, ami a drawMap függvényt tartalmazza, ez végzi a térkép manipulálását. A továbbiakban ennek a függvénynek néhány érdekesebb részét ismertetem.
+A HTML oldalon elhelyeztem egy div-et, ami a térképet tartalmazza, id-nak „map”-ot állítottam be. Létrehoztam egy scriptet, ami a \texttt{drawMap} függvényt tartalmazza, ez végzi a térkép manipulálását. A továbbiakban ennek a függvénynek néhány érdekesebb részét ismertetem.
 
-A járatok útvonalai az adatbázisban tárolva vannak. Az adott járathoz tartozó GPS koordinátákat lekérdezi a függvény a szervertől. Majd egy for cikluson belül ezekből úgynevezett LatLng objektumokat hoz létre a függvény, amit eltárol egy tömbben:
+A járatok útvonalai az adatbázisban tárolva vannak. Az adott járathoz tartozó GPS koordinátákat lekérdezi a függvény a szervertől. Majd egy for cikluson belül ezekből úgynevezett \texttt{LatLng} objektumokat hoz létre a függvény, amit eltárol egy tömbben:
 
 \begin{cpp}
 var latlng = new google.maps.LatLng(value["shape_pt_lat"], value["shape_pt_lon"]);
 shapePoints.push(latlng);
 \end{cpp}
 
-Az első paraméter a szélességi, a második a hosszúsági koordináta. Még egy fontos dolog történik a for cikluson belül. Egy LatLngBounds objektumot használok a térkép pozícionálásához.
+Az első paraméter a szélességi, a második a hosszúsági koordináta. Még egy fontos dolog történik a for cikluson belül. Egy \texttt{LatLngBounds} objektumot használok a térkép pozícionálásához.
 
 \begin{cpp}
 var bounds = new google.maps.LatLngBounds();
 \end{cpp}
 
-Ez LatLng objektumok által meghatározott téglalapot reprezentál. A LatLngBounds objektum extend metódusa hívódik meg a cikluson belül, paraméterként átadva az adott iterációban lévő LatLng objektumot, ezáltal a befoglaló téglalapban benne lesz az adott iteráció pontja is:
+Ez \texttt{LatLng} objektumok által meghatározott téglalapot reprezentál. A \texttt{LatLngBounds} objektum extend metódusa hívódik meg a cikluson belül, paraméterként átadva az adott iterációban lévő \texttt{LatLng} objektumot, ezáltal a befoglaló téglalapban benne lesz az adott iteráció pontja is:
 
 \begin{cpp}
 bounds.extend(latlng);
 \end{cpp}
 
 A for ciklus lefutása után a bounds objektum az adott járat összes pontját tartalmazó minimális területű téglalapot fogja tartalmazni.
-Hogy a pontokból útvonal legyen, ahhoz egy Polyline objektumot hoz létre a függvény, megadva a tömböt path property-ként. Egyéb beállítási lehetőségeink is vannak, én a vonal színét, átlátszóságát és vastagságát állítottam át, ezt mutatja a következő kódrészlet:
+Hogy a pontokból útvonal legyen, ahhoz egy \texttt{Polyline} objektumot hoz létre a függvény, megadva a tömböt \texttt{path} property-ként. Egyéb beállítási lehetőségeink is vannak, én a vonal színét, átlátszóságát és vastagságát állítottam át, ezt mutatja a következő kódrészlet:
 
 \begin{cpp}
 var tripPath = new google.maps.Polyline({
@@ -201,7 +201,7 @@ tripPath.setMap(map);
 map.fitBounds(bounds);
 \end{cpp}
 
-A megállók megjelenítése markerekkel történik, megkülönböztetve a végállomásokat és a köztes megállókat. A végállomások tömött zöld körökkel, a köztes megállók zöld szegélyű, fehér közepű körökkel vannak reprezentálva. Az útvonalhoz hasonlóan ebben az esetben is a szervertől lekérdezi a függvény a megállók koordinátáit. Majd szintén egy for cikluson belül ezeken végigiterál, és iterációnként létrehoz egy-egy LatLng objektumot, illetve markert. A marker létrehozását láthatjuk a következő kódrészletben:
+A megállók megjelenítése markerekkel történik, megkülönböztetve a végállomásokat és a köztes megállókat. A végállomások tömött zöld körökkel, a köztes megállók zöld szegélyű, fehér közepű körökkel vannak reprezentálva. Az útvonalhoz hasonlóan ebben az esetben is a szervertől lekérdezi a függvény a megállók koordinátáit. Majd szintén egy for cikluson belül ezeken végigiterál, és iterációnként létrehoz egy-egy \texttt{LatLng} objektumot, illetve markert. A marker létrehozását láthatjuk a következő kódrészletben:
 
 \begin{cpp}
 var marker = new google.maps.Marker({
@@ -218,7 +218,7 @@ var marker = new google.maps.Marker({
                                 });
 \end{cpp}
 
-Beállításra kerül a marker pozíciója a létrehozott LatLng objektumból. Az alapértelmezett ikon helyett az icon property megadásával használható más. Mint említettem, én köröket használok, megadva a szegély színét, a kitöltési színt, az átlátszóságot és az ikon nagyságát. A markert hozzá kell rendelni a térkép objektumhoz a map property megadásával. Végül én a title property-t is beállítom, a megálló nevét értékül adva neki. Ezáltal, ha rávisszük a kurzort az ikonra, akkor megjelenik a megálló neve. Ezenkívül InfoWindow ablakokat is használok, ezek akkor jönnek elő, ha egy markerre rákattintunk. Az adott megálló és a járat végállomásának a megállóját tartalmazza. Mindez jól látható a következő ábrán.
+Beállításra kerül a marker pozíciója a létrehozott \texttt{LatLng} objektumból. Az alapértelmezett ikon helyett az icon property megadásával használható más. Mint említettem, én köröket használok, megadva a szegély színét, a kitöltési színt, az átlátszóságot és az ikon nagyságát. A markert hozzá kell rendelni a térkép objektumhoz a \texttt{map} property megadásával. Végül én a \texttt{title} property-t is beállítom, a megálló nevét értékül adva neki. Ezáltal, ha rávisszük a kurzort az ikonra, akkor megjelenik a megálló neve. Ezenkívül InfoWindow ablakokat is használok, ezek akkor jönnek elő, ha egy markerre rákattintunk. Az adott megálló és a járat végállomásának a megállóját tartalmazza. Mindez jól látható a következő ábrán.
 
 \begin{figure}[htb]
 \centering
