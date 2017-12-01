@@ -34,29 +34,29 @@ Paraméterek:
 \item \texttt{direction\_id}: az irányt határozza meg
 \item \texttt{date}: a dátumot határozza meg
 \end{itemize}
-A függvény először a paraméterek helyességét vizsgálja. Ha a direction\_id értéke nem 0 vagy 1, vagy ha egy járat sem található a megadott route\_short\_name és direction\_id értékekkel, akkor 404-es hibakóddal tér vissza. Ennek az az oka, hogy ez normál használat során nem fordulhat elő, csak ha kézzel át lett írva az URL.
-Ha helyesek a paraméterek, akkor a query\_trips\_schedule() függvény segítségével lekérdezi a paramétereknek megfelelő járatokat. Ha egyet sem talál, akkor az adott napon nem közlekedik a viszonylat. Ellenkező esetben a generate\_schedule\_dictionary()  függvénnyel elkészíti az aznapi indulási időket tartalmazó dictionary-t. \\
+A függvény először a paraméterek helyességét vizsgálja. Ha a \texttt{direction\_id} értéke nem 0 vagy 1, vagy ha egy járat sem található a megadott \texttt{route\_short\_name} és \texttt{direction\_id} értékekkel, akkor 404-es hibakóddal tér vissza. Ennek az az oka, hogy ez normál használat során nem fordulhat elő, csak ha kézzel át lett írva az URL.
+Ha helyesek a paraméterek, akkor a \texttt{query\_trips\_schedule()} függvény segítségével lekérdezi a paramétereknek megfelelő járatokat. Ha egyet sem talál, akkor az adott napon nem közlekedik a viszonylat. Ellenkező esetben a \texttt{generate\_schedule\_dictionary()}  függvénnyel elkészíti az aznapi indulási időket tartalmazó dictionary-t. \\
 \hline
 \texttt{/get\_dates} &
-Az adatbázisban a menetrendi adatokhoz tartozó dátumokat adja vissza. Ezekből a dátumokból lehet választani a menetrendböngésző oldalon. A lekérdezéshez a query\_dates() függvényt használja.  \\
+Az adatbázisban a menetrendi adatokhoz tartozó dátumokat adja vissza. Ezekből a dátumokból lehet választani a menetrendböngésző oldalon. A lekérdezéshez a \texttt{query\_dates()} függvényt használja.  \\
 \hline
 \texttt{/get\_trip\_stops} &
-Egy járat részletes menetrendjét adja vissza. Paraméterként egy trip\_id-t kap, először teszteli, hogy valós-e. Ha nem, 400-as hibakóddal tér vissza. Ha igen, akkor a query\_trip\_stops() függvénnyel lekérdezi a járat menetrendjét.  \\
+Egy járat részletes menetrendjét adja vissza. Paraméterként egy \texttt{trip\_id}-t kap, először teszteli, hogy valós-e. Ha nem, 400-as hibakóddal tér vissza. Ha igen, akkor a \texttt{query\_trip\_stops()} függvénnyel lekérdezi a járat menetrendjét.  \\
 \hline
 \texttt{/get\_trip\_shapes} &
-Egy járat útvonalát adja vissza. Paraméterként egy trip\_id-t kap, először teszteli, hogy valós-e. Ha nem, 400-as hibakóddal tér vissza. Ha igen, akkor a query\_trip\_shapes() függvénnyel lekérdezi a járat útvonalát. \\
+Egy járat útvonalát adja vissza. Paraméterként egy \texttt{trip\_id}-t kap, először teszteli, hogy valós-e. Ha nem, 400-as hibakóddal tér vissza. Ha igen, akkor a \texttt{query\_trip\_shapes()} függvénnyel lekérdezi a járat útvonalát. \\
 \hline
 \texttt{/get\_trip\_terminals} \\ \texttt{\_coordinates} &
-Egy járat induló és végállomásának a koordinátáit adja vissza. Paraméterként egy trip\_id-t kap, először teszteli, hogy valós-e. Ha nem, 400-as hibakóddal tér vissza. Ha igen, akkor a query\_trip\_terminals\_coordinates() függvénnyel lekérdezi az említett koordinátákat. \\
+Egy járat induló és végállomásának a koordinátáit adja vissza. Paraméterként egy \texttt{trip\_id}-t kap, először teszteli, hogy valós-e. Ha nem, 400-as hibakóddal tér vissza. Ha igen, akkor a \texttt{query\_trip\_terminals\_coordinates()} függvénnyel lekérdezi az említett koordinátákat. \\
 \hline
 \texttt{/get\_trip\_stops\_} \\ \texttt{coordinates} &
-Egy járat megállóinak a koordinátáit adja vissza, kivéve az indulóét és a végállomásét. Paraméterként egy trip\_id-t kap, először teszteli, hogy valós-e. Ha nem, 400-as hibakóddal tér vissza. Ha igen, akkor a query\_trip\_stops\_coordinates() függvénnyel lekérdezi az említett koordinátákat. \\
+Egy járat megállóinak a koordinátáit adja vissza, kivéve az indulóét és a végállomásét. Paraméterként egy \texttt{trip\_id}-t kap, először teszteli, hogy valós-e. Ha nem, 400-as hibakóddal tér vissza. Ha igen, akkor a \texttt{query\_trip\_stops\_coordinates()} függvénnyel lekérdezi az említett koordinátákat. \\
 \hline
 \texttt{/get\_all\_stops} &
-Az adatbázisban található összes megálló nevét adja vissza. A lekérdezéshez a query\_all\_stops() függvényt használja. \\
+Az adatbázisban található összes megálló nevét adja vissza. A lekérdezéshez a \texttt{query\_all\_stops()} függvényt használja. \\
 \hline
 \texttt{/plan\_trip} &
-A megadott induló és célmegálló közt tervezett útvonalat adja vissza. Az útvonaltervezéshez a dijkstra() függvényt használja. \\
+A megadott induló és célmegálló közt tervezett útvonalat adja vissza. Az útvonaltervezéshez a \texttt{dijkstra()} függvényt használja. \\
 \hline
 \end{longtable}
 
@@ -87,32 +87,64 @@ Megvizsgálja, hogy a paraméterként megadott viszonylatnév létezik-e az adat
 \\
 \hline
 \texttt{schedule.py} &
-query\_dates():
+\texttt{query\_dates()}:
+
 Az adatbázisban a menetrendi adatokhoz tartozó dátumokat adja vissza egy listában.
-query\_trips\_schedule(route\_short\_name, direction\_id, date, trip):
+
+\bigskip
+
+\texttt{query\_trips\_schedule(route\_short\_name, direction\_id, date, trip)}:
+
 A paramétereknek megfelelő járatokat és a járatok adatait tartalmazó dictionary-t adja vissza.
-generate\_schedule\_dictionary(trips, trips\_dict):
-A paraméterként kapott járatok indulási időivel kibővíti a paraméterként átadott dictionary-t, majd ezzel a kibővített dictionary-vel tér vissza. \\
+
+\bigskip
+
+\texttt{generate\_schedule\_dictionary(trips, trips\_dict)}:
+
+A paraméterként kapott járatok indulási időivel kibővíti a paraméterként átadott dictionary-t, majd ezzel a kibővített dictionary-vel tér vissza.
+\\
 \hline
 \texttt{stops.py} &
-query\_all\_stops():
-Az adatbázisban található összes megálló nevét adja vissza egy listában. \\
+\texttt{query\_all\_stops()}:
+
+Az adatbázisban található összes megálló nevét adja vissza egy listában.
+\\
 \hline
 \texttt{trip\_planner.py} &
-dijkstra(graph, src, dest, visited=[], distances={}, predecessors={}):
-Dijkstra-algoritmus a gráfban való legrövidebb út megkeresésére két megálló között. Az algoritmus a hetedik fejezetben kerül részletes bemutatásra. \\
+\texttt{dijkstra(graph, src, dest)}:
+
+Dijkstra-algoritmus a gráfban való legrövidebb út megkeresésére két megálló között. Az algoritmus a hetedik fejezetben kerül részletes bemutatásra.
+\\
 \hline
 \texttt{trips.py} &
-test\_trip(trip\_id):
+\texttt{test\_trip(trip\_id)}:
+
 Megvizsgálja, hogy a paraméterként kapott azonosítójú járat létezik-e az adatbázisban. Ha létezik, visszatér vele.
+
+\bigskip
+
 \texttt{query\_trip\_stops(trip):}
+
 Egy dictionary-ben visszaadja a paraméterként kapott járat nevét, induló és végállomását, valamint a dictionary-n belül egy listában a sorrendben érintett megállókat, indulási idővel és az adott megállóig eltelt menetidővel.
-query\_trip\_shapes(trip):
+
+\bigskip
+
+\texttt{query\_trip\_shapes(trip)}:
+
 A paraméterként megadott járat útvonalát adja vissza egy listában.
-query\_trip\_terminals\_coordinates(trip):
+
+\bigskip
+
+\texttt{query\_trip\_terminals\_coordinates(trip)}:
+
 A paraméterként megadott járat induló és végállomásának a koordinátáit adja vissza egy listában.
-query\_trip\_stops\_coordinates(trip):
-Egy listában a paraméterként megadott járat megállóinak a koordinátáit adja vissza, kivéve az indulóét és a végállomásét. \\
+
+\bigskip
+
+\texttt{query\_trip\_stops\_coordinates(trip)}:
+
+Egy listában a paraméterként megadott járat megállóinak a koordinátáit adja vissza, kivéve az indulóét és a végállomásét.
+\\
 \hline
 \end{longtable}
 
