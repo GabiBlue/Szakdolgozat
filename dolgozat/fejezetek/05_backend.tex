@@ -5,7 +5,7 @@ Szerveroldalon egy többrétegű struktúrát alakítottam ki, mint azt már eml
 \Section{Flask-webalkalmazás}
 
 % Azt kellene bemutatni, hogy az menetrend lib funkcióit hogy sikerült kivezetni, hogy REST API-n keresztül elérhető legyen.
-Ez a réteg dolgozza fel a klienstől érkező kéréseket a menetrend csomagra építve. Ha vannak a kérésnek paraméterei, akkor először azoknak a helyességét vizsgálja. Számos esetben ezt egy, a menetrend csomagban lévő, függvény segítségével végzi. A válaszokhoz az adatokat szintén a menetrend csomag egyes függvényeinek a meghívásával állítja elő. Az így előállt eredményadatokat JSON formátumban küldi a kliens felé.
+Ez a réteg dolgozza fel a klienstől érkező kéréseket a menetrend csomagra építve. Ha vannak a kérésnek paraméterei, akkor először azoknak a helyességét vizsgálja. Számos esetben ezt egy, a menetrend csomagban lévő, függvény segítségével végzi. A válaszokhoz az adatokat szintén a menetrend csomag egyes függvényeinek a meghívásával állítja elő. Az így előállt eredményadatokat JSON-formátumban küldi a kliens felé.
 A réteg a server.py fájlban van megvalósítva. A benne található függvények route() dekorátorokkal vannak ellátva. Ezek írják le, hogy mely URL-re hívódjon meg az adott függvény. Az URL-ek és a függvények nevei az egyszerűség kedvéért megegyeznek.
 A függvényeket és leírásukat tartalmazza a következő táblázat.
 
