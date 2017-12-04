@@ -9,7 +9,7 @@
 Az alkalmazás főoldalán egy ismertető található, a program funkcionalitását bemutatva.
 A felhasználói felületének két fő része van, a menetrendadatok böngészése és az útvonaltervezés. Ezeket a navigációs sávon külön menüpontokból érhetjük el.
 
-\begin{figure}[htb]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.32]{kepek/navbar.png}
 \caption{}
@@ -18,7 +18,7 @@ A felhasználói felületének két fő része van, a menetrendadatok böngész�
 
 A navigációs sávon a Viszonylatok menüpontra kattintva láthatjuk a különböző viszonylatokat, ahol többféle módon is kiválaszthatjuk azt, amelyiknek a menetrendjére kíváncsiak vagyunk. Található az oldal tetején egy gombsor a vonalszámokkal, alatta pedig egy részletes táblázat, csoportosítva a különböző típusú viszonylatokat (autóbusz vagy villamos).
 
-\begin{figure}[htb]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.32]{kepek/viszonylatok_gombsor.png}
 \caption{}
@@ -27,7 +27,7 @@ A navigációs sávon a Viszonylatok menüpontra kattintva láthatjuk a különb
 
 A táblázat három oszlopból áll: vonalszám, induló állomás és érkező állomás. Lehetőség van bármelyik oszlop szerint csökkenő vagy növekvő sorrendben rendezni a táblázatot vagy keresni benne. A Keresés mezőbe beírt szöveg alapján a táblázat mindegyik oszlopában keres egyezőséget, a szűrés az oldal újratöltése nélkül megtörténik. A keresés kis- és nagybetű-érzéketlen.
 
-\begin{figure}[htb]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.32]{kepek/vonalak_tablazat.png}
 \caption{}
@@ -36,7 +36,7 @@ A táblázat három oszlopból áll: vonalszám, induló állomás és érkező 
 
 Ha kiválasztunk egy viszonylatot, akkor annak az aznapi menetrendjét látjuk egy óra-perc táblázatban. A táblázat mellett egy legördülő menüből lehet a napot választani, ha a vonal egy másik napi menetrendjére vagyunk kíváncsiak.
 
-\begin{figure}[htb]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.4]{kepek/menetrend.png}
 \caption{}
@@ -45,7 +45,7 @@ Ha kiválasztunk egy viszonylatot, akkor annak az aznapi menetrendjét látjuk e
 
 A táblázatban a percek linkek, amire ha rákattintunk, akkor egy másik oldal töltődik be. Ez az oldal is két részre van felosztva. Bal oldalt egy táblázatban láthatjuk a kiválasztott járat részletes menetrendjét: sorrendben az állomásokat, amiket érint. Három oszlopból áll a táblázat: indulási idő, megálló neve, és az addigi menetidő percben kifejezve. A táblázat mellett pedig a járat útvonala jelenik meg Google Mapsen. A térképen a járat útvonala és az érintett megállók is fel vannak tüntetve. A megállókat jelző markerekre kattintva egy Info Window ugrik fel, a megálló nevét és a járat végállomását tartalmazva.
 
-\begin{figure}[htb]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.35]{kepek/trip_tablazat_es_terkep.png}
 \caption{}
@@ -56,7 +56,7 @@ Az alkalmazás másik fő funkcióját is a navigációs sávról érhetjük el,
 
 Bal oldalt az útvonaltervezés beállításait adhatjuk meg. Az első sorban a kezdő- és a célmegállót állíthatjuk be két input mező segítségével, amit autocomplete támogatás is segít. Ez azt jelenti, hogy ha elkezdünk gépelni a beviteli mezőbe, akkor megjelenik egy legördülő listához hasonlító elem, amiből kiválaszthatjuk a megfelelő megálló nevét. A következő ábrán megfigyelhető, hogy ez mit is jelent a gyakorlatban.
 
-\begin{figure}[htb]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.6]{kepek/autocomplete.png}
 \caption{}
@@ -67,7 +67,7 @@ A második sorban három beállítási lehetőség található. Az első egy leg
 
 Jobb oldalt, miután a Tervezés gombra kattintottunk, a kérés eredménye látható. Ha megfelelő adatokat adtunk meg, és létezik útvonal a két megálló közt, akkor megjelenik a javasolt útvonal. Ellenkező esetben egy hibaüzenet jelenik meg.
 
-\begin{figure}[htb]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5]{kepek/trip_planner.png}
 \caption{}
@@ -89,7 +89,7 @@ Egy állapot definiálása a következőképpen történik:
 Meg kell adni az állapot nevét, milyen URL-re aktiválódjon, melyik nézetet töltse be és melyik kontrollert használja hozzá.
 Az \texttt{\$urlRouterProvider} segítségével létrehoztam egy úgynevezett \textit{otherwise} állapotot, ami akkor aktiválódik, ha az adott URL egyik állapot URL-ére sem illeszkedik. Ilyenkor egy erre figyelmeztető hibaüzenetet tartalmazó nézet töltődik be. Ezt mutatja \aref{fig:404}. ábra.
 
-\begin{figure}[htb]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.7]{kepek/404.png}
 \caption{404-es hibajelzés abban az esetben, ha a lap nem található}
@@ -139,7 +139,7 @@ A járatok útvonalának térképen történő megjelenítésére a Google Mapse
 
 Az oldalon létre kell hozni egy projektet, majd ki kell választani, hogy melyik API-ra van szükségünk. Én a Google Maps JavaScript API-t választottam ki, és meg is kaptam API kulcsomat. Lehetőség van arra is, hogy lekorlátozzuk a kulcs használatát. Megadhatjuk, hogy mely domain címekről használhatják a kulcsunkat. Ingyenesen napi 25 000 darab kérésünk lehet, ami egy átlagos forgalmú weboldal esetén elegendő. Ha azonban mégis átlépné az oldalunk ezt a napi limitet, akkor vásárolhatunk üzleti csomagot, amivel lehetőségünk van kibővíteni ezt a keretet.
 
-\begin{figure}[htb]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5]{kepek/google_maps_api_1.jpg}
 \caption{}
@@ -148,7 +148,7 @@ Az oldalon létre kell hozni egy projektet, majd ki kell választani, hogy melyi
 
 A fent hivatkozott honlapon a kérések monitorozására is lehetőségünk van. Ugyanezen a felületen beállíthatjuk a napi, a 100 másodpercenkénti és a 100 másodperc / felhasználó kérések limitjét.
 
-\begin{figure}[htb]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5]{kepek/google_maps_api_2.jpg}
 \caption{}
@@ -220,7 +220,7 @@ var marker = new google.maps.Marker({
 
 Beállításra kerül a marker pozíciója a létrehozott \texttt{LatLng} objektumból. Az alapértelmezett ikon helyett az icon property megadásával használható más. Mint említettem, én köröket használok, megadva a szegély színét, a kitöltési színt, az átlátszóságot és az ikon nagyságát. A markert hozzá kell rendelni a térkép objektumhoz a \texttt{map} property megadásával. Végül én a \texttt{title} property-t is beállítom, a megálló nevét értékül adva neki. Ezáltal, ha rávisszük a kurzort az ikonra, akkor megjelenik a megálló neve. Ezenkívül InfoWindow ablakokat is használok, ezek akkor jönnek elő, ha egy markerre rákattintunk. Az adott megálló és a járat végállomásának a megállóját tartalmazza. Mindez jól látható a következő ábrán.
 
-\begin{figure}[htb]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.7]{kepek/terkep.png}
 \caption{}

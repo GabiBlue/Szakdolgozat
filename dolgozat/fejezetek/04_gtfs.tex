@@ -6,9 +6,16 @@ Strukturált, szöveges állományok tartalmazzák az adatokat, amik lényegébe
 
 Az egyes táblák és a köztük lévő kapcsolatokat mutatja \aref{fig:gtfs}. ábra.
 
-\begin{figure}[htb]
+%\begin{figure}[htb]
+%\centering
+%\includegraphics[scale=0.3]{kepek/gtfs_relationships.png}
+%\caption{A GTFS-adatbázis tábláinak sémái és a közöttük lévő kapcsolatok.}
+%\label{fig:gtfs}
+%\end{figure}
+
+\begin{figure}
 \centering
-\includegraphics[scale=0.3]{kepek/gtfs_relationships.png}
+\includesvg[width=400pt]{kepek/gtfs}
 \caption{A GTFS-adatbázis tábláinak sémái és a közöttük lévő kapcsolatok.}
 \label{fig:gtfs}
 \end{figure}
@@ -215,6 +222,8 @@ fare\_id & Idegen kulcs, a viteldíjat azonosítja. \\
 \end{tabular}
 
 Opcionális mezők:
+
+% TODO: Az utolsó három jobb oldali mező össze van vonva!
 
 \begin{tabular}{|p{3cm}|p{10cm}|}
 \hline
