@@ -1,0 +1,8 @@
+*.aux
+*.gz
+*.log
+*.out
+*.pdf
+*.pdf_tex
+*.thm
+*.toc

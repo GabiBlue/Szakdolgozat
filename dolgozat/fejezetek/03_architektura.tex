@@ -30,13 +30,13 @@ Többek közt teljesítménye és használhatósága miatt jelenleg a legnépsze
 
 \SubSection{HTML}
 
-A HTML egy mozaikszó, melynek jelentése HyperText Markup Language, vagyis hiperszöveges jelölőnyelv. Egy leírónyelv, weboldalak készítésére fejlesztették ki. A World Wide Web Consortium (W3C) támogatásával internetes szabvánnyá vált. Az állományok azokat a szimbólumokat tartalmazzák, amelyek leírják, hogy a böngészőnek milyen formában kell megjeleníteni, illetve feldolgozni az állomány tartalmát.
+A HTML egy mozaikszó, melynek jelentése \textit{HyperText Markup Language}, vagyis hiperszöveges jelölőnyelv. Egy leírónyelv, weboldalak készítésére fejlesztették ki. A World Wide Web Consortium (W3C) támogatásával internetes szabvánnyá vált. Az állományok azokat a szimbólumokat tartalmazzák, amelyek leírják, hogy a böngészőnek milyen formában kell megjeleníteni, illetve feldolgozni az állomány tartalmát.
 
 Legújabb verziója a HTML5, amelynek az egyik fő célja, hogy a webes alkalmazások használata különböző pluginek (pl. Adobe Flash, Microsoft Silverlight) telepítése nélkül is lehetséges legyen. Audio- és videofájlok beszúrására külön tageket hoztak létre (\texttt{<audio>}, \texttt{<video>}), illetve bevezettek egy ún. <canvas> taget. Ez tulajdonképpen egy rajzvászon, amelyre JavaScripttel tudunk rajzolni.
 
 \SubSection{JavaScript}
 
-A JavaScript legfőképp honlapok és webalkalmazások készítésére használt scriptnyelv, azonban webböngészőn kívüli környezetben is használják \cite{javascript}. A JavaScript szabványa az ECMAScript. 2012-től kezdődően mindegyik modern böngésző támogatja az ECMAScript 5.1.-et. Használatával a statikus weboldalak dinamikussá és interaktívvá tehetők. Az utasítások értelmezését a böngészőprogram végzi. Szerepelhet a HTML-fájlban vagy külön, \texttt{.js} kiterjesztésű szövegfájlban is. A HTML-dokumentumban \texttt{<script>} tagek közé kell elhelyezni a JavaScript utasításokat.
+A JavaScript legfőképp honlapok és webalkalmazások készítésére használt scriptnyelv, azonban webböngészőn kívüli környezetben is használják \cite{javascript}. A JavaScript szabványa az ECMAScript. 2012-től kezdődően mindegyik modern böngésző támogatja az ECMAScript 5.1.-et. Használatával a statikus weboldalak dinamikussá és interaktívvá tehetők. Az utasítások értelmezését a böngészőprogram végzi. Szerepelhet a HTML-fájlban vagy külön, \texttt{.js} kiterjesztésű szövegfájlban is. A HTML-dokumentumban \\ \texttt{<script>} tagek közé kell elhelyezni a JavaScript utasításokat.
 
 \SubSection{AngularJS}
 
@@ -68,11 +68,14 @@ Támogatja azt, hogy egy időben több fejlesztő dolgozhasson ugyan azon a fela
 
 A GitHub egy Git-alapú webes verziókezelő tárhelyszolgáltatás \cite{github}. A GitHub mára a legnépszerűbb közösségi fejlesztői szolgáltatássá vált, fejlett verziókezelési és kollaborációs megoldásokkal rendelkezik. Az alkalmazásom verziókövetésére a GitHubot használtam, több alkalommal is hasznos volt számomra, hogy visszatérhettem egy adott fájl előző változatára.
 
-Az alkalmazás forráskódja az alábbi linken megtekinthető és letölthető: https://github.com/GabiBlue/MEnetrend
+Az alkalmazás forráskódja az alábbi linken megtekinthető és letölthető
+\begin{center}
+\url{https://githb.com/GabiBlue/MEnetrend}
+\end{center}
 
 \Section{Az alkalmazás fő részei}
 
-Az alkalmazás szerveroldalon a Python/Flask keretrendszert, kliensoldalon pedig AngularJS-t használ. A nyers GTFS-adatok feldolgozására és adatbázisba való betöltésére a GTFSDB csomagot használom. Az adatbázisból a lekérdezéseket az SQLAlcehmy ORM-en keresztül végzem. Létrehoztam egy menetrend nevű csomagot, ami tulajdonképpen egy wrapperként szolgál a GTFSDB felé. A wrapper egy alacsonyabb szintű programészre épülve magasabb szintű funkciókat valósít meg, elfedve a technikai részleteket, ezáltal egyszerűbbé téve azt. Az alkalmazás logikai felépítést szemlélteti \aref{fig:architecture} ábra.
+Az alkalmazás szerveroldalon a Python/Flask keretrendszert, kliensoldalon pedig An\-gu\-lar\-JS-t használ. A nyers GTFS-adatok feldolgozására és adatbázisba való betöltésére a GTFSDB csomagot használom. Az adatbázisból a lekérdezéseket az SQLAlcehmy ORM-en keresztül végzem. Létrehoztam egy menetrend nevű csomagot, ami tulajdonképpen egy wrapperként szolgál a GTFSDB felé. A wrapper egy alacsonyabb szintű programészre épülve magasabb szintű funkciókat valósít meg, elfedve a technikai részleteket, ezáltal egyszerűbbé téve azt. Az alkalmazás logikai felépítést szemlélteti \aref{fig:architecture}. ábra.
 
 \begin{figure}[htb]
 \centering
@@ -81,7 +84,7 @@ Az alkalmazás szerveroldalon a Python/Flask keretrendszert, kliensoldalon pedig
 \label{fig:architecture}
 \end{figure}
 
-A felhasználó egy böngészőn keresztül használja az alkalmazást. Ilyenkor az AngularJS-sel kialakított különböző nézeteket látja az alkalmazás használója. Az adatok a szerverről érkeznek, kliensoldalon az Angular kontrollerjei végzik a kérések elküldését a szerver irányába. A kapott válaszokat is a kontrollerek dolgozzák fel, biztosítják, hogy a kapott adatok a nézeteken megjelenjenek. A felhasználói felület a hatodik fejezetben kerül részletes bemutatásra.
+A felhasználó egy böngészőn keresztül használja az alkalmazást. Ilyenkor az An\-gu\-lar\-JS-sel kialakított különböző nézeteket látja az alkalmazás használója. Az adatok a szerverről érkeznek, kliensoldalon az Angular kontrollerjei végzik a kérések elküldését a szerver irányába. A kapott válaszokat is a kontrollerek dolgozzák fel, biztosítják, hogy a kapott adatok a nézeteken megjelenjenek. A felhasználói felület a hatodik fejezetben kerül részletes bemutatásra.
 
 Szerveroldalon egy többrétegű struktúrát alakítottam ki. A legalsó réteg maga az adatbázis. Ezt a GTFSDB nevű library segítségével hozom létre a nyers adatokból. Az adatbázisból való lekérdezéseket az SQLAlchemy-vel végzem. A GTFSDB csomagnak a lekérdezéseknél is szerepe van, hiszen a csomagban lévő mapper osztályokat használom. A GTFSDB-vel a negyedik fejezet foglalkozik részletesebben.
 

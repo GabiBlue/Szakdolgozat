@@ -45,10 +45,10 @@ Egy járat részletes menetrendjét adja vissza. Paraméterként egy \texttt{tri
 \texttt{/get\_trip\_shapes} &
 Egy járat útvonalát adja vissza. Paraméterként egy \texttt{trip\_id}-t kap, először teszteli, hogy valós-e. Ha nem, 400-as hibakóddal tér vissza. Ha igen, akkor a \texttt{query\_trip\_shapes()} függvénnyel lekérdezi a járat útvonalát. \\
 \hline
-\texttt{/get\_trip\_terminals} \\ \texttt{\_coordinates} &
+\texttt{/get\_trip\_terminals} \texttt{\_coordinates} &
 Egy járat induló és végállomásának a koordinátáit adja vissza. Paraméterként egy \texttt{trip\_id}-t kap, először teszteli, hogy valós-e. Ha nem, 400-as hibakóddal tér vissza. Ha igen, akkor a \texttt{query\_trip\_terminals\_coordinates()} függvénnyel lekérdezi az említett koordinátákat. \\
 \hline
-\texttt{/get\_trip\_stops\_} \\ \texttt{coordinates} &
+\texttt{/get\_trip\_stops\_} \texttt{coordinates} &
 Egy járat megállóinak a koordinátáit adja vissza, kivéve az indulóét és a végállomásét. Paraméterként egy \texttt{trip\_id}-t kap, először teszteli, hogy valós-e. Ha nem, 400-as hibakóddal tér vissza. Ha igen, akkor a \texttt{query\_trip\_stops\_coordinates()} függvénnyel lekérdezi az említett koordinátákat. \\
 \hline
 \texttt{/get\_all\_stops} &
