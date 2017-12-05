@@ -104,24 +104,24 @@ Az elkészített nézetek és kontrollerek összefoglalása látható \aref{tab:
 \centering
 \begin{tabular}{|l|p{4cm}|l|}
 \hline
-\textbf{Nézet} & \textbf{URL} & \textbf{Kontroller neve} \\
+\textbf{Nézet, \texttt{/static/partials/}} & \textbf{URL} & \textbf{Kontroller neve} \\
 \hline
-\texttt{/static/partials/home.html} & \texttt{/} & \texttt{-} \\
+\texttt{home.html} & \texttt{/} & \texttt{-} \\
 \hline
-\texttt{/static/partials/list-routes.html} & \texttt{/list-routes} & \texttt{listRoutesController} \\
+\texttt{list-routes.html} & \texttt{/list-routes} & \texttt{listRoutesController} \\
 \hline
-\texttt{/static/partials/trip.html} & \texttt{/trip/{trip\_id:int}} & \texttt{tripController} \\
+\texttt{trip.html} & \texttt{/trip/{trip\_id:int}} & \texttt{tripController} \\
 \hline
-\texttt{/static/partials/schedule.html} &
+\texttt{schedule.html} &
 \texttt{/schedule/}
 
 \texttt{:route\_short\_name/}
 
 \texttt{\{direction\_id:int\}} & \texttt{scheduleController} \\
 \hline
-\texttt{/static/partials/trip-planner.html} & \texttt{/trip-planner} & \texttt{tripPlannerController} \\
+\texttt{trip-planner.html} & \texttt{/trip-planner} & \texttt{tripPlannerController} \\
 \hline
-\texttt{/static/partials/error-404.html} & \texttt{/error-404} & \texttt{-} \\
+\texttt{error-404.html} & \texttt{/error-404} & \texttt{-} \\
 \hline
 \end{tabular}
 \caption{Routing: nézet, url, controller}
@@ -158,7 +158,8 @@ A fent hivatkozott honlapon a kérések monitorozására is lehetőségünk van.
 Ha beszereztük a szükséges API key-t, akkor azt az oldalunkra be kell linkelni a következő módon:
 
 \begin{verbatim}
-<script src="https://maps.googleapis.com/maps/api/js?key=IDE_KELL_A_KEY-T_BEMASOLNI&callback=drawMap"></script>
+<script src="https://maps.googleapis.com/maps/api/js?
+key=IDE_KELL_A_KEY-T_BEMASOLNI&callback=drawMap"></script>
 \end{verbatim}
 
 A HTML oldalon elhelyeztem egy div-et, ami a térképet tartalmazza, id-nak „map”-ot állítottam be. Létrehoztam egy scriptet, ami a \texttt{drawMap} függvényt tartalmazza, ez végzi a térkép manipulálását. A továbbiakban ennek a függvénynek néhány érdekesebb részét ismertetem.
@@ -166,7 +167,10 @@ A HTML oldalon elhelyeztem egy div-et, ami a térképet tartalmazza, id-nak „m
 A járatok útvonalai az adatbázisban tárolva vannak. Az adott járathoz tartozó GPS koordinátákat lekérdezi a függvény a szervertől. Majd egy for cikluson belül ezekből úgynevezett \texttt{LatLng} objektumokat hoz létre a függvény, amit eltárol egy tömbben:
 
 \begin{cpp}
-var latlng = new google.maps.LatLng(value["shape_pt_lat"], value["shape_pt_lon"]);
+var latlng = new google.maps.LatLng(
+    value["shape_pt_lat"],
+    value["shape_pt_lon"]
+);
 shapePoints.push(latlng);
 \end{cpp}
 
@@ -205,17 +209,17 @@ A megállók megjelenítése markerekkel történik, megkülönböztetve a vég�
 
 \begin{cpp}
 var marker = new google.maps.Marker({
-                                    position: latlng,
-                                    icon: {
-                                        path: google.maps.SymbolPath.CIRCLE,
-                                        strokeColor: '#2cc124',
-                                        fillColor: '#FFF',
-                                        fillOpacity: 1,
-                                        scale: 7
-                                    },
-                                    map: map,
-                                    title: value["stop_name"]
-                                });
+    position: latlng,
+    icon: {
+        path: google.maps.SymbolPath.CIRCLE,
+        strokeColor: '#2cc124',
+        fillColor: '#FFF',
+        fillOpacity: 1,
+        scale: 7
+    },
+    map: map,
+    title: value["stop_name"]
+});
 \end{cpp}
 
 Beállításra kerül a marker pozíciója a létrehozott \texttt{LatLng} objektumból. Az alapértelmezett ikon helyett az icon property megadásával használható más. Mint említettem, én köröket használok, megadva a szegély színét, a kitöltési színt, az átlátszóságot és az ikon nagyságát. A markert hozzá kell rendelni a térkép objektumhoz a \texttt{map} property megadásával. Végül én a \texttt{title} property-t is beállítom, a megálló nevét értékül adva neki. Ezáltal, ha rávisszük a kurzort az ikonra, akkor megjelenik a megálló neve. Ezenkívül InfoWindow ablakokat is használok, ezek akkor jönnek elő, ha egy markerre rákattintunk. Az adott megálló és a járat végállomásának a megállóját tartalmazza. Mindez jól látható a következő ábrán.

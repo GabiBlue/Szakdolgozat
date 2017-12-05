@@ -117,6 +117,8 @@ A különbség az algoritmusok közt, hogy a Warshall-algoritmus csak arra ad me
 
 A Floyd-Warshall-algoritmus pszeudokódja:
 
+% TODO: A pszeudó-kódot érdemes lehet kicsit átfogalmazni inkább!
+
 \begin{verbatim}
 1 let dist be a |V| x |V| array of minimum distances initialized to oo (infinity)
 2 for each vertex v
@@ -142,7 +144,30 @@ Első körben a gráfot dictionary-k dictonary-eként hoztam létre. A külső d
 Egy részlet az így felépített gráfból:
 
 \begin{verbatim}
-{'AUCHAN Borsod': {'Szondi György utca': 300.0}, 'AUCHAN-dél (Pesti út)': {'Pesti út': 60.0, 'Sütő János utca': 300.0}, 'Aba utca': {'Zoltán utca': 60.0, 'Szent Anna tér': 120.0}, 'Alföldi utca': {'Orvosi rendelő': 60.0}, 'Alsó-Hámor': {'Felső-Hámor': 60.0, 'Csanyik-völgy': 60.0}, 'Alsó-Majláth': {'Felső-Majláth': 120.0, 'Diósgyőr városközpont': 120.0, 'Bölcs utca': 60.0, 'Móra Ferenc utca': 120.0}, …}
+{
+    'AUCHAN Borsod': {'Szondi György utca': 300.0},
+    'AUCHAN-dél (Pesti út)': {
+        'Pesti út': 60.0,
+        'Sütő János utca': 300.0
+    },
+    'Aba utca': {
+        'Zoltán utca': 60.0,
+        'Szent Anna tér': 120.0
+    },
+    'Alföldi utca': {
+        'Orvosi rendelő': 60.0
+    },
+    'Alsó-Hámor': {
+        'Felső-Hámor': 60.0,
+        'Csanyik-völgy': 60.0
+    },
+    'Alsó-Majláth': {
+        'Felső-Majláth': 120.0,
+        'Diósgyőr városközpont': 120.0,
+        'Bölcs utca': 60.0,
+        'Móra Ferenc utca': 120.0},
+    ...
+}
 \end{verbatim}
 
 Jól látható, hogy az AUCHAN Borsod megállóból egyedül a Szondi György utca megállóba tudunk eljutni, 300 másodperc alatt. Ezzel szemben például az Alsó-Majláth megállóból indulva eljuthatunk 120 másodperc alatt Felső-Majláth, Diósgyőr városközpont és a Móra Ferenc utca megállókba, 60 másodperc alatt pedig a Bölcs utcába.
@@ -154,8 +179,24 @@ Egy példa a függvény meghívására:
 
 \begin{verbatim}
 path, cost = dijkstra(graph, 'Egyetemváros', 'Selyemrét')
+\end{verbatim}
+
 A függvény által kiszámolt út (path tartalma):
-['Egyetemváros', 'Olajkutató', 'Egyetemi Kollégium', 'Csermőkei út', 'Szentgyörgy út', 'Vasúti felüljáró', 'Tapolcai elágazás', 'Petneházy utca', 'Lévay József utca', 'Vízügyi Igazgatóság', 'Selyemrét']
+
+\begin{verbatim}
+[
+    'Egyetemváros',
+    'Olajkutató',
+    'Egyetemi Kollégium',
+    'Csermőkei út',
+    'Szentgyörgy út',
+    'Vasúti felüljáró',
+    'Tapolcai elágazás',
+    'Petneházy utca',
+    'Lévay József utca',
+    'Vízügyi Igazgatóság',
+    'Selyemrét'
+]
 \end{verbatim}
 
 Az eredményt egy listában adja vissza, amely a megállók neveit tartalmazza. A cost értéke pedig 780 ebben a példában.
@@ -165,7 +206,46 @@ Mindezek figyelembevételével átalakítottam a gráf struktúráját. Továbbr
 Részlet a kibővített gráfról:
 
 \begin{verbatim}
-{'AUCHAN Borsod': [{'name': 'Szondi György utca', 'cost': 300.0, 'route': 'AU1'}], 'AUCHAN-dél (Pesti út)': [{'name': 'Pesti út', 'cost': 60.0, 'route': '44'}, {'name': 'Sütő János utca', 'cost': 300.0, 'route': 'AU2'}], 'Aba utca': [{'name': 'Zoltán utca', 'cost': 60.0, 'route': '1'}, {'name': 'Szent Anna tér', 'cost': 120.0, 'route': '1'}, {'name': 'Zoltán utca', 'cost': 60.0, 'route': '1É'}, {'name': 'Szent Anna tér', 'cost': 120.0, 'route': '1É'}, {'name': 'Zoltán utca', 'cost': 60.0, 'route': '54'}, {'name': 'Szent Anna tér', 'cost': 120.0, 'route': '54'}], … }
+{'AUCHAN Borsod': [{
+    'name': 'Szondi György utca',
+    'cost': 300.0,
+    'route': 'AU1'
+}],
+'AUCHAN-dél (Pesti út)': [{
+    'name': 'Pesti út',
+    'cost': 60.0,
+    'route': '44'
+}, {
+    'name': 'Sütő János utca',
+    'cost': 300.0,
+    'route': 'AU2'
+}],
+'Aba utca': [{
+    'name': 'Zoltán utca',
+    'cost': 60.0,
+    'route': '1'
+}, {
+    'name': 'Szent Anna tér',
+    'cost': 120.0,
+    'route': '1'
+}, {
+    'name': 'Zoltán utca',
+    'cost': 60.0,
+    'route': '1É'
+}, {
+    'name': 'Szent Anna tér',
+    'cost': 120.0,
+    'route': '1É'
+}, {
+    'name': 'Zoltán utca',
+    'cost': 60.0,
+    'route': '54'
+}, {
+    'name': 'Szent Anna tér',
+    'cost': 120.0,
+    'route': '54'
+}], ...
+}
 \end{verbatim}
 
 Az Aba utca megállóhoz tartozó bejegyzést, ha jobban szemügyre vesszük, könnyen megérthetjük, hogy milyen változás történt. Míg az előző változatban annyi információt tároltunk csak el, hogy a Zoltán utca és a Szent Anna tér megállókba lehet innen eljutni 60 és 120 másodperc alatt ('Aba utca': {'Zoltán utca': 60.0, 'Szent Anna tér': 120.0}), addig a kibővített gráf sokkal több információt tartalmaz. Láthatjuk, hogy mindkét irányba három viszonylaton is (1, 1É, 54) eljuthatunk. Így a gráf mérete a többszörösére növekedett, azonban ez a változtatás elengedhetetlen volt, hiszen az útvonaltervezésnek csak úgy van értelme, ha a viszonylatokat is figyelembe vesszük.
@@ -175,7 +255,29 @@ Ezután természetesen az útvonaltervező algoritmust és át kellett írni, ho
 Az átalakítás után, az előző példánál maradva, ha kipróbáljuk az Egyetemváros és a Selyemrét megállókkal az algoritmust, akkor a path eredménye a következő lesz:
 
 \begin{verbatim}
-[{'name': 'Egyetemváros', 'route': '12'}, {'name': 'Olajkutató', 'route': '12'}, {'name': 'Egyetemi Kollégium', 'route': '12'}, {'name': 'Csermőkei út', 'route': '20'}, {'name': 'Szentgyörgy út', 'route': '12'}, {'name': 'Vasúti felüljáró', 'route': '12'}, {'name': 'Tapolcai elágazás', 'route': '30'}, {'name': 'Petneházy utca', 'route': '32'}, {'name': 'Lévay József utca', 'route': '4'}, {'name': 'Vízügyi Igazgatóság', 'route': '4'}, {'name': 'Selyemrét', 'route': None}]
+[{
+    'name': 'Egyetemváros', 'route': '12'
+}, {
+    'name': 'Olajkutató', 'route': '12'
+}, {
+    'name': 'Egyetemi Kollégium', 'route': '12'
+}, {
+    'name': 'Csermőkei út', 'route': '20'
+}, {
+    'name': 'Szentgyörgy út', 'route': '12'
+}, {
+    'name': 'Vasúti felüljáró', 'route': '12'
+}, {
+    'name': 'Tapolcai elágazás', 'route': '30'
+}, {
+    'name': 'Petneházy utca', 'route': '32'
+}, {
+    'name': 'Lévay József utca', 'route': '4'
+}, {
+    'name': 'Vízügyi Igazgatóság', 'route': '4'
+}, {
+    'name': 'Selyemrét', 'route': None
+}]
 \end{verbatim}
 
 Az eredményt szintén egy listában adja vissza, azonban a listában most már nem csak pusztán a megállók nevei vannak, hanem dictionary-kben név és viszonylat kulcs-érték párok. A megváltozott felépítésű gráfot már tudja kezelni az algoritmus, azonban az átszállásokra nézve még nem ad optimális eredményt.

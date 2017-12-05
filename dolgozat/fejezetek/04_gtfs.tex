@@ -28,9 +28,13 @@ A GTFS-formátum kötelező és opcionális táblákat egyaránt tartalmaz. A k�
 
 A tömegközlekedési hálózat üzemeltetőjéről tartalmaz információkat. Több rekord is megadható, ha a járatokat több vállalat is üzemelteti. A route táblában minden viszonylatra meg lehet adni, hogy ki az üzemeltetője.
 
-Kötelező mezők:
+\medskip
 
-\begin{tabular}{|p{3cm}|p{10cm}|}
+\noindent Kötelező mezők:
+
+\bigskip
+
+\begin{tabular}{|p{3.5cm}|p{10cm}|}
 \hline
 agency\_name & Az üzemeltető vállalt teljes neve. \\
 \hline
@@ -43,9 +47,14 @@ agency\_timezone & Az időzónát tartalmazza, ahol a vállalat található. \\
 \SubSection{routes}
 
 Az aktuálisan elérhető viszonylatokat tartalmazza. Minden viszonylat rendelkezik egy azonosítóval, egy rövid és egy hosszú névvel, valamint a viszonylat típusának az azonosítójával.
-Kötelező mezők:
 
-\begin{tabular}{|p{3cm}|p{10cm}|}
+\medskip
+
+\noindent Kötelező mezők:
+
+\bigskip
+
+\begin{tabular}{|p{3.5cm}|p{10cm}|}
 \hline
 route\_id & Elsődleges kulcs, a viszonylat azonosítója. \\
 \hline
@@ -66,7 +75,12 @@ route\_type & Típusazonosító, lehetséges értékek:
 \SubSection{trips}
 
 Ez a tábla tartalmazza a járatokat. Mindegyik egy viszonylathoz tartozik, a direction\_id mezőben adható meg, hogy melyik irányban közlekedik a járat az adott viszonylaton (0 vagy 1 értékkel). Kötelező megadni még egy service\_id-t, ami alapján be lehet azonosítani, hogy a járat mely napokon közlekedik. Egy járathoz tartozhat még egy shape is, amely GPS koordináták sorozataként a járat útvonalát tartalmazza.
-Kötelező mezők:
+
+\medskip
+
+\noindent Kötelező mezők:
+
+\bigskip
 
 \begin{tabular}{|p{3cm}|p{10cm}|}
 \hline
@@ -81,7 +95,12 @@ service\_id & Idegen kulcs, a calendar és a calendar\_dates táblákra hivatkoz
 \SubSection{stops}
 
 Az egyes megállókat tárolja névvel és földrajzi koordinátákkal.
-Kötelező mezők:
+
+\medskip
+
+\noindent Kötelező mezők:
+
+\bigskip
 
 \begin{tabular}{|p{3cm}|p{10cm}|}
 \hline
@@ -98,7 +117,12 @@ stop\_lon & A megálló hosszúsági fokát tartalmazza. A megadott értéknek W
 \SubSection{stop\_times}
 
 Ez a tábla azt tárolja, hogy egy viszonylat egy járata egy megállóba mikor érkezik meg, mikor indul el onnan, és ez hányadik megállója az adott járatnak.
-Kötelező mezők:
+
+\medskip
+
+\noindent Kötelező mezők:
+
+\bigskip
 
 \begin{tabular}{|p{3cm}|p{10cm}|}
 \hline
@@ -117,27 +141,33 @@ stop\_sequence & Azt tartalmazza, hogy hányadik megállója ez a járatnak. Nem
 \SubSection{calendar}
 
 Itt úgynevezett szolgáltatásokat lehet megadni. Egy szolgáltatás azt mondja meg, hogy a járatok, amelyek ehhez a szolgáltatáshoz tartoznak, a hét mely napjain közlekednek. Továbbá meg kell adni egy érvényességi intervallumot is.
-Kötelező mezők:
 
-\begin{tabular}{|p{3cm}|p{10cm}|}
+\medskip
+
+\noindent Kötelező mezők:
+
+\bigskip
+
+\begin{tabular}{|p{3.5cm}|p{10cm}|}
 \hline
 service\_id & Elsődleges kulcs, a szolgáltatás azonosítója. \\
 \hline
-Monday & Azt mondja meg, hogy az adott napon közlekedik-e a járat.
+Monday & \multirow{7}{10cm}{Azt mondja meg, hogy az adott napon közlekedik-e a járat.
 Az értéke lehet:
 0, ha az adott napon nem közlekedik, és
-1, ha az adott napon közlekedik a járat.
-Tuesday
-
-Wednesday
-
-Thursday
-
-Friday
-
-Saturday
-
-Sunday\\
+1, ha az adott napon közlekedik a járat.} \\
+\cline{1-1}
+Tuesday & \\
+\cline{1-1}
+Wednesday & \\
+\cline{1-1}
+Thursday & \\
+\cline{1-1}
+Friday & \\
+\cline{1-1}
+Saturday & \\
+\cline{1-1}
+Sunday & \\
 \hline
 start\_date & A szolgáltatás kezdő érvényességi ideje. Az értéket YYYYMMDD formátumban kell megadni. \\
 \hline
@@ -145,14 +175,19 @@ end\_date & A szolgáltatás érvényességi idejének a vége. Az értéket YYY
 \hline
 \end{tabular}
 
-Opcionális táblák:
+\Section{Opcionális táblák}
 
 \SubSection{shapes}
 
 A járatok útvonalát tartalmazza a tábla. Egy útvonal több pontból áll, amelyek ugyanazzal a shape\_id-val vannak ellátva.
-Kötelező mezők:
 
-\begin{tabular}{|p{3cm}|p{10cm}|}
+\medskip
+
+\noindent Kötelező mezők:
+
+\bigskip
+
+\begin{tabular}{|p{3.7cm}|p{9.8cm}|}
 \hline
 shape\_id & Az útvonal azonosítója. \\
 \hline
@@ -169,26 +204,39 @@ shape\_pt\_sequence & Azt tartalmazza, hogy hányadik pontja ez a útvonalnak. N
 A táblának két felhasználási módja van.
 Ajánlott: A calendar táblával együttesen, ilyenkor a normál menetrend szerinti kivételes eseteket kell itt megadni.
 Alternatív: A calendar táblát kihagyva, csak ezt a táblát használni, az összes szolgáltatást itt megadva. 
-Kötelező mezők:
 
-\begin{tabular}{|p{3cm}|p{10cm}|}
+\medskip
+
+\noindent Kötelező mezők:
+
+\bigskip
+
+\begin{tabular}{|p{3.5cm}|p{10cm}|}
 \hline
 service\_id & A szolgáltatás azonosítója. Egy (service\_id, date) páros csak egyszer szerepelhet. \\
 \hline
 date & Egy dátumot tartalmaz, formátuma: YYYYMMDD. \\
 \hline
 exception\_type & Lehetséges értékei:
-1, ha a szolgáltatást hozzá akarjuk adni az adott naphoz, és
-2, ha a szolgáltatást el szeretnék távolítani a megadott napon. Például: ha egy járat közlekedik hétfőnként, de egy ünnep hétfőre esik, így tudjuk megadni, hogy aznap a járat nem közlekedik. \\
+\begin{itemize}
+\item 1, ha a szolgáltatást hozzá akarjuk adni az adott naphoz, és
+\item 2, ha a szolgáltatást el szeretnék távolítani a megadott napon.
+\end{itemize}
+Például: ha egy járat közlekedik hétfőnként, de egy ünnep hétfőre esik, így tudjuk megadni, hogy aznap a járat nem közlekedik. \\
 \hline
 \end{tabular}
 
 \SubSection{fare\_attributes}
 
 A különböző viteldíjtípusok megadására szolgál.
-Kötelező mezők:
 
-\begin{tabular}{|p{3cm}|p{10cm}|}
+\medskip
+
+\noindent Kötelező mezők:
+
+\bigskip
+
+\begin{tabular}{|p{3.5cm}|p{10cm}|}
 \hline
 fare\_id & A viteldíj azonosítója. \\
 \hline
@@ -213,7 +261,12 @@ Lehetséges értékei:
 \SubSection{fare\_rules}
 
 A táblával megadható, hogy a fare\_attributes táblában található viteldíjak hogyan vonatkozzanak az útvonalakra.
-Kötelező mező:
+
+\medskip
+
+\noindent Kötelező mező:
+
+\bigskip
 
 \begin{tabular}{|p{3cm}|p{10cm}|}
 \hline
@@ -221,7 +274,12 @@ fare\_id & Idegen kulcs, a viteldíjat azonosítja. \\
 \hline
 \end{tabular}
 
-Opcionális mezők:
+\bigskip
+
+\noindent Opcionális mezők:
+
+\bigskip
+
 
 % TODO: Az utolsó három jobb oldali mező össze van vonva!
 
@@ -229,10 +287,10 @@ Opcionális mezők:
 \hline
 route\_id & Idegen kulcs, a viszonylat azonosítója. Ha több viszonylathoz is ugyanaz a viteldíj tartozik, akkor minden egyes viszonylatot külön rekordként kell felvinni a táblában. \\
 \hline
-origin\_id & Idegen kulcsok, a stops tábla zone\_id mezőire hivatkozhatnak. \\
-\hline
-destination\_id &  \\
-\hline
+origin\_id & \multirow{3}{10cm}{Idegen kulcsok, a stops tábla zone\_id mezőire hivatkozhatnak.} \\
+\cline{1-1}
+destination\_id & \\
+\cline{1-1}
 contains\_id & \\
 \hline
 \end{tabular}
@@ -240,7 +298,12 @@ contains\_id & \\
 \SubSection{frequencies}
 
 Ha egy járat szerepel ebben a táblában, akkor az útvonaltervező figyelmen kívül hagyja a stop\_times tábla arrival\_time és departure\_time mezőjét. Ehelyett a stop\_times tábla a megállók sorrendjét és az egyes megállók közötti időkülönbséget határozza meg.
-Kötelező mezők:
+
+\medskip
+
+\noindent Kötelező mezők:
+
+\bigskip
 
 \begin{tabular}{|p{3cm}|p{10cm}|}
 \hline
@@ -257,7 +320,12 @@ headway\_secs & Másodpercekben kifejezve, hogy a start\_time és az end\_time m
 \SubSection{transfers}
 
 Útvonaltervezők általában az átszállási pontokat az egyes viszonylatok megállóinak a távolságai alapján számítják ki. Az esetlegesen kétértelmű megálló párok egyértelműsítésére vagy egy konkrét csatlakozási lehetőség megadására szolgál ez a tábla.
-Kötelező mezők:
+
+\medskip
+
+\noindent Kötelező mezők:
+
+\bigskip
 
 \begin{tabular}{|p{3cm}|p{10cm}|}
 \hline
@@ -267,19 +335,27 @@ to\_stop\_id & Idegen kulcs. Egy megálló azonosítóját tartalmazza, ahol a v
 \hline
 transfer\_type & A két megálló (from\_stop\_id, to\_stop\_id) közti kapcsolat típusát adja meg.
 Lehetséges értékek:
-0 vagy üres: Ajánlott átszállási pont a viszonylatok között.
-1: Időzített átszállási pont két viszonylat között. Az induló jármű megvárja az érkezőt, elegendő időt biztosítva az utasok számára az átszálláshoz.
-2: Az átszállás biztosításához bizonyos idő szükséges. Az ehhez szükséges időt a min\_transfer\_time mező tartalmazza.
-3: Az adott helyen átszállás nem lehetséges a viszonylatok között. \\
+\begin{itemize}
+\item 0 vagy üres: Ajánlott átszállási pont a viszonylatok között.
+\item 1: Időzített átszállási pont két viszonylat között. Az induló jármű megvárja az érkezőt, elegendő időt biztosítva az utasok számára az átszálláshoz.
+\item 2: Az átszállás biztosításához bizonyos idő szükséges. Az ehhez szükséges időt a min\_transfer\_time mező tartalmazza.
+\item 3: Az adott helyen átszállás nem lehetséges a viszonylatok között.
+\end{itemize}
+\\
 \hline
 \end{tabular}
 
 \SubSection{feed\_info}
 
 Ez a tábla az adatokat publikáló szervezetről tartalmaz információkat. Abban az esetben van fontosabb szerepe, ha a tömegközlekedési hálózat üzemeltetője és az adatok publikálója nem ugyanaz a szervezet.
-Kötelező mezők:
 
-\begin{tabular}{|p{3cm}|p{10cm}|}
+\medskip
+
+\noindent Kötelező mezők:
+
+\bigskip
+
+\begin{tabular}{|p{4cm}|p{9cm}|}
 \hline
 feed\_publisher\_name & Az adatokat szolgáltató szervezet teljes neve. Általában megegyezik az agency tábla agency\_name mezőével. \\
 \hline\
@@ -293,7 +369,11 @@ feed\_lang & A szövegek alapértelmezett nyelvének IETF BCP 47 nyelvkódját t
 
 A nyers GTFS-adatok feldolgozásához először a Google TransitFeed modulját kezdtem el használni. Ennek segítségével a memóriába be tudtam tölteni az adatokat, amiknek a lekérdezésére és a módosítására is lehetőség volt. Azonban hamar arra a következtetésre jutottam, hogy ez számomra nem lesz tökéletesen megfelelő, hiszen én mindenféleképpen adatbázisban szeretném tárolni az adatokat. A Google által kifejlesztett API segítségével is lehet az adatokat lekérdezni és módosítani, azonban úgy gondoltam, hogy az adatbázisban történő tárolással több és jobb lehetőség nyílik erre. A másik ok, amiért erre a következtetésre jutottam, hogy az adatokat ezáltal perzisztensen tudom tárolni.
 
-Elkezdtem ilyen megoldás után kutakodni, így találtam rá az OpenTransitTools GTFSDB nevű könyvtárára. A projekt célja, hogy a GTFS-adatokat programozható kontextusba helyezze szoftverfejlesztők számára. Ennek igen nagy létjogosultsága van, hiszen a GTFS-adatokkal foglalkozó alkalmazások készítésénél általában az első lépés a nyers adatok lekérdezhetővé, feldolgozhatóvá tétele. A GTFSDB könyvtár segítségével PostgreSQL, Oracle, MySQL és SQLite adatbázisokat hozhatunk létre a nyers adatokból. A projekt forráskódja elérhető GitHubon: https://github.com/OpenTransitTools/gtfsdb
+Elkezdtem ilyen megoldás után kutakodni, így találtam rá az OpenTransitTools GTFSDB nevű könyvtárára. A projekt célja, hogy a GTFS-adatokat programozható kontextusba helyezze szoftverfejlesztők számára. Ennek igen nagy létjogosultsága van, hiszen a GTFS-adatokkal foglalkozó alkalmazások készítésénél általában az első lépés a nyers adatok lekérdezhetővé, feldolgozhatóvá tétele. A GTFSDB könyvtár segítségével PostgreSQL, Oracle, MySQL és SQLite adatbázisokat hozhatunk létre a nyers adatokból. A projekt forráskódja elérhető GitHubon:
+
+\begin{center}
+\url{https://github.com/OpenTransitTools/gtfsdb}
+\end{center}
 
 \begin{python}
 path = resource_filename('gtfsdb', 'zips')
@@ -374,4 +454,3 @@ gtfsdb/model/stop\_time.py
 \end{python}
 
 Ezekkel a változtatásokkal, Python 3 alatt, sikeresen lefutott a database\_load függvény ékezetes karaktereket tartalmazó forrásfájlok esetén is.
-
