@@ -20,10 +20,23 @@ Az ábrázolásra használt mátrixot \textit{szomszédsági mátrix}nak nevezz�
 
 \begin{figure}[htb]
 \centering
-\includegraphics[scale=0.5]{kepek/szomszedsagi_graf_matrix.png}
+\includegraphics[scale=0.8]{kepek/szomszedsagi_graf_matrix.png}
 \caption{Egy irányított gráf és szomszédsági mátrixa.}
 \label{fig:szomszedsagi_graf_matrix}
 \end{figure}
+
+$$
+C =
+\left(
+\begin{array}{ccccc}
+0 & 1 & 1 & 0 & 0 \\
+0 & 0 & 1 & 1 & 1 \\
+0 & 0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 1 & 0 \\
+\end{array}
+\right)
+$$
 
 Súlyozott gráf esetén a súlyok tárolása is a mátrixban történik. Ahol az előző megoldásban 1-es található, tehát létezik az adott él, oda az él költsége kerül.
 
@@ -39,7 +52,7 @@ Irányított gráf esetén az éleket az éllisták listaelemei reprezentálják
 
 \begin{figure}[htb]
 \centering
-\includegraphics[scale=0.5]{kepek/ellista_iranyitott.png}
+\includegraphics[scale=1.5]{kepek/ellista_iranyitott.png}
 \caption{Irányított gráf éllistás ábrázolása.}
 \label{fig:ellista_iranyitott}
 \end{figure}
@@ -50,13 +63,10 @@ Az ilyen típusú ábrázolás helyfoglalása irányítatlan gráfok esetében a
 
 \Section{Útvonalkeresés algoritmusa}
 
-Útvonalkeresés során a két pont közötti legrövidebb út megtalálása a cél. A legrövidebb út definíciója \cite{legrovidebbut}:
+Útvonalkeresés során adott két pont közötti legrövidebb út megtalálása a cél. A legrövidebb út a $G$ gráf adott $u$ csúcsból $v$ csúcsba vezető útjai közül az, amelyiknek a költsége a legkisebb. A költség ez esetben időt jelent, vagyis az úthoz tartozó élek idejét kell összegezni az adott út költségének a meghatározásához \cite{legrovidebbut}.
 
-% TODO: Meg kell nézni, hogy a definíció vége stimmel-e!
+% \SubSection{Algoritmusok}
 
-,,Legrövidebb út alatt a gráfelméletben egy minimális hosszúságú utat értünk egy gráf két különböző $u$ és $v$ csúcsa között. Amennyiben a gráfunk éleihez nem tartoznak súlyok, akkor ez egyet jelent egy olyan úttal $u$ és $v$ csúcs között, amelyben a legkevesebb él szerepel. Ha vannak súlyok a gráf élein, akkor pedig olyan útról beszélünk, amelynek élein szereplő súlyok összege minimális. Vagyis ha adott egy $G = (V, E)$ gráf, a $k(f), f \in E$ élsúlyokkal, akkor $d(u, v) = \min \Sigma f \in P k(f)$, ahol $P$ út $u$ és $v$ között.''
-
-Algoritmusok
 A számos útvonalkereső algoritmus közül kettőt szeretnék részletesebben bemutatni, a Dijkstra-, illetve a Floyd-Warshall-algoritmust.
 
 \SubSection{Dijkstra-algoritmus}
@@ -106,7 +116,7 @@ Az algoritmus működését szemlélteti az alábbi egyszerű példa.
 \begin{figure}[htb]
 \centering
 \includegraphics[scale=0.5]{kepek/dijkstra.jpg}
-\caption{}
+\caption{A Dijkstra algoritmus működése}
 \label{fig:dijkstra}
 \end{figure}
 
@@ -118,6 +128,7 @@ A különbség az algoritmusok közt, hogy a Warshall-algoritmus csak arra ad me
 A Floyd-Warshall-algoritmus pszeudokódja:
 
 % TODO: A pszeudó-kódot érdemes lehet kicsit átfogalmazni inkább!
+% http://www.uni-miskolc.hu/~matnf/adatst/ea/eaf.ppt
 
 \begin{verbatim}
 1 let dist be a |V| x |V| array of minimum distances initialized to oo (infinity)
@@ -133,13 +144,13 @@ A Floyd-Warshall-algoritmus pszeudokódja:
 11         end if
 \end{verbatim}
 
-Az algoritmus lépésszáma a három egymásba ágyazott for ciklus miatt n3-bel arányos. Ez nagyságrendben ugyanannyi, mint a Dijkstra-algoritmus mátrixos változata, de a Floyd-módszer 50%-kal gyorsabb. Amennyiben a gráf éleinek száma kisebb, mint 2 n , és az élsúlyok nemnegatívak, akkor viszont a Dijkstra-algoritmus éllistás változatát érdemesebb használni.
+Az algoritmus lépésszáma a három egymásba ágyazott for ciklus miatt $n^3$-bel arányos, vagyis $T(n) = \mathcal{O}(n^3)$. Ez nagyságrendben ugyanannyi, mint a Dijkstra-algoritmus mátrixos változata, de a Floyd-módszer 50\%-kal gyorsabb. Amennyiben a gráf éleinek száma kisebb, mint $2n$, és az élsúlyok nemnegatívak, akkor viszont a Dijkstra-algoritmus éllistás változatát érdemesebb használni.
 
 \SubSection{Útvonaltervezés implementálása}
 
 Az elméleti áttekintés után térjünk rá az útvonaltervezés implementációjára. Mivel ez egy viszonylag komplex probléma, így több iterációban történt az implementálás. Első körben csak a natív, irányítatlan gráfot hoztam létre a GTFS-adatokból, és az ebben való keresésre implementáltam a Dijkstra-algoritmust. Miután ezt sikerült megvalósítani, fokozatosan építettem be a további feltételeket, megszorításokat a gráfgeneráló és az útvonalkereső algoritmusba.
 
-Első körben a gráfot dictionary-k dictonary-eként hoztam létre. A külső dictionary-ben a kulcsok az egyes megállók nevei, az érték pedig egy másik dictionary. A belső dictionary-ben a kulcsok szintén megállónevek. Jelentésük, hogy a külső megállóból ebbe a megállóba közvetlenül el lehet jutni. Ebben a fázisban azt még nem tartalmazta a gráf, hogy ezt melyik viszonylaton (viszonylatokon) keresztül lehet megtenni. A belső dictionary-ben az értékek a költséget jelentik, hány másodperc alatt lehet eljutni egyik megállóból a másikba. Ezáltal egy súlyozott, irányított gráf épült fel az adatokból, a súlyozás a másodpercben kifejezett időköltség a két megálló közt.
+Első változatban a gráfot dictionary-k dic\-ti\-o\-na\-ry-eként hoztam létre. A külső dic\-ti\-o\-na\-ry-ben a kulcsok az egyes megállók nevei, az érték pedig egy másik dictionary. A belső dictionary-ben a kulcsok szintén megállónevek. Jelentésük, hogy a külső megállóból ebbe a megállóba közvetlenül el lehet jutni. Ebben a fázisban azt még nem tartalmazta a gráf, hogy ezt melyik viszonylaton (viszonylatokon) keresztül lehet megtenni. A belső dictionary-ben az értékek a költséget jelentik, hány másodperc alatt lehet eljutni egyik megállóból a másikba. Ezáltal egy súlyozott, irányított gráf épült fel az adatokból, a súlyozás a másodpercben kifejezett időköltség a két megálló közt.
 
 Egy részlet az így felépített gráfból:
 

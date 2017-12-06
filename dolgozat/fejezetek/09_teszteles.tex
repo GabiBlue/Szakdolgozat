@@ -1,15 +1,57 @@
 \Chapter{Tesztelés}
 
-Itt már a rendszer egészére, illetve a felhasználásra vonatkozó tesztekre kell kitérni.
-Egységtesztekről már a tervezés és implementációs részekben is érdemes beszélni.
-Össze kell majd gyűjteni lehetőleg minél több (publikus :)) GTFS adatbázist, és az eredményeikről lehet valamilyen összehasonlító elemzés félét is csinálni (táblázatok, grafikonok).
+Az elkészített alkalmazást kipróbáltam több különböző közlekedési társaság GTFS-adatbázisával is. Ehhez az adatokat a \url{https://transitfeeds.com} oldalról szereztem be. Az oldal nyilvános GTFS-adatbázisok archívuma, elsősorban szoftverfejlesztők számára, a világ minden tájáról összegyűjtve. Jelenleg több mint 500 különböző város menetrendjének az archívuma található az oldalon. Ezek közül választottam ki hatot, amelyekkel teszteltem az alkalmazásomat. Négy magyarországi (Budapest, Miskolc, Szeged, Pécs) és két külföldi (Bécs, Firenze) várost választottam.
 
-Táblázat
-* menetrend neve (város)
-* zip-elt fájl mérete
-* betöltési idő
-* megállók száma
-* járatok száma
+Megvizsgáltam, hogy a nyers adatokból mennyi idő alatt jön létre az adatbázis a GTFSDB \texttt{database\_load} függvényével. Az eredményeket összesíti \aref{tab:gtfs}. táblázat.
 
-Útvonalkereső számítási idejét meg lehetne vizsgálni.
-* Melyik megállópárok esetén mennyi a válaszideje.
+\begin{table}
+\centering
+\begin{tabular}{|l|r|r|r|r|}
+\hline
+Menetrend & ZIP mérete (MB) & \texttt{trips} bejegyzések száma & \texttt{stop\_times} bejegyzések száma & Betöltési idő (másodperc) \\
+\hline
+Bécs & 14,6 & 120 181 & 2 169 529 & 1 395 \\
+\hline
+Budapest & 39,3 & 227 900 & 4 518 698 & 2 945 \\
+\hline
+Firenze & 10 & 40 683 & 1 017 698 & 836 \\
+\hline
+Miskolc & 1,2 & 9 641 & 148 785 & 97 \\
+\hline
+Szeged & 1,9 & 17 162 & 302 816 & 191 \\
+\hline
+Pécs & 1,5 & 5 563 & 111 192 & 71 \\
+\hline
+\end{tabular}
+\caption{GTFS adatbázisok mennyiségi jellemzői és betöltési ideje}
+\label{tab:gtfs}
+\end{table}
+
+A táblázatban látható a letöltött adatfájl mérete, a betöltési idő másodpercben, illetve hogy a \texttt{trips} és a \texttt{stop\_times} táblák hány darab rekordból állnak. Azért ezt a kettőt emeltem ki, mert legnagyobb részt ezek határozzák meg, hogy mennyi lesz a betöltési idő. Kisebb városok esetén, ahol néhány százezer rekordról van szó, viszonylag hamar, 1-3 perc alatt fel lehet tölteni az adatbázist. Nagyobb, több millió rekordból álló adathalmaz esetén ez már több 10 percig is eltart. Általában egy GTFS-feed egy hónapra előre tartalmazza a menetrendet, ezért ezt a műveletet ritkán kell elvégezni. Mivel általában nem változik hónapról hónapra drasztikusan a menetrend, ezért elegendő lehet csak a \texttt{calendar} és a \texttt{calendar\_dates} táblák aktualizálása a következő havi dátumokkal, valamint az esetleges megváltozott menetrendű járatok frissítése, az adatbázis legnagyobb részét elegendő egyszer feltölteni, és az utána hosszú hónapokig aktuális marad.
+
+Készítettem egy statisztikát, hogy a \texttt{generate\_graph} függvény mennyi idő alatt fut le, vagyis az adott hálózat megállóiból mennyi idő alatt építi fel az útvonalkereséshez a gráfot. Ugyanazokat az adatbázisokat használtam, amiket az előző teszthez összegyűjtöttem. Ezt foglalja össze \aref{tab:runtime}. táblázat.
+
+\begin{table}
+\centering
+\begin{tabular}{|l|r|r|}
+\hline
+Menetrend & Megállók száma & \texttt{generate\_graph} futási ideje (másodperc) \\
+\hline
+Bécs & 4 357 & 17,3 \\
+\hline
+Budapest & 7 391 & 28,7 \\
+\hline
+Firenze & 2 307 & 10,3 \\
+\hline
+Miskolc & 561 & 3,1 \\
+\hline
+Szeged & 574 & 2,9 \\
+\hline
+Pécs & 541 & 2,6 \\
+\hline
+\end{tabular}
+\caption{Gráf generálásának futási ideje a futási idő függvényében}
+\label{tab:runtime}
+\end{table}
+
+Hasonlóan az adatbázisok betöltési idejéhez, a gráf felépítésének ideje is az adatbázis méretével arányos. Ebben az esetben a megállók száma a mérvadó, hiszen a készítendő gráfnak ugyanannyi csomópontja lesz, illetve az élek számával is arányos. A megfelelő felhasználói élmény biztosítása érdekében a gráfot egyszer kell felépíteni, és az eredményt gyorsítótárban kell tárolni.
