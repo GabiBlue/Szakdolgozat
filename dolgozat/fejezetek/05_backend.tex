@@ -6,7 +6,7 @@ Szerveroldalon egy többrétegű struktúrát alakítottam ki, mint azt már eml
 
 % Azt kellene bemutatni, hogy az menetrend lib funkcióit hogy sikerült kivezetni, hogy REST API-n keresztül elérhető legyen.
 Ez a réteg dolgozza fel a klienstől érkező kéréseket a menetrend csomagra építve. Ha vannak a kérésnek paraméterei, akkor először azoknak a helyességét vizsgálja. Számos esetben ezt egy, a menetrend csomagban lévő, függvény segítségével végzi. A válaszokhoz az adatokat szintén a menetrend csomag egyes függvényeinek a meghívásával állítja elő. Az így előállt eredményadatokat JSON-formátumban küldi a kliens felé.
-A réteg a server.py fájlban van megvalósítva. A benne található függvények route() dekorátorokkal vannak ellátva. Ezek írják le, hogy mely URL-re hívódjon meg az adott függvény. Az URL-ek és a függvények nevei az egyszerűség kedvéért megegyeznek.
+A réteg a \texttt{server.py} fájlban van megvalósítva. A benne található függvények \texttt{route()} dekorátorokkal vannak ellátva. Ezek írják le, hogy mely URL-re hívódjon meg az adott függvény. Az URL-ek és a függvények nevei az egyszerűség kedvéért megegyeznek.
 A függvényeket és leírásukat tartalmazza a következő táblázat.
 
 \begin{longtable}{|p{4.5cm}|p{9cm}|}
@@ -14,7 +14,7 @@ A függvényeket és leírásukat tartalmazza a következő táblázat.
 \textbf{URL} & \textbf{Leírás} \\
 \hline
 \texttt{/} &
-Az alkalmazás megnyitásakor vagy a főoldal gombra történő kattintáskor elküldi az index.html fájlt. \\
+Az alkalmazás megnyitásakor vagy a főoldal gombra történő kattintáskor elküldi az \texttt{index.html} fájlt. \\
 \hline
 \texttt{/favicon.ico} &
 A favicon megjelenítésére szolgál. A favicon a weboldalhoz tartozó ikon, amely a böngészőben megjelenhet a címsorban, a fül elején és a könyvjelzők előtt. \\
@@ -61,7 +61,7 @@ A megadott induló és célmegálló közt tervezett útvonalat adja vissza. Az 
 
 \Section{A menetrend library}
 
-A csomagban található függvényekkel lehet az adatbázisból adatok lekérdezni, az SQLAlchemy és a GTFSDB segítségével. A következő táblázat a csomagban lévő fájlokat és az azokban lévő függvényeket ismerteti.
+A csomagban található függvényekkel lehet az adatbázisból adatokat lekérdezni, az SQLAlchemy és a GTFSDB segítségével. A következő táblázat a csomagban lévő fájlokat és az azokban lévő függvényeket ismerteti.
 
 \begin{longtable}{|p{4.5cm}|p{9cm}|}
 \hline
@@ -112,7 +112,7 @@ Az adatbázisban található összes megálló nevét adja vissza egy listában.
 \texttt{trip\_planner.py} &
 \texttt{dijkstra(graph, src, dest)}:
 
-Dijkstra-algoritmus a gráfban való legrövidebb út megkeresésére két megálló között. Az algoritmus a hetedik fejezetben kerül részletes bemutatásra.
+Dijkstra-algoritmussal a paraméterként átadott gráfban való legrövidebb utat keresi meg két, szintén paraméterként átadott, megálló között. Az algoritmus a hetedik fejezetben kerül részletes bemutatásra.
 \\
 \hline
 \texttt{trips.py} &
