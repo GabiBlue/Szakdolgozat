@@ -48,7 +48,7 @@ Ennél a módszernél a gráf minden csomópontjához egy listát rendelünk, am
 
 Legyen $G = (V, E)$ véges gráf, és $n$ a csúcsok száma. Felveszünk egy $Adj[1 \ldots n]$ tömböt, amely mutatókat tartalmaz. A tömb indexelése a csúcsokkal történik. A mutatók az éllistákra (szomszédsági listákra) mutatnak.
 
-Irányított gráf esetén az éleket az éllisták listaelemei reprezentálják. A listaelem tárolása abban a listában történik, amelyik csúcsból az él kiindul. A listaelemben a célcsúcs indexét tároljuk. Az $(i, j) \in E$ él az i-edik listában egy listaelem, melyben j, mint az él célcsúcsa, el van tárolva.
+Irányított gráf esetén az éleket az éllisták listaelemei reprezentálják. A listaelem tárolása abban a listában történik, amelyik csúcsból az él kiindul. A listaelemben a célcsúcs indexét tároljuk. Az $(i, j) \in E$ él az $i$-edik listában egy listaelem, melyben $j$, mint az él célcsúcsa, el van tárolva.
 
 \begin{figure}[htb]
 \centering
@@ -57,7 +57,7 @@ Irányított gráf esetén az éleket az éllisták listaelemei reprezentálják
 \label{fig:ellista_iranyitott}
 \end{figure}
 
-Irányítatlan gráf esetében egy élnek két listaelemet is megfeleltetünk. Élsúlyozott gráf esetén, az él súlyát is a listaelemben fogjuk tárolni.
+Irányítatlan gráf esetében egy élnek két listaelemet is megfeleltetünk. Élsúlyozott gráf esetén az él súlyát is a listaelemben fogjuk tárolni.
 
 Az ilyen típusú ábrázolás helyfoglalása irányítatlan gráfok esetében a csúcsok számával ($Adj$ tömb) és az élek számával (az éllista elemeinek a számával) arányos, ami összesen $(n + e)$. Irányított gráfoknál az élszám duplájával kell számolni, azaz $(n + 2e)$-vel arányos a helyfoglalás.
 
@@ -75,9 +75,7 @@ Az algoritmust Edsger Wybe Dijkstra, holland matematikus és informatikus fejles
 
 Az algoritmus bemenete egy súlyozott $G$ gráf és a gráf egy $s$ csúcsa. Az út kiinduló pontja az $s$ csúcs. $V$ jelölje a $G$ gráf csúcsainak halmazát, legyen $(u, v)$ a $G$ gráf $u$-t $v$-vel összekötő éle, $u$ és $v$ a gráf csúcsai. $E$ jelölje a $G$ gráf éleinek a halmazát. A $w: E \rightarrow [0, \infty]$ súlyfüggvény az élekhez rendelt súlyokat adja meg, $w(u, v)$ az $(u, v)$ él súlya. Az út költsége két csúcs közt az úton lévő élek összköltsége. Az algoritmus megkeresi a legkisebb költségű $s$-ből $t$-be vezető utat. Ezenkívül arra is alkalmas, hogy adott pontból indulva a gráf minden másik pontjába vezető legrövidebb utat megkeresse.
 
-Az algoritmus működése:
-
-A $G$ gráf minden $v$ csúcsára nyilvántartja az $s$ és $v$ közötti, a futás során addigi legrövidebbnek megtalált út költségét. Induláskor az $s$ csúcsra ez az érték $0$ ($d[s] = 0$), a gráf összes többi csúcsára pedig végtelen ($d[v] = \infty$) minden $v$-re, kivéve $s$). Ennek az az alapja, hogy kezdetben egy utat sem ismerünk, ami az s csúcsból a többibe vezetne. Az algoritmus lefutása után $d[v]$ az $s$-ből $v$-be vezető legrövidebb út költségét tartalmazza, amennyiben létezik út a két csúcs között. Ha nem létezik, akkor $d[v]$ értéke végtelen marad.
+A $G$ gráf minden $v$ csúcsára nyilvántartja az $s$ és $v$ közötti, a futás során addigi legrövidebbnek megtalált út költségét. Induláskor az $s$ csúcsra ez az érték $0$ ($d[s] = 0$), a gráf összes többi csúcsára pedig végtelen ($d[v] = \infty$) minden $v$-re, kivéve $s$). Ennek az az alapja, hogy kezdetben egy utat sem ismerünk, ami az $s$ csúcsból a többibe vezetne. Az algoritmus lefutása után $d[v]$ az $s$-ből $v$-be vezető legrövidebb út költségét tartalmazza, amennyiben létezik út a két csúcs között. Ha nem létezik, akkor $d[v]$ értéke végtelen marad.
 
 Az algoritmus az $S$ és $Q$ halmazokat használja, amelyekben csúcsokat tárol. Az $S$ halmaz a $G$ gráf azon csúcsait tartalmazza, amelyekre $d[v]$ már az odavezető legrövidebb út költségét tartalmazza. A $Q$ halmazban a gráf többi csúcsa található. Kezdetben az $S$ halmaz üres, majd minden egyes iterációval egy csúcs a $Q$ halmazból az $S$ halmazba kerül. Azt a csúcsot választja ki az algoritmus, amelyiknek a legalacsonyabb a $d[u]$ értéke. Amikor az $u$ csúcs a $Q$ halmazból az $S$-be helyeződik, az algoritmus $u$ összes $v$ szomszédjára megvizsgálja, hogy az addig ismert legrövidebb utak tovább rövidíthetőek-e oly módon, hogy a kezdőpontból az $u$-ig vezető legrövidebb úthoz hozzáadjuk az $(u, v)$ él költségét. Ha az eddig ismert legrövidebb útnál kisebb költséget kapunk, akkor $d[v]$ értéke ez az új, kisebb érték lesz.
 
@@ -109,7 +107,7 @@ Amennyiben csak az $s$-ből $t$-be vezető legrövidebb útra van szükségünk,
 5     u := previous[u]
 \end{verbatim}
 
-Ekkor $S$ az $s$ csúcsból a $t$-be vezető legrövidebb utak egyikének csúcsait tartalmazó lista, vagy pedig üres, ha nem létezik ilyen út.
+Ekkor $S$ az $s$ csúcsból a $t$-be vezető legrövidebb utak egyikének csúcsait tartalmazó lista, vagy üres, ha nem létezik ilyen út.
 
 Az algoritmus működését szemlélteti az alábbi egyszerű példa.
 
@@ -148,7 +146,7 @@ Az algoritmus lépésszáma a három egymásba ágyazott for ciklus miatt $n^3$-
 
 \SubSection{Útvonaltervezés implementálása}
 
-Az elméleti áttekintés után térjünk rá az útvonaltervezés implementációjára. Mivel ez egy viszonylag komplex probléma, így több iterációban történt az implementálás. Első körben csak a natív, irányítatlan gráfot hoztam létre a GTFS-adatokból, és az ebben való keresésre implementáltam a Dijkstra-algoritmust. Miután ezt sikerült megvalósítani, fokozatosan építettem be a további feltételeket, megszorításokat a gráfgeneráló és az útvonalkereső algoritmusba.
+Az elméleti áttekintés után térjünk rá az útvonaltervezés implementációjára. Mivel ez egy viszonylag komplex probléma, így több iterációban történt az implementálás. Először csak a natív, irányítatlan gráfot hoztam létre a GTFS-adatokból, és az ebben való keresésre implementáltam a Dijkstra-algoritmust. Miután ezt sikerült megvalósítani, fokozatosan építettem be a további feltételeket, megszorításokat a gráfgeneráló és az útvonalkereső algoritmusba.
 
 Első változatban a gráfot dictionary-k dic\-ti\-o\-na\-ry-eként hoztam létre. A külső dic\-ti\-o\-na\-ry-ben a kulcsok az egyes megállók nevei, az érték pedig egy másik dictionary. A belső dictionary-ben a kulcsok szintén megállónevek. Jelentésük, hogy a külső megállóból ebbe a megállóba közvetlenül el lehet jutni. Ebben a fázisban azt még nem tartalmazta a gráf, hogy ezt melyik viszonylaton (viszonylatokon) keresztül lehet megtenni. A belső dictionary-ben az értékek a költséget jelentik, hány másodperc alatt lehet eljutni egyik megállóból a másikba. Ezáltal egy súlyozott, irányított gráf épült fel az adatokból, a súlyozás a másodpercben kifejezett időköltség a két megálló közt.
 
@@ -185,14 +183,14 @@ Jól látható, hogy az AUCHAN Borsod megállóból egyedül a Szondi György ut
 
 Miután a gráfgeneráló algoritmust elkészítettem, a Dijkstra-algoritmus implementálása következett.
 
-A függvény három paramétert vár, a gráfot, valamint kezdő- és végpontot, tehát két megálló nevét. Először egy ellenőrzés történik, hogy a paraméterként megadott megállók szerepelnek-e a gráfban. Ha igen, megkeresi a legrövidebb utat köztük. Két értékkel tér vissza, a path tartalmazza a kiszámolt utat, a cost értéke pedig az út időköltsége lesz.
+A függvény három paramétert vár, a gráfot, valamint egy kezdő- és végpontot, tehát két megálló nevét. Először egy ellenőrzés történik, hogy a paraméterként megadott megállók szerepelnek-e a gráfban. Ha igen, megkeresi a legrövidebb utat köztük. Két értékkel tér vissza, a \texttt{path} tartalmazza a kiszámolt utat, a \texttt{cost} értéke pedig az út időköltsége lesz.
 Egy példa a függvény meghívására:
 
 \begin{verbatim}
 path, cost = dijkstra(graph, 'Egyetemváros', 'Selyemrét')
 \end{verbatim}
 
-A függvény által kiszámolt út (path tartalma):
+A függvény által kiszámolt út (\texttt{path} tartalma):
 
 \begin{verbatim}
 [
@@ -210,10 +208,10 @@ A függvény által kiszámolt út (path tartalma):
 ]
 \end{verbatim}
 
-Az eredményt egy listában adja vissza, amely a megállók neveit tartalmazza. A cost értéke pedig 780 ebben a példában.
+Az eredményt egy listában adja vissza, amely a megállók neveit tartalmazza. A \texttt{cost} értéke pedig 780 ebben a példában.
 
 Miután ezzel elkészültem, a gráfot kibővítettem, hiszen nem elegendő csak annyit tudni, hogy egy megállóból mely másikakba vezet út. Azt is el kell tárolni, hogy ez a kapcsolat melyik viszonylaton érhető el. Olyan is előfordulhat, hogy A-ból B-be több viszonylaton is el lehet jutni, az optimális útvonal megtervezéséhez ezt is figyelembe kell venni, nem elég csupán egy viszonylatot eltárolni.
-Mindezek figyelembevételével átalakítottam a gráf struktúráját. Továbbra is egy dictionary-ről van szó, ahol a kulcsok a megállók nevei, az értékek azonban listák. A listákban dictionary-k vannak, mindegyik dictionary-ben pedig három kulcs-érték pár. A name-hez tartozó érték a megálló neve, a cost a költség, a route pedig a viszonylatot azonosítja.
+Mindezek figyelembevételével átalakítottam a gráf struktúráját. Továbbra is egy dictionary-ről van szó, ahol a kulcsok a megállók nevei, az értékek azonban listák. A listákban dictionary-k vannak, mindegyik dictionary-ben pedig három kulcs-érték pár. A \texttt{name}-hez tartozó érték a megálló neve, a \texttt{cost} a költség, a \texttt{route} pedig a viszonylatot azonosítja.
 Részlet a kibővített gráfról:
 
 \begin{verbatim}
@@ -263,7 +261,7 @@ Az Aba utca megállóhoz tartozó bejegyzést, ha jobban szemügyre vesszük, k�
 
 Ezután természetesen az útvonaltervező algoritmust és át kellett írni, hogy kezelni tudja az átalakított struktúrájú gráfot.
 
-Az átalakítás után, az előző példánál maradva, ha kipróbáljuk az Egyetemváros és a Selyemrét megállókkal az algoritmust, akkor a path eredménye a következő lesz:
+Az átalakítás után, az előző példánál maradva, ha kipróbáljuk az Egyetemváros és a Selyemrét megállókkal az algoritmust, akkor a \texttt{path} eredménye a következő lesz:
 
 \begin{verbatim}
 [{
@@ -291,5 +289,4 @@ Az átalakítás után, az előző példánál maradva, ha kipróbáljuk az Egye
 }]
 \end{verbatim}
 
-Az eredményt szintén egy listában adja vissza, azonban a listában most már nem csak pusztán a megállók nevei vannak, hanem dictionary-kben név és viszonylat kulcs-érték párok. A megváltozott felépítésű gráfot már tudja kezelni az algoritmus, azonban az átszállásokra nézve még nem ad optimális eredményt.
-
+Az eredményt szintén egy listában adja vissza, azonban a listában most már nem csak pusztán a megállók nevei vannak, hanem dictionary-kben név és viszonylat kulcs-érték párok.
