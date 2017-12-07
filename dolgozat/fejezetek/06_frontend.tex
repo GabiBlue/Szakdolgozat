@@ -43,7 +43,7 @@ Ha kiválasztunk egy viszonylatot, akkor annak az aznapi menetrendjét látjuk e
 \label{fig:menetrend}
 \end{figure}
 
-A táblázatban a percek linkek, amire ha rákattintunk, akkor egy másik oldal töltődik be, ahogy \aref{fig:trip_tablazat_es_terkep}. ábrán láthatjuk. Ez az oldal is két részre van felosztva. Bal oldalt egy táblázatban láthatjuk a kiválasztott járat részletes menetrendjét, sorrendben az állomásokat, amiket érint. Három oszlopból áll a táblázat: indulási idő, megálló neve, és az addigi menetidő percben kifejezve. A táblázat mellett pedig a járat útvonala jelenik meg Google Mapsen. A térképen a járat útvonala és az érintett megállók is fel vannak tüntetve. A megállókat jelző markerekre kattintva egy Info Window ugrik fel, a megálló nevét és a járat végállomását tartalmazva.
+A táblázatban a percek linkek, amire ha rákattintunk, akkor egy másik oldal töltődik be, ahogy \aref{fig:trip_tablazat_es_terkep}. ábrán láthatjuk. Ez az oldal is két részre van felosztva. Bal oldalt egy táblázatban láthatjuk a kiválasztott járat részletes menetrendjét, sorrendben az állomásokat, amiket érint. Három oszlopból áll a táblázat: indulási idő, megálló neve, és az addigi menetidő percben kifejezve. A táblázat mellett pedig a járat útvonala jelenik meg Google Mapsen. A térképen a járat útvonala és az érintett megállók is fel vannak tüntetve. A megállókat jelző \texttt{markerekre} kattintva egy \texttt{InfoWindow} ugrik fel, a megálló nevét és a járat végállomását tartalmazva.
 
 \begin{figure}[h!]
 \centering
@@ -133,9 +133,9 @@ A \texttt{tripPlannerController} lekérdezi az adatbázisban található megáll
 
 \Section{Térképadatok kezelése és megjelenítése}
 
-A járatok útvonalának térképen történő megjelenítésére a Google Mapset használtam. Döntésemet az indokolta, hogy véleményem szerint a piacon jelenlévő térképszolgáltatások közül messze a Google-é a legfejlettebb, legtámogatottabb. A térkép programozására a Google Maps JavaScript API-t használtam. Ennek segítségével JavaScriptben írt kóddal tudjuk programozni a térképet. Számos funkciót kínál erre az API, én legfőképp az útvonalak kirajzolását és jelölőpontok megjelenítését használtam. Ahhoz, hogy oldalunkon használni tudjuk az API-t, be kell szereznünk egy úgynevezett API key-t. Ezt a következő oldalon tudjuk megtenni: https://code.google.com/apis/console/
+A járatok útvonalának térképen történő megjelenítésére a Google Mapset használtam. Döntésemet az indokolta, hogy véleményem szerint a piacon jelenlévő térképszolgáltatások közül messze a Google-é a legfejlettebb, legtámogatottabb. A térkép programozására a Google Maps JavaScript API-t használtam. Ennek segítségével JavaScriptben írt kóddal tudjuk programozni a térképet. Számos funkciót kínál erre az API, én legfőképp az útvonalak kirajzolását és jelölőpontok megjelenítését használtam. Ahhoz, hogy oldalunkon használni tudjuk az API-t, be kell szereznünk egy úgynevezett API key-t. Ezt a következő oldalon tudjuk megtenni: \url{https://code.google.com/apis/console}
 
-Az oldalon létre kell hozni egy projektet, majd ki kell választani, hogy melyik API-ra van szükségünk. Én a Google Maps JavaScript API-t választottam ki, és meg is kaptam API kulcsomat. Lehetőség van arra is, hogy lekorlátozzuk a kulcs használatát. Megadhatjuk, hogy mely domain címekről használhatják a kulcsunkat. Ingyenesen napi 25 000 darab kérésünk lehet, ami egy átlagos forgalmú weboldal esetén elegendő. Ha azonban mégis átlépné az oldalunk ezt a napi limitet, akkor vásárolhatunk üzleti csomagot, amivel lehetőségünk van kibővíteni ezt a keretet. \Aref{fig:google_maps_api_1}. ábrán látható az adminisztrációs felületről egy kép.
+Az oldalon létre kell hozni egy projektet, majd ki kell választani, hogy melyik API-ra van szükségünk. Én a Google Maps JavaScript API-t választottam ki, ezután meg is kaptam a szükséges kulcsot. Lehetőség van arra is, hogy lekorlátozzuk a kulcs használatát. Megadhatjuk, hogy mely domain címekről használhatják a kulcsunkat. Ingyenesen napi 25 000 darab kérésünk lehet, ami egy átlagos forgalmú weboldal esetén elegendő. Ha azonban mégis átlépné az oldalunk ezt a napi limitet, akkor vásárolhatunk üzleti csomagot, amivel lehetőségünk van kibővíteni ezt a keretet. \Aref{fig:google_maps_api_1}. ábrán látható az adminisztrációs felületről egy kép.
 
 \begin{figure}[h!]
 \centering
@@ -160,9 +160,9 @@ Ha beszereztük a szükséges API key-t, akkor azt az oldalunkra be kell linkeln
 key=IDE_KELL_A_KEY-T_BEMASOLNI&callback=drawMap"></script>
 \end{verbatim}
 
-A HTML oldalon elhelyeztem egy div-et, ami a térképet tartalmazza, id-nak „map”-ot állítottam be. Létrehoztam egy scriptet, ami a \texttt{drawMap} függvényt tartalmazza, ez végzi a térkép manipulálását. A továbbiakban ennek a függvénynek néhány érdekesebb részét ismertetem.
+A HTML-oldalon elhelyeztem egy \texttt{div}-et, ami a térképet tartalmazza, \texttt{id}-nak \texttt{map}-ot állítottam be. Létrehoztam egy scriptet, ami a \texttt{drawMap} függvényt tartalmazza, ez végzi a térkép manipulálását. A továbbiakban ennek a függvénynek néhány érdekesebb részét ismertetem.
 
-A járatok útvonalai az adatbázisban tárolva vannak. Az adott járathoz tartozó GPS koordinátákat lekérdezi a függvény a szervertől. Majd egy for cikluson belül ezekből úgynevezett \texttt{LatLng} objektumokat hoz létre a függvény, amit eltárol egy tömbben:
+A járatok útvonalai az adatbázisban tárolva vannak. Az adott járathoz tartozó GPS-koordinátákat lekérdezi a függvény a szervertől. Majd egy \texttt{for} cikluson belül ezekből úgynevezett \texttt{LatLng} objektumokat hoz létre a függvény, amit eltárol egy tömbben:
 
 \begin{cpp}
 var latlng = new google.maps.LatLng(
@@ -172,19 +172,19 @@ var latlng = new google.maps.LatLng(
 shapePoints.push(latlng);
 \end{cpp}
 
-Az első paraméter a szélességi, a második a hosszúsági koordináta. Még egy fontos dolog történik a for cikluson belül. Egy \texttt{LatLngBounds} objektumot használok a térkép pozícionálásához.
+Az első paraméter a szélességi, a második a hosszúsági koordináta. Még egy fontos dolog történik a \texttt{for} cikluson belül, egy \texttt{LatLngBounds} objektumot használok a térkép pozícionálásához.
 
 \begin{cpp}
 var bounds = new google.maps.LatLngBounds();
 \end{cpp}
 
-Ez \texttt{LatLng} objektumok által meghatározott téglalapot reprezentál. A \texttt{LatLngBounds} objektum extend metódusa hívódik meg a cikluson belül, paraméterként átadva az adott iterációban lévő \texttt{LatLng} objektumot, ezáltal a befoglaló téglalapban benne lesz az adott iteráció pontja is:
+Ez \texttt{LatLng} objektumok által meghatározott téglalapot reprezentál. A \texttt{LatLngBounds} objektum \texttt{extend} metódusa hívódik meg a cikluson belül, paraméterként átadva az adott iterációban lévő \texttt{LatLng} objektumot, ezáltal a befoglaló téglalapban benne lesz az adott iteráció pontja is:
 
 \begin{cpp}
 bounds.extend(latlng);
 \end{cpp}
 
-A for ciklus lefutása után a bounds objektum az adott járat összes pontját tartalmazó minimális területű téglalapot fogja tartalmazni.
+A \texttt{for} ciklus lefutása után a \texttt{bounds} objektum az adott járat összes pontját tartalmazó minimális területű téglalapot fogja tartalmazni.
 Hogy a pontokból útvonal legyen, ahhoz egy \texttt{Polyline} objektumot hoz létre a függvény, megadva a tömböt \texttt{path} property-ként. Egyéb beállítási lehetőségeink is vannak, én a vonal színét, átlátszóságát és vastagságát állítottam át, ezt mutatja a következő kódrészlet:
 
 \begin{cpp}
@@ -203,7 +203,7 @@ tripPath.setMap(map);
 map.fitBounds(bounds);
 \end{cpp}
 
-A megállók megjelenítése markerekkel történik, megkülönböztetve a végállomásokat és a köztes megállókat. A végállomások tömött zöld körökkel, a köztes megállók zöld szegélyű, fehér közepű körökkel vannak reprezentálva. Az útvonalhoz hasonlóan ebben az esetben is a szervertől lekérdezi a függvény a megállók koordinátáit. Majd szintén egy for cikluson belül ezeken végigiterál, és iterációnként létrehoz egy-egy \texttt{LatLng} objektumot, illetve markert. A marker létrehozását láthatjuk a következő kódrészletben:
+A megállók megjelenítése \texttt{markerekkel} történik, megkülönböztetve a végállomásokat és a köztes megállókat. A végállomások tömött zöld körökkel, a köztes megállók zöld szegélyű, fehér kitöltésű körökkel vannak reprezentálva. Az útvonalhoz hasonlóan ebben az esetben is a szervertől lekérdezi a függvény a megállók koordinátáit. Ezt követően szintén egy \texttt{for} cikluson belül ezeken végigiterál, és iterációnként létrehoz egy-egy \texttt{LatLng} objektumot, illetve \texttt{markert}. A \texttt{marker} létrehozását láthatjuk a következő kódrészletben:
 
 \begin{cpp}
 var marker = new google.maps.Marker({
@@ -220,11 +220,11 @@ var marker = new google.maps.Marker({
 });
 \end{cpp}
 
-Beállításra kerül a marker pozíciója a létrehozott \texttt{LatLng} objektumból. Az alapértelmezett ikon helyett az icon property megadásával használható más. Mint említettem, én köröket használok, megadva a szegély színét, a kitöltési színt, az átlátszóságot és az ikon nagyságát. A markert hozzá kell rendelni a térkép objektumhoz a \texttt{map} property megadásával. Végül én a \texttt{title} property-t is beállítom, a megálló nevét értékül adva neki. Ezáltal, ha rávisszük a kurzort az ikonra, akkor megjelenik a megálló neve. Ezenkívül InfoWindow ablakokat is használok, ezek akkor jönnek elő, ha egy markerre rákattintunk. Az adott megálló és a járat végállomásának a megállóját tartalmazza. Mindez jól látható \aref{fig:terkep}. ábrán.
+Beállításra kerül a \texttt{marker} pozíciója a létrehozott \texttt{LatLng} objektumból. Az alapértelmezett ikon helyett az \texttt{icon} property megadásával használható más. Mint említettem, én köröket használok, megadva a szegély színét, a kitöltési színt, az átlátszóságot és az ikon nagyságát. A \texttt{markert} hozzá kell rendelni a térkép objektumhoz a \texttt{map} property megadásával. Végül én a \texttt{title} property-t is beállítom, a megálló nevét értékül adva neki. Ezáltal, ha rávisszük a kurzort az ikonra, akkor megjelenik a megálló neve. Ezenkívül \texttt{InfoWindow} ablakokat is használok, ezek akkor jönnek elő, ha egy \texttt{markerre} rákattintunk. Az adott megálló és a járat végállomásának a megállóját tartalmazza. Mindez jól látható \aref{fig:terkep}. ábrán.
 
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.7]{kepek/terkep.png}
-\caption{InfoWindow megjelenítése a Google térképen}
+\caption{InfoWindow megjelenítése a Google-térképen}
 \label{fig:terkep}
 \end{figure}
