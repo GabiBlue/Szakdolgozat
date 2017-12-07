@@ -16,7 +16,7 @@ A felhasználói felületének két fő része van, a menetrendadatok böngész�
 \label{fig:navbar}
 \end{figure}
 
-A navigációs sávon (\ref{fig:navbar}. ábra) a Viszonylatok menüpontra kattintva láthatjuk a különböző viszonylatokat, ahol többféle módon is kiválaszthatjuk azt, amelyiknek a menetrendjére kíváncsiak vagyunk. Található az oldal tetején egy gombsor a vonalszámokkal (\ref{fig:viszonylatok_gombsor}. ábra), alatta pedig egy részletes táblázat, csoportosítva a különböző típusú viszonylatokat (autóbusz vagy villamos).
+A navigációs sávon (\ref{fig:navbar}. ábra) a Viszonylatok menüpontra kattintva láthatjuk a különböző viszonylatokat, ahol többféle módon is kiválaszthatjuk azt, amelyiknek a menetrendjére kíváncsiak vagyunk. Található az oldal tetején egy gombsor a vonalszámokkal (\ref{fig:viszonylatok_gombsor}. ábra), alatta pedig egy részletes táblázat, csoportosítva a különböző típusú viszonylatokat.
 
 \begin{figure}[h!]
 \centering
@@ -43,12 +43,12 @@ Ha kiválasztunk egy viszonylatot, akkor annak az aznapi menetrendjét látjuk e
 \label{fig:menetrend}
 \end{figure}
 
-A táblázatban a percek linkek, amire ha rákattintunk, akkor egy másik oldal töltődik be, ahogy például \aref{fig:trip_tablazat_es_terkep}. ábrán láthatjuk. Ez az oldal is két részre van felosztva. Bal oldalt egy táblázatban láthatjuk a kiválasztott járat részletes menetrendjét: sorrendben az állomásokat, amiket érint. Három oszlopból áll a táblázat: indulási idő, megálló neve, és az addigi menetidő percben kifejezve. A táblázat mellett pedig a járat útvonala jelenik meg Google Mapsen. A térképen a járat útvonala és az érintett megállók is fel vannak tüntetve. A megállókat jelző markerekre kattintva egy Info Window ugrik fel, a megálló nevét és a járat végállomását tartalmazva.
+A táblázatban a percek linkek, amire ha rákattintunk, akkor egy másik oldal töltődik be, ahogy \aref{fig:trip_tablazat_es_terkep}. ábrán láthatjuk. Ez az oldal is két részre van felosztva. Bal oldalt egy táblázatban láthatjuk a kiválasztott járat részletes menetrendjét, sorrendben az állomásokat, amiket érint. Három oszlopból áll a táblázat: indulási idő, megálló neve, és az addigi menetidő percben kifejezve. A táblázat mellett pedig a járat útvonala jelenik meg Google Mapsen. A térképen a járat útvonala és az érintett megállók is fel vannak tüntetve. A megállókat jelző markerekre kattintva egy Info Window ugrik fel, a megálló nevét és a járat végállomását tartalmazva.
 
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.35]{kepek/trip_tablazat_es_terkep.png}
-\caption{A megállók és útvonal megjelenítése táblázatos és térképes formában}
+\caption{Egy járat megállóinak és útvonalának megjelenítése táblázatos és térképes formában}
 \label{fig:trip_tablazat_es_terkep}
 \end{figure}
 
@@ -128,8 +128,8 @@ Az elkészített nézetek és kontrollerek összefoglalása látható \aref{tab:
 
 A \texttt{listRoutesController} a viszonylatokat kéri le a szervertől a viszonylatok típusa szerint csoportosítva. A megjelenített táblázatokban a különböző oszlopok szerinti rendezést és a bennük való keresést valósítja meg.
 A \texttt{tripController} egy járat adatait kéri le a szervetől. Amennyiben hibás paramétert kap, a 404-es hibaoldalra irányít át.
-A \texttt{scheduleController} az adatbázisban található dátumokat és egy viszonylat napi indulási adatait kéri le a szervertől. Alapértelmezetten az aktuális dátum szerinti menetrendet kérdezi le. Ha a nézeten a napválasztó legördülőmenüből egy másik napot választ ki a felhasználó, akkor a kiválasztott nap menetrendjét kérdezi le.
-A \texttt{tripPlannerController} lekérdezi az adatbázisban található megállók neveit, és a dátumokat. A hozzátartozó nézeten található formon bevitt adatokat validálja, ha hibásak, akkor megjeleníti a hibaüzenetet a nézeten. Ha a megadott adatok megfelelőek, elküldi azokat a szervernek, a válaszként kapott megtervezett útvonalat pedig megjeleníti a nézeten.
+A \texttt{scheduleController} az adatbázisban található dátumokat és egy viszonylat napi indulási adatait kéri le a szervertől. Alapértelmezetten az aktuális dátum szerinti menetrendet kérdezi le. Ha a nézeten a napválasztó legördülő menüből egy másik napot választ ki a felhasználó, akkor a kiválasztott nap menetrendjét kérdezi le.
+A \texttt{tripPlannerController} lekérdezi az adatbázisban található megállók neveit, és a dátumokat. A hozzátartozó nézeten található formon bevitt adatokat validálja, ha hibásak, akkor megjeleníti a hibaüzenetet a nézeten. Ha a megadott adatok megfelelőek, elküldi azokat a szervernek, a válaszként kapott megtervezett útvonalat pedig megjeleníti a nézeten. Ha nem talált útvonalat az algoritmus, akkor szintén egy hibaüzenetet jelenít meg.
 
 \Section{Térképadatok kezelése és megjelenítése}
 
