@@ -34,11 +34,11 @@ A tömegközlekedési hálózat üzemeltetőjéről tartalmaz információkat. T
 
 \begin{tabular}{|p{3.5cm}|p{10cm}|}
 \hline
-agency\_name & Az üzemeltető vállalt teljes neve. \\
+\texttt{agency\_name} & Az üzemeltető vállalt teljes neve. \\
 \hline
-agency\_url & A vállalat URL címe. \\
+\texttt{agency\_url} & A vállalat URL címe. \\
 \hline
-agency\_timezone & Az időzónát tartalmazza, ahol a vállalat található. \\
+\texttt{agency\_timezone} & Az időzónát tartalmazza, ahol a vállalat található. \\
 \hline
 \end{tabular}
 
@@ -54,25 +54,28 @@ Az aktuálisan elérhető viszonylatokat tartalmazza. Minden viszonylat rendelke
 
 \begin{tabular}{|p{3.5cm}|p{10cm}|}
 \hline
-route\_id & Elsődleges kulcs, a viszonylat azonosítója. \\
+\texttt{route\_id} & Elsődleges kulcs, a viszonylat azonosítója. \\
 \hline
-route\_short\_name & A viszonylat rövid neve (száma). \\
+\texttt{route\_short\_name} & A viszonylat rövid neve (száma). \\
 \hline
-route\_long\_name & A viszonylat hosszú neve, általában a két végállomást tartalmazza. \\
+\texttt{route\_long\_name} & A viszonylat hosszú neve, általában a két végállomást tartalmazza. \\
 \hline
-route\_type & Típusazonosító, lehetséges értékek:
-0: villamos
-1: metró
-2: vasút
-3: autóbusz
-4: komp
-5-7: egyéb járművek \\
+\texttt{route\_type} & Típusazonosító, lehetséges értékek:
+\begin{itemize}
+\item 0: villamos
+\item 1: metró
+\item 2: vasút
+\item 3: autóbusz
+\item 4: komp
+\item 5-7: egyéb járművek
+\end{itemize}
+\\
 \hline
 \end{tabular}
 
 \SubSection{trips}
 
-Ez a tábla tartalmazza a járatokat. Mindegyik egy viszonylathoz tartozik, a direction\_id mezőben adható meg, hogy melyik irányban közlekedik a járat az adott viszonylaton (0 vagy 1 értékkel). Kötelező megadni még egy service\_id-t, ami alapján be lehet azonosítani, hogy a járat mely napokon közlekedik. Egy járathoz tartozhat még egy shape is, amely GPS koordináták sorozataként a járat útvonalát tartalmazza.
+Ez a tábla tartalmazza a járatokat. Mindegyik egy viszonylathoz tartozik, a \texttt{direction\_id} mezőben adható meg, hogy melyik irányban közlekedik a járat az adott viszonylaton (0 vagy 1 értékkel). Kötelező megadni még egy \texttt{service\_id}-t, ami alapján be lehet azonosítani, hogy a járat mely napokon közlekedik. Egy járathoz tartozhat még egy \texttt{shape} is, amely GPS koordináták sorozataként a járat útvonalát tartalmazza.
 
 \medskip
 
@@ -82,11 +85,11 @@ Ez a tábla tartalmazza a járatokat. Mindegyik egy viszonylathoz tartozik, a di
 
 \begin{tabular}{|p{3cm}|p{10cm}|}
 \hline
-trip\_id & Elsődleges kulcs, a járat azonosítója. \\
+\texttt{trip\_id} & Elsődleges kulcs, a járat azonosítója. \\
 \hline
-route\_id & Idegen kulcs, a viszonylatra hivatkozik, amelyen a járat közlekedik. \\
+\texttt{route\_id} & Idegen kulcs, a viszonylatra hivatkozik, amelyen a járat közlekedik. \\
 \hline
-service\_id & Idegen kulcs, a calendar és a calendar\_dates táblákra hivatkozik, ennek segítségével adható meg, hogy a járat mely napokon közlekedik. \\
+\texttt{service\_id} & Idegen kulcs, a \texttt{calendar} és a \texttt{calendar\_dates} táblákra hivatkozik, ennek segítségével adható meg, hogy a járat mely napokon közlekedik. \\
 \hline
 \end{tabular}
 
@@ -102,13 +105,13 @@ Az egyes megállókat tárolja névvel és földrajzi koordinátákkal.
 
 \begin{tabular}{|p{3cm}|p{10cm}|}
 \hline
-stop\_id & Elsődleges kulcs, a megálló azonosítója. \\
+\texttt{stop\_id} & Elsődleges kulcs, a megálló azonosítója. \\
 \hline
-stop\_name & A megálló neve. \\
+\texttt{stop\_name} & A megálló neve. \\
 \hline
-stop\_lat & A megálló szélességi fokát tartalmazza. A megadott értéknek WGS 84 szabvány szerintinek kell lenni. \\
+\texttt{stop\_lat} & A megálló szélességi fokát tartalmazza. A megadott értéknek WGS 84 szabvány szerintinek kell lenni. \\
 \hline
-stop\_lon & A megálló hosszúsági fokát tartalmazza. A megadott értéknek WGS 84 szabvány szerintinek kell lenni. \\
+\texttt{stop\_lon} & A megálló hosszúsági fokát tartalmazza. A megadott értéknek WGS 84 szabvány szerintinek kell lenni. \\
 \hline
 \end{tabular}
 
@@ -124,15 +127,15 @@ Ez a tábla azt tárolja, hogy egy viszonylat egy járata egy megállóba mikor 
 
 \begin{tabular}{|p{3cm}|p{10cm}|}
 \hline
-stop\_id & Idegen kulcs, a megálló azonosítója. \\
+\texttt{stop\_id} & Idegen kulcs, a megálló azonosítója. \\
 \hline
-trip\_id & Idegen kulcs, a járat azonosítója. \\
+\texttt{trip\_id} & Idegen kulcs, a járat azonosítója. \\
 \hline
-arrival\_time & Érkezési idő, a járat mikor érkezik meg a megállóba. HH:MM:SS formátumban kell megadni. \\
+\texttt{arrival\_time} & Érkezési idő, a járat mikor érkezik meg a megállóba. HH:MM:SS formátumban kell megadni. \\
 \hline
-departure\_time & Indulási idő, a járat mikor indul a megállóból. HH:MM:SS formátumban kell megadni. \\
+\texttt{departure\_time} & Indulási idő, a járat mikor indul a megállóból. HH:MM:SS formátumban kell megadni. \\
 \hline
-stop\_sequence & Azt tartalmazza, hogy hányadik megállója ez a járatnak. Nemnegatív egésznek kell lennie. \\
+\texttt{stop\_sequence} & Azt tartalmazza, hogy hányadik megállója ez a járatnak. Nemnegatív egésznek kell lennie. \\
 \hline
 \end{tabular}
 
@@ -148,28 +151,31 @@ Itt úgynevezett szolgáltatásokat lehet megadni. Egy szolgáltatás azt mondja
 
 \begin{tabular}{|p{3.5cm}|p{10cm}|}
 \hline
-service\_id & Elsődleges kulcs, a szolgáltatás azonosítója. \\
+\texttt{service\_id} & Elsődleges kulcs, a szolgáltatás azonosítója. \\
 \hline
-Monday & \multirow{7}{10cm}{Azt mondja meg, hogy az adott napon közlekedik-e a járat.
+\texttt{monday} & \multirow{7}{10cm}{Azt mondja meg, hogy az adott napon közlekedik-e a járat.
 Az értéke lehet:
-0, ha az adott napon nem közlekedik, és
-1, ha az adott napon közlekedik a járat.} \\
+\begin{itemize}
+\item 0, ha az adott napon nem közlekedik, és
+\item 1, ha az adott napon közlekedik a járat.}
+\end{itemize}
+\\
 \cline{1-1}
-Tuesday & \\
+\texttt{tuesday} & \\
 \cline{1-1}
-Wednesday & \\
+\texttt{wednesday} & \\
 \cline{1-1}
-Thursday & \\
+\texttt{thursday} & \\
 \cline{1-1}
-Friday & \\
+\texttt{friday} & \\
 \cline{1-1}
-Saturday & \\
+\texttt{saturday} & \\
 \cline{1-1}
-Sunday & \\
+\texttt{sunday} & \\
 \hline
-start\_date & A szolgáltatás kezdő érvényességi ideje. Az értéket YYYYMMDD formátumban kell megadni. \\
+\texttt{start\_date} & A szolgáltatás kezdő érvényességi ideje. Az értéket YYYYMMDD formátumban kell megadni. \\
 \hline
-end\_date & A szolgáltatás érvényességi idejének a vége. Az értéket YYYYMMDD formátumban kell megadni. \\
+\texttt{end\_date} & A szolgáltatás érvényességi idejének a vége. Az értéket YYYYMMDD formátumban kell megadni. \\
 \hline
 \end{tabular}
 
@@ -177,7 +183,7 @@ end\_date & A szolgáltatás érvényességi idejének a vége. Az értéket YYY
 
 \SubSection{shapes}
 
-A járatok útvonalát tartalmazza a tábla. Egy útvonal több pontból áll, amelyek ugyanazzal a shape\_id-val vannak ellátva.
+A járatok útvonalát tartalmazza a tábla. Egy útvonal több pontból áll, amelyek ugyanazzal a \texttt{shape\_id}-val vannak ellátva.
 
 \medskip
 
@@ -187,20 +193,22 @@ A járatok útvonalát tartalmazza a tábla. Egy útvonal több pontból áll, a
 
 \begin{tabular}{|p{3.7cm}|p{9.8cm}|}
 \hline
-shape\_id & Az útvonal azonosítója. \\
+\texttt{shape\_id} & Az útvonal azonosítója. \\
 \hline
-shape\_pt\_lat & Az útvonal egy pontjának szélességi fokát tartalmazza. A megadott értéknek WGS 84 szabvány szerintinek kell lenni. \\
+\texttt{shape\_pt\_lat} & Az útvonal egy pontjának szélességi fokát tartalmazza. A megadott értéknek WGS 84 szabvány szerintinek kell lenni. \\
 \hline
-shape\_pt\_lon & Az útvonal egy pontjának hosszúsági fokát tartalmazza. A megadott értéknek WGS 84 szabvány szerintinek kell lenni. \\
+\texttt{shape\_pt\_lon} & Az útvonal egy pontjának hosszúsági fokát tartalmazza. A megadott értéknek WGS 84 szabvány szerintinek kell lenni. \\
 \hline
-shape\_pt\_sequence & Azt tartalmazza, hogy hányadik pontja ez a útvonalnak. Nemnegatív egésznek kell lennie. \\
+\texttt{shape\_pt\_sequence} & Azt tartalmazza, hogy hányadik pontja ez a útvonalnak. Nemnegatív egésznek kell lennie. \\
 \hline
 \end{tabular}
 
 \SubSection{calendar\_dates}
 
 A táblának két felhasználási módja van.
+
 Ajánlott: A calendar táblával együttesen, ilyenkor a normál menetrend szerinti kivételes eseteket kell itt megadni.
+
 Alternatív: A calendar táblát kihagyva, csak ezt a táblát használni, az összes szolgáltatást itt megadva. 
 
 \medskip
@@ -211,11 +219,11 @@ Alternatív: A calendar táblát kihagyva, csak ezt a táblát használni, az ö
 
 \begin{tabular}{|p{3.5cm}|p{10cm}|}
 \hline
-service\_id & A szolgáltatás azonosítója. Egy (service\_id, date) páros csak egyszer szerepelhet. \\
+\texttt{service\_id} & A szolgáltatás azonosítója. Egy \texttt{(service\_id, date)} páros csak egyszer szerepelhet. \\
 \hline
-date & Egy dátumot tartalmaz, formátuma: YYYYMMDD. \\
+\texttt{date} & Egy dátumot tartalmaz, formátuma: YYYYMMDD. \\
 \hline
-exception\_type & Lehetséges értékei:
+\texttt{exception\_type} & Lehetséges értékei:
 \begin{itemize}
 \item 1, ha a szolgáltatást hozzá akarjuk adni az adott naphoz, és
 \item 2, ha a szolgáltatást el szeretnék távolítani a megadott napon.
@@ -236,29 +244,35 @@ A különböző viteldíjtípusok megadására szolgál.
 
 \begin{tabular}{|p{3.5cm}|p{10cm}|}
 \hline
-fare\_id & A viteldíj azonosítója. \\
+\texttt{fare\_id} & A viteldíj azonosítója. \\
 \hline
-price & A viteldíj ára a currency\_type mezőben meghatározott egységben kifejezve. \\
+\texttt{price} & A viteldíj ára a \texttt{currency\_type} mezőben meghatározott egységben kifejezve. \\
 \hline
-currency\_type & A valuta ISO 4217 szabvány szerinti kódja. \\
+\texttt{currency\_type} & A valuta ISO 4217 szabvány szerinti kódja. \\
 \hline
-payment\_method & Azt határozza meg, hogy a viteldíjat mikor kell kifizetni.
+\texttt{payment\_method} & Azt határozza meg, hogy a viteldíjat mikor kell kifizetni.
 Lehetséges értékei:
-0, ha felszálláskor kell fizetni, és
-1, ha felszállás előtt kell fizetni. \\
+\begin{itemize}
+\item 0, ha felszálláskor kell fizetni, és
+\item 1, ha felszállás előtt kell fizetni.
+\end{itemize}
+\\
 \hline
-transfers & Azt specifikálja, hogy hány átszállás lehetséges az adott viteldíjtípussal.
+\texttt{transfers} & Azt specifikálja, hogy hány átszállás lehetséges az adott viteldíjtípussal.
 Lehetséges értékei:
-0: nem engedélyezett az átszállás
-1: egy átszállás engedélyezett
-2: két átszállás engedélyezett
-üres: ha a mező üres, akkor bármennyi átszállás engedélyezett. \\
+\begin{itemize}
+\item 0: nem engedélyezett az átszállás
+\item 1: egy átszállás engedélyezett
+\item 2: két átszállás engedélyezett
+\item üres: ha a mező üres, akkor bármennyi átszállás engedélyezett.
+\end{itemize}
+\\
 \hline
 \end{tabular}
 
 \SubSection{fare\_rules}
 
-A táblával megadható, hogy a fare\_attributes táblában található viteldíjak hogyan vonatkozzanak az útvonalakra.
+A táblával megadható, hogy a \texttt{fare\_attributes} táblában található viteldíjak hogyan vonatkozzanak az útvonalakra.
 
 \medskip
 
@@ -268,7 +282,7 @@ A táblával megadható, hogy a fare\_attributes táblában található viteldí
 
 \begin{tabular}{|p{3cm}|p{10cm}|}
 \hline
-fare\_id & Idegen kulcs, a viteldíjat azonosítja. \\
+\texttt{fare\_id} & Idegen kulcs, a viteldíjat azonosítja. \\
 \hline
 \end{tabular}
 
@@ -283,19 +297,19 @@ fare\_id & Idegen kulcs, a viteldíjat azonosítja. \\
 
 \begin{tabular}{|p{3cm}|p{10cm}|}
 \hline
-route\_id & Idegen kulcs, a viszonylat azonosítója. Ha több viszonylathoz is ugyanaz a viteldíj tartozik, akkor minden egyes viszonylatot külön rekordként kell felvinni a táblában. \\
+\texttt{route\_id} & Idegen kulcs, a viszonylat azonosítója. Ha több viszonylathoz is ugyanaz a viteldíj tartozik, akkor minden egyes viszonylatot külön rekordként kell felvinni a táblában. \\
 \hline
-origin\_id & \multirow{3}{10cm}{Idegen kulcsok, a stops tábla zone\_id mezőire hivatkozhatnak.} \\
+\texttt{origin\_id} & \multirow{3}{10cm}{Idegen kulcsok, a \texttt{stops} tábla \texttt{zone\_id} mezőire hivatkozhatnak.} \\
 \cline{1-1}
-destination\_id & \\
+\texttt{destination\_id} & \\
 \cline{1-1}
-contains\_id & \\
+\texttt{contains\_id} & \\
 \hline
 \end{tabular}
 
 \SubSection{frequencies}
 
-Ha egy járat szerepel ebben a táblában, akkor az útvonaltervező figyelmen kívül hagyja a stop\_times tábla arrival\_time és departure\_time mezőjét. Ehelyett a stop\_times tábla a megállók sorrendjét és az egyes megállók közötti időkülönbséget határozza meg.
+Ha egy járat szerepel ebben a táblában, akkor az útvonaltervező figyelmen kívül hagyja a \texttt{stop\_times} tábla \texttt{arrival\_time} és \texttt{departure\_time} mezőjét. Ehelyett a \texttt{stop\_times} tábla a megállók sorrendjét és az egyes megállók közötti időkülönbséget határozza meg.
 
 \medskip
 
@@ -305,19 +319,19 @@ Ha egy járat szerepel ebben a táblában, akkor az útvonaltervező figyelmen k
 
 \begin{tabular}{|p{3cm}|p{10cm}|}
 \hline
-trip\_id & Idegen kulcs, egy járatra hivatkozik. \\
+\texttt{trip\_id} & Idegen kulcs, egy járatra hivatkozik. \\
 \hline
-start\_time & Az az időpont, amikor az első jármű elhagyja a járat első megállóját. \\
+\texttt{start\_time} & Az az időpont, amikor az első jármű elhagyja a járat első megállóját. \\
 \hline
-end\_time & Az az időpont, amikor a járat egy másik gyakoriságra vált. \\
+\texttt{end\_time} & Az az időpont, amikor a járat egy másik gyakoriságra vált. \\
 \hline
-headway\_secs & Másodpercekben kifejezve, hogy a start\_time és az end\_time mezők által meghatározott időintervallumon belül mennyi idő telik el két indulás között ugyanabból a megállóból. \\
+\texttt{headway\_secs} & Másodpercekben kifejezve, hogy a \texttt{start\_time} és az \texttt{end\_time} mezők által meghatározott időintervallumon belül mennyi idő telik el két indulás között ugyanabból a megállóból. \\
 \hline
 \end{tabular}
 
 \SubSection{transfers}
 
-Útvonaltervezők általában az átszállási pontokat az egyes viszonylatok megállóinak a távolságai alapján számítják ki. Az esetlegesen kétértelmű megálló párok egyértelműsítésére vagy egy konkrét csatlakozási lehetőség megadására szolgál ez a tábla.
+Útvonaltervezők általában az átszállási pontokat az egyes viszonylatok megállóinak a távolságai alapján számítják ki. Az esetlegesen kétértelmű megállópárok egyértelműsítésére vagy egy konkrét csatlakozási lehetőség megadására szolgál ez a tábla.
 
 \medskip
 
@@ -327,11 +341,11 @@ headway\_secs & Másodpercekben kifejezve, hogy a start\_time és az end\_time m
 
 \begin{tabular}{|p{3cm}|p{10cm}|}
 \hline
-from\_stop\_id & Idegen kulcs. Egy megálló azonosítóját tartalmazza, ahol a viszonylatok közti kapcsolat kezdődik.  \\
+\texttt{from\_stop\_id} & Idegen kulcs. Egy megálló azonosítóját tartalmazza, ahol a viszonylatok közti kapcsolat kezdődik.  \\
 \hline
-to\_stop\_id & Idegen kulcs. Egy megálló azonosítóját tartalmazza, ahol a viszonylatok közti kapcsolat végződik. \\
+\texttt{to\_stop\_id} & Idegen kulcs. Egy megálló azonosítóját tartalmazza, ahol a viszonylatok közti kapcsolat végződik. \\
 \hline
-transfer\_type & A két megálló (from\_stop\_id, to\_stop\_id) közti kapcsolat típusát adja meg.
+\texttt{transfer\_type} & A két megálló \texttt{(from\_stop\_id, to\_stop\_id)} közti kapcsolat típusát adja meg.
 Lehetséges értékek:
 \begin{itemize}
 \item 0 vagy üres: Ajánlott átszállási pont a viszonylatok között.
@@ -355,11 +369,11 @@ Ez a tábla az adatokat publikáló szervezetről tartalmaz információkat. Abb
 
 \begin{tabular}{|p{4cm}|p{9cm}|}
 \hline
-feed\_publisher\_name & Az adatokat szolgáltató szervezet teljes neve. Általában megegyezik az agency tábla agency\_name mezőével. \\
-\hline\
-feed\_publisher\_url & Az adatokat szolgáltató szervezet URL címe. Általában megegyzik az agency tábla agency\_url mezőével. \\
+\texttt{feed\_publisher\_name} & Az adatokat szolgáltató szervezet teljes neve. Általában megegyezik az \texttt{agency} tábla \texttt{agency\_name} mezőével. \\
 \hline
-feed\_lang & A szövegek alapértelmezett nyelvének IETF BCP 47 nyelvkódját tartalmazza. \\
+\texttt{feed\_publisher\_url} & Az adatokat szolgáltató szervezet URL-címe. Általában megegyzik az \texttt{agency} tábla \texttt{agency\_url} mezőével. \\
+\hline
+\texttt{feed\_lang} & A szövegek alapértelmezett nyelvének IETF BCP 47 nyelvkódját tartalmazza. \\
 \hline
 \end{tabular}
 
@@ -373,6 +387,8 @@ Elkezdtem ilyen megoldás után kutakodni, így találtam rá az OpenTransitTool
 \url{https://github.com/OpenTransitTools/gtfsdb}
 \end{center}
 
+Az adatbázis létrehozása és feltöltése a \texttt{database\_load} függvény meghívásával történik. Paraméterként meg kell adni a GTFS-adatokat tartalmazó \texttt{.zip} fájlt, illetve a létrehozni kívánt adatbázisfájl helyét, nevét és típusát. Ezt lefuttatva létrejönnek a táblák és feltöltődnek adatokkal. Ez után már SQLAlchemy segítségével könnyedén lekérdezhetővé válnak az adatok.
+
 \begin{python}
 path = resource_filename('gtfsdb', 'zips')
 gtfs_file = 'file:///{0}'.format(os.path.join(path, 'mvkzrt.zip'))
@@ -381,9 +397,7 @@ url = 'sqlite:///' + os.path.join(basedir, 'mvk.db')
 db = database_load(gtfs_file, url=url)
 \end{python}
 
-Az adatbázis létrehozása és feltöltése a database\_load függvény meghívásával történik. Paraméterként meg kell adni a GTFS-adatokat tartalmazó \texttt{.zip} fájlt, illetve a létrehozni kívánt adatbázisfájl helyét, nevét és típusát. Ezt lefuttatva létrejönnek a táblák és feltöltődnek adatokkal. Ez után már SQLAlchemy segítségével könnyedén lekérdezhetővé válnak az adatok.
-
-A GTFSDB-t Python 2.7-es verzióval ajánlott használni, így először én is azzal próbáltam. Ezáltal viszont a következő problémába ütköztem bele. Az adatbázis feltöltése közben hiba keletkezett, nem sikerült az ékezetet tartalmazó szövegek feldolgozása. Témavezetőm azt tanácsolta, hogy próbáljam meg a Python 3-as verziójával lefuttatni a kódot, és akkor valószínűleg az ékezetes betűkből adódó karakterkódolási hiba meg fog szűnni. Ahhoz, hogy a GTDSDB működjön Python 3-mal, ahhoz a forráskódjában néhány sort át kellett írni. A következőkben ezeket a változtatásokat ismertetem.
+A GTFSDB-t Python 2.7-es verzióval ajánlott használni, így először én is azzal próbáltam. Ezáltal viszont a következő problémába ütköztem bele. Az adatbázis feltöltése közben hiba keletkezett, nem sikerült az ékezeteket tartalmazó szövegek feldolgozása. Témavezetőm azt tanácsolta, hogy próbáljam meg a Python hármas verziójával lefuttatni a kódot, és akkor valószínűleg az ékezetes betűkből adódó karakterkódolási hiba meg fog szűnni. Ahhoz, hogy a GTDSDB működjön Python 3-mal, ahhoz a forráskódjában néhány sort át kellett írni. A következőkben ezeket a változtatásokat ismertetem.
 
 gtfsdb/config.py
 
@@ -451,4 +465,4 @@ gtfsdb/model/stop\_time.py
 +except Exception as e:
 \end{python}
 
-Ezekkel a változtatásokkal, Python 3 alatt, sikeresen lefutott a database\_load függvény ékezetes karaktereket tartalmazó forrásfájlok esetén is.
+Ezekkel a változtatásokkal, Python 3 alatt, sikeresen lefutott a \texttt{database\_load} függvény ékezetes karaktereket tartalmazó forrásfájlok esetén is.
