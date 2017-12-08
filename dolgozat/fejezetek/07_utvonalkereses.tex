@@ -71,7 +71,7 @@ A számos útvonalkereső algoritmus közül kettőt szeretnék részletesebben 
 
 \SubSection{Dijkstra-algoritmus}
 
-Az algoritmust Edsger Wybe Dijkstra, holland matematikus és informatikus fejlesztette ki 1956-ban. Az algoritmussal a legrövidebb utakat lehet megkeresni egy adott csúcspontból indulva irányított vagy irányítatlan gráfokban egyaránt.
+Az algoritmust Edsger Wybe Dijkstra, holland matematikus és informatikus fejlesztette ki 1956-ban. Az algoritmussal a legrövidebb utakat lehet megkeresni egy adott csúcspontból indulva irányított vagy irányítatlan gráfokban egyaránt \cite{dijkstra}.
 
 Az algoritmus bemenete egy súlyozott $G$ gráf és a gráf egy $s$ csúcsa. Az út kiinduló pontja az $s$ csúcs. $V$ jelölje a $G$ gráf csúcsainak halmazát, legyen $(u, v)$ a $G$ gráf $u$-t $v$-vel összekötő éle, $u$ és $v$ a gráf csúcsai. $E$ jelölje a $G$ gráf éleinek a halmazát. A $w: E \rightarrow [0, \infty]$ súlyfüggvény az élekhez rendelt súlyokat adja meg, $w(u, v)$ az $(u, v)$ él súlya. Az út költsége két csúcs közt az úton lévő élek összköltsége. Az algoritmus megkeresi a legkisebb költségű $s$-ből $t$-be vezető utat. Ezenkívül arra is alkalmas, hogy adott pontból indulva a gráf minden másik pontjába vezető legrövidebb utat megkeresse.
 
