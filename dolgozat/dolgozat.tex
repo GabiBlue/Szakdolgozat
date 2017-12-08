@@ -10,20 +10,26 @@
 
 \usepackage{dolgozat}
 
-\usepackage{hyperref}
 \usepackage{svg}
 \usepackage{multirow}
+\usepackage{subfig}
+\usepackage[breaklinks]{hyperref}
+\hypersetup{breaklinks=true}
+
+\usepackage{algorithm}
+\usepackage{algorithmic}
 
 \graphicspath{{kepek/}}
 
 \begin{document}
+
 \include{cimlap/cimlap}
 
-\pagestyle{myheadings}
-
-\include{feladatkiiras/feladatkiiras}
-
+\cleardoublepage
+\pagenumbering{gobble}
 \tableofcontents
+\cleardoublepage
+\pagenumbering{arabic}
 
 \newpage
 
@@ -40,8 +46,12 @@
 \include{fejezetek/09_teszteles}
 \include{fejezetek/10_osszegzes}
 
+\include{hasznalat/hasznalat}
+
 \include{irodalomjegyzek/irodalom}
 
-% \include{hasznalat/hasznalat}
+\pagestyle{empty}
+
+\include{feladatkiiras/feladatkiiras}
 
 \end{document}
