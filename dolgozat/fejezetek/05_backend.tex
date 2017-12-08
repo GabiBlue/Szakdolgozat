@@ -63,6 +63,8 @@ A megadott induló és célmegálló közt tervezett útvonalat adja vissza. Az 
 
 A csomagban található függvényekkel lehet az adatbázisból adatokat lekérdezni, az SQLAlchemy és a GTFSDB segítségével. A következő táblázat a csomagban lévő fájlokat és az azokban lévő függvényeket ismerteti.
 
+\newpage
+
 \begin{longtable}{|p{4.5cm}|p{9cm}|}
 \hline
 \textbf{Fájlnév} & \textbf{Függvények leírásai} \\
@@ -148,6 +150,8 @@ Egy listában a paraméterként megadott járat megállóinak a koordinátáit a
 \end{longtable}
 
 A menetrend csomagnak számos előnye van véleményem szerint. Egyrészt ennek a rétegnek a bevezetésével jobban el tudtam különíteni az egyes funkciókat. A flaskos réteg csak a kérések helyességének vizsgálatával és a válaszok generálásával foglalkozik. A lekérdezések megfogalmazása és az eredmények feldolgozása a menetrend csomag függvényeiben történik, ezáltal átláthatóbb is lett a Flask-fájl, hiszen rövidebbek az egyes függvények törzsei.
+
+\newpage
 
 A legnagyobb előny, véleményem szerint, a jövőbeli továbbfejleszthetőség nagymértékű megkönnyítésében rejlik. Ha később úgy döntök (vagy bárki más úgy dönt), hogy a MEnetrend webalkalmazásnak el kívánom (kívánja) készíteni a mobilos vagy asztali változatát, akkor a back enden csak a Flaskot kell lecserélni, az alsóbb rétegekben megvalósított funkciók ugyanazok maradhatnak. Esetleg egy másik, hasonló tematikájú webalkalmazás is építkezhet a menetrend csomagban megvalósított néhány funkcióra.
 

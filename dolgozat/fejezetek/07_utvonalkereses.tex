@@ -16,16 +16,14 @@ $$
 
 Az ábrázolásra használt mátrixot \textit{szomszédsági mátrix}nak nevezzük (másnéven \textit{adjacencia} vagy \textit{csúcsmátrix}). Irányítatlan gráf esetén a mátrix szemmetrikus.
 
-% TODO: Ezt majd valamilyen grafikus formában érdemes lehet átszerkeszteni!
-
-\begin{figure}[htb]
+\begin{figure}
 \centering
-\includegraphics[scale=0.8]{kepek/szomszedsagi_graf_matrix.png}
-\caption{Egy irányított gráf és szomszédsági mátrixa}
-\label{fig:szomszedsagi_graf_matrix}
-\end{figure}
-
-$$
+\begin{minipage}{.5\textwidth}
+    \centering
+    \includesvg[width=180pt]{kepek/graf1}
+\end{minipage}\begin{minipage}{.5\textwidth}
+    \centering
+$
 C =
 \left(
 \begin{array}{ccccc}
@@ -36,7 +34,11 @@ C =
 0 & 0 & 0 & 1 & 0 \\
 \end{array}
 \right)
-$$
+$
+\end{minipage}
+\caption{Egy irányított gráf és szomszédsági mátrixa}
+\label{fig:szomszedsagi_graf_matrix}
+\end{figure}
 
 Súlyozott gráf esetén a súlyok tárolása is a mátrixban történik. Ahol az előző megoldásban 1-es található, tehát létezik az adott él, oda az él költsége kerül.
 
@@ -50,9 +52,9 @@ Legyen $G = (V, E)$ véges gráf, és $n$ a csúcsok száma. Felveszünk egy $Ad
 
 Irányított gráf esetén az éleket az éllisták listaelemei reprezentálják. A listaelem tárolása abban a listában történik, amelyik csúcsból az él kiindul. A listaelemben a célcsúcs indexét tároljuk. Az $(i, j) \in E$ él az $i$-edik listában egy listaelem, melyben $j$, mint az él célcsúcsa, el van tárolva.
 
-\begin{figure}[htb]
+\begin{figure}
 \centering
-\includegraphics[scale=1.5]{kepek/ellista_iranyitott.png}
+\includesvg[width=400pt]{kepek/graf2}
 \caption{Irányított gráf éllistás ábrázolása}
 \label{fig:ellista_iranyitott}
 \end{figure}
@@ -77,70 +79,78 @@ Az algoritmus bemenete egy súlyozott $G$ gráf és a gráf egy $s$ csúcsa. Az 
 
 A $G$ gráf minden $v$ csúcsára nyilvántartja az $s$ és $v$ közötti, a futás során addigi legrövidebbnek megtalált út költségét. Induláskor az $s$ csúcsra ez az érték $0$ ($d[s] = 0$), a gráf összes többi csúcsára pedig végtelen ($d[v] = \infty$) minden $v$-re, kivéve $s$). Ennek az az alapja, hogy kezdetben egy utat sem ismerünk, ami az $s$ csúcsból a többibe vezetne. Az algoritmus lefutása után $d[v]$ az $s$-ből $v$-be vezető legrövidebb út költségét tartalmazza, amennyiben létezik út a két csúcs között. Ha nem létezik, akkor $d[v]$ értéke végtelen marad.
 
-Az algoritmus az $S$ és $Q$ halmazokat használja, amelyekben csúcsokat tárol. Az $S$ halmaz a $G$ gráf azon csúcsait tartalmazza, amelyekre $d[v]$ már az odavezető legrövidebb út költségét tartalmazza. A $Q$ halmazban a gráf többi csúcsa található. Kezdetben az $S$ halmaz üres, majd minden egyes iterációval egy csúcs a $Q$ halmazból az $S$ halmazba kerül. Azt a csúcsot választja ki az algoritmus, amelyiknek a legalacsonyabb a $d[u]$ értéke. Amikor az $u$ csúcs a $Q$ halmazból az $S$-be helyeződik, az algoritmus $u$ összes $v$ szomszédjára megvizsgálja, hogy az addig ismert legrövidebb utak tovább rövidíthetőek-e oly módon, hogy a kezdőpontból az $u$-ig vezető legrövidebb úthoz hozzáadjuk az $(u, v)$ él költségét. Ha az eddig ismert legrövidebb útnál kisebb költséget kapunk, akkor $d[v]$ értéke ez az új, kisebb érték lesz.
+Az algoritmus az $S$ és $Q$ halmazokat használja, amelyekben csúcsokat tárol. Az $S$ halmaz a $G$ gráf azon csúcsait tartalmazza, amelyekre $d[v]$ már az odavezető legrövidebb út költségét tartalmazza. A $Q$ halmazban a gráf többi csúcsa található. Kezdetben az $S$ halmaz üres, majd minden egyes iterációval egy csúcs a $Q$ halmazból az $S$ halmazba kerül. Azt a csúcsot választja ki az algoritmus, amelyiknek a legalacsonyabb a $d[u]$ értéke. Amikor az $u$ csúcs a $Q$ halmazból az $S$-be helyeződik, az algoritmus $u$ összes $v$ szomszédjára megvizsgálja, hogy az addig ismert legrövidebb utak tovább rövidíthetőek-e oly módon, hogy a kezdőpontból az $u$-ig vezető legrövidebb úthoz hozzáadjuk az $(u, v)$ él költségét. Ha az eddig ismert legrövidebb útnál kisebb költséget kapunk, akkor $d[v]$ értéke ez az új, kisebb érték lesz. Az algoritmus pszeudokódja \aref{algo:dijkstra}. kódrészletben látható.
 
-Az algoritmus pszeudokódja:
+\begin{algorithm}
+\caption{Dijkstra-algoritmus}
+\begin{algorithmic}[1]
+\FORALL {$v \in V$}
+    \STATE $\text{dist}_v \gets \infty$
+    \STATE $\text{previous}_v \gets \emptyset$
+\ENDFOR
+\STATE $\text{dist}_s \gets 0$
+\STATE $Q \gets G$
+\WHILE {$Q \neq \emptyset$}
+    \STATE $u \gets \text{extract\_min}(Q)$
+    \FORALL {$v \in \{ v \in V | (u, v) \in E \}$}
+        \STATE $\text{alt} \gets \text{dist}_u + \text{length}(u, v)$
+        \IF {$\text{alt} < \text{dist}_v$}
+            \STATE $\text{dist}_v \gets \text{alt}$
+            \STATE $\text{previous}_v \gets u$
+        \ENDIF
+    \ENDFOR
+\ENDWHILE
+\end{algorithmic}
+\label{algo:dijkstra}
+\end{algorithm}
 
-\begin{verbatim}
-1  function Dijkstra(Graph, s):
- 2     for each vertex v in Graph:     
- 3         dist[v] := infinity         
- 4         previous[v] := undefined
- 5     dist[s] := 0                    
- 6     Q := copy(Graph)                
- 7     while Q is not empty:
- 8         u := extract_min(Q)        
- 9         for each neighbor v of u:
-10             alt = dist[u] + length(u, v)
-11             if alt < dist[v]       
-12                 dist[v] := alt      
-13                 previous[v] := u
-\end{verbatim}
+Amennyiben csak az $s$-ből $t$-be vezető legrövidebb útra van szükségünk, akkor a keresést a 9. sorban befejezhetjük, ha $u = t$ teljesül. A legrövidebb út meghatározásának módját \aref{algo:legrovidebb}. kódrészletben láthatjuk.
 
-Amennyiben csak az $s$-ből $t$-be vezető legrövidebb útra van szükségünk, akkor a keresést a 9. sorban befejezhetjük, ha $u = t$ teljesül. A legrövidebb út meghatározása:
-
-\begin{verbatim}
-1 S := empty sequence
-2 u := t
-3 while defined previous[u]
-4     insert u at the beginning of S
-5     u := previous[u]
-\end{verbatim}
+\begin{algorithm}
+\caption{Legrövidebb út meghatározása}
+\begin{algorithmic}[1]
+\STATE $S$ szekvencia, $S \gets [\;]$
+\STATE $u \gets t$
+\WHILE {$\text{previous}_u \neq \emptyset$}
+    \STATE $S \gets [u, S]$
+    \STATE $u \gets \text{previous}_u$
+\ENDWHILE
+\end{algorithmic}
+\label{algo:legrovidebb}
+\end{algorithm}
 
 Ekkor $S$ az $s$ csúcsból a $t$-be vezető legrövidebb utak egyikének csúcsait tartalmazó lista, vagy üres, ha nem létezik ilyen út.
 
-Az algoritmus működését szemlélteti az alábbi egyszerű példa.
-
-\begin{figure}[htb]
-\centering
-\includegraphics[scale=0.5]{kepek/dijkstra.jpg}
-\caption{A Dijkstra-algoritmus működése}
-\label{fig:dijkstra}
-\end{figure}
+\newpage
 
 \SubSection{Floyd-Warshall-algoritmus}
 
 Két külön algoritmusról van szó, Warshall algoritmusa idősebb a Floyd-algoritmusnál, de a módszerük megegyezik \cite{floyd-warshall}. A szakirodalomban gyakran egyként kezelik a két algoritmust a hasonlóságuk miatt, és Floyd-Warshall néven hivatkoznak rá.
-A különbség az algoritmusok közt, hogy a Warshall-algoritmus csak arra ad megoldást, hogy mely pontok közt található irányított út, nem adja meg azok hosszát.
 
-A Floyd-Warshall-algoritmus pszeudokódja:
+A különbség az algoritmusok közt, hogy a Warshall-algoritmus csak arra ad megoldást, hogy mely pontok közt található irányított út, nem adja meg azok hosszát. Az algoritmus működése \aref{algo:floyd-warshall}. kódrészletben látható.
 
-% TODO: A pszeudó-kódot érdemes lehet kicsit átfogalmazni inkább!
-% http://www.uni-miskolc.hu/~matnf/adatst/ea/eaf.ppt
-
-\begin{verbatim}
-1 let dist be a |V| x |V| array of minimum distances initialized to oo (infinity)
-2 for each vertex v
-3    dist[v][v] <- 0
-4 for each edge (u,v)
-5    dist[u][v] <- w(u,v)  // the weight of the edge (u,v)
-6 for k from 1 to |V|
-7    for i from 1 to |V|
-8       for j from 1 to |V|
-9          if dist[i][j] > dist[i][k] + dist[k][j] 
-10             dist[i][j] <- dist[i][k] + dist[k][j]
-11         end if
-\end{verbatim}
+\begin{algorithm}
+\caption{Floyd-Warshall-algoritmus}
+\begin{algorithmic}[1]
+\STATE $dist \in \mathbb{R}^{|V| \times |V|}, \text{dist} \gets \{\infty\}^{|V| \times |V|}$
+\FOR {$i \gets 1$ \TO $|V|$}
+    \STATE $\text{dist}_{i, i} \gets 0$
+\ENDFOR
+\FORALL {$(u, v) \in E$}
+    \STATE $\text{dist}_{u, v} \gets w(u, v)$
+\ENDFOR
+\FOR {$k \gets 1$ \TO $|V|$}
+    \FOR {$i \gets 1$ \TO $|V|$}
+        \FOR {$j \gets 1$ \TO $|V|$}
+            \IF {$\text{dist}_{i, j} > \text{dist}_{i, k} + \text{dist}_{k, j}$}
+                \STATE $\text{dist}_{i, j} \gets \text{dist}_{i, k} + \text{dist}_{k, j}$
+            \ENDIF
+        \ENDFOR
+    \ENDFOR
+\ENDFOR
+\end{algorithmic}
+\label{algo:floyd-warshall}
+\end{algorithm}
 
 Az algoritmus lépésszáma a három egymásba ágyazott for ciklus miatt $n^3$-bel arányos, vagyis $T(n) = \mathcal{O}(n^3)$. Ez nagyságrendben ugyanannyi, mint a Dijkstra-algoritmus mátrixos változata, de a Floyd-módszer 50\%-kal gyorsabb. Amennyiben a gráf éleinek száma kisebb, mint $2n$, és az élsúlyok nemnegatívak, akkor viszont a Dijkstra-algoritmus éllistás változatát érdemesebb használni.
 

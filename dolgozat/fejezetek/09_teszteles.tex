@@ -8,7 +8,8 @@ Megvizsgáltam, hogy a nyers adatokból mennyi idő alatt jön létre az adatbá
 \centering
 \begin{tabular}{|l|r|r|r|r|}
 \hline
-Menetrend & ZIP mérete (MB) & \texttt{trips} bejegyzések száma & \texttt{stop\_times} bejegyzések száma & Betöltési idő (másodperc) \\
+\textbf{Menetrend} & \textbf{ZIP fájlméret} & \textbf{trips} $\quad$ & \textbf{stop\_times} & \textbf{Betöltési idő} \\
+& (MB) & (darabszám) & (darabszám) & (másodperc) \\
 \hline
 Bécs & 14,6 & 120 181 & 2 169 529 & 1 395 \\
 \hline
@@ -35,7 +36,8 @@ Készítettem egy statisztikát, hogy a \texttt{generate\_graph} függvény menn
 \centering
 \begin{tabular}{|l|r|r|}
 \hline
-Menetrend & Megállók száma & \texttt{generate\_graph} futási ideje (másodperc) \\
+\textbf{Menetrend} & \textbf{Megállók száma} & \textbf{generate\_graph} \textbf{futási ideje} \\
+& & (másodperc) \\
 \hline
 Bécs & 4 357 & 17,3 \\
 \hline
@@ -53,5 +55,7 @@ Pécs & 541 & 2,6 \\
 \caption{Gráf generálásának futási ideje a futási idő függvényében}
 \label{tab:runtime}
 \end{table}
+
+\newpage
 
 Hasonlóan az adatbázisok betöltési idejéhez, a gráf felépítésének ideje is az adatbázis méretével arányos. Ebben az esetben a megállók száma a mérvadó, hiszen a készítendő gráfnak ugyanannyi csomópontja lesz, illetve az élek számával is arányos. A megfelelő felhasználói élmény biztosítása érdekében a gráfot egyszer kell felépíteni, és az eredményt gyorsítótárban kell tárolni.

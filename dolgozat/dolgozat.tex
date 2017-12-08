@@ -10,20 +10,28 @@
 
 \usepackage{dolgozat}
 
-\usepackage{hyperref}
 \usepackage{svg}
 \usepackage{multirow}
+\usepackage{subfig}
+\usepackage[breaklinks]{hyperref}
+\hypersetup{breaklinks=true}
+
+\usepackage{algorithm}
+\usepackage{algorithmic}
 
 \graphicspath{{kepek/}}
 
 \begin{document}
-\include{cimlap/cimlap}
 
-\pagestyle{myheadings}
+\include{cimlap/cimlap}
 
 \include{feladatkiiras/feladatkiiras}
 
+\cleardoublepage
+\pagenumbering{gobble}
 \tableofcontents
+\cleardoublepage
+\pagenumbering{arabic}
 
 \newpage
 

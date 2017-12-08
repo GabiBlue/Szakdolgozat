@@ -1,6 +1,6 @@
 \Chapter{GTFS-adatbázisok}
 
-A GTFS (\textit{General Transit Feed Specification}) egy olyan nemzetközi szabvánnyá vált formátum, amelyben együtt kezelhetőek a tömegközlekedési menetrendek és a hozzájuk kapcsolódó földrajzi információk \cite{gtfs}, \cite{gtfsspec}.
+A GTFS (\textit{General Transit Feed Specification}) egy olyan nemzetközi szabvánnyá vált formátum, amelyben együtt kezelhetőek a tömegközlekedési menetrendek és a hozzájuk kapcsolódó földrajzi információk \cite{gtfs}, \cite{gtfsspec}. Az ilyen formában megadott adatokat aktuális kutatásokhoz is felhasználják \cite{crowdsending}.
 
 Strukturált, szöveges állományok tartalmazzák az adatokat, amik lényegében egy adatbázis-szerkezetet definiálnak. Ezek CSV-fájlok \texttt{.txt} kiterjesztéssel egy \texttt{.zip} fájlba csomagolva. Mindegyik CSV-fájl egy adatbázistáblának felel meg, a fájl neve pedig a tábla nevét jelenti.
 
@@ -21,6 +21,8 @@ Az egyes táblák és a köztük lévő kapcsolatokat mutatja \aref{fig:gtfs}. �
 \end{figure}
 
 \Section{Kötelező táblák}
+
+A következő szakaszok a kötelező adatbázis táblákat, azok kötelező és opcionális mezőit mutatják be.
 
 \SubSection{agency}
 
@@ -62,12 +64,12 @@ Az aktuálisan elérhető viszonylatokat tartalmazza. Minden viszonylat rendelke
 \hline
 \texttt{route\_type} & Típusazonosító, lehetséges értékek:
 \begin{itemize}
-\item 0: villamos
-\item 1: metró
-\item 2: vasút
-\item 3: autóbusz
-\item 4: komp
-\item 5-7: egyéb járművek
+\item 0: villamos,
+\item 1: metró,
+\item 2: vasút,
+\item 3: autóbusz,
+\item 4: komp,
+\item 5-7: egyéb járművek.
 \end{itemize}
 \\
 \hline
@@ -75,7 +77,7 @@ Az aktuálisan elérhető viszonylatokat tartalmazza. Minden viszonylat rendelke
 
 \SubSection{trips}
 
-Ez a tábla tartalmazza a járatokat. Mindegyik egy viszonylathoz tartozik, a \texttt{direction\_id} mezőben adható meg, hogy melyik irányban közlekedik a járat az adott viszonylaton (0 vagy 1 értékkel). Kötelező megadni még egy \texttt{service\_id}-t, ami alapján be lehet azonosítani, hogy a járat mely napokon közlekedik. Egy járathoz tartozhat még egy \texttt{shape} is, amely GPS-koordináták sorozataként a járat útvonalát tartalmazza.
+Ez a tábla tartalmazza a járatokat. Mindegyik egy viszonylathoz tartozik, a \\ \texttt{direction\_id} mezőben adható meg, hogy melyik irányban közlekedik a járat az adott viszonylaton (0 vagy 1 értékkel). Kötelező megadni még egy \texttt{service\_id}-t, ami alapján be lehet azonosítani, hogy a járat mely napokon közlekedik. Egy járathoz tartozhat még egy \texttt{shape} is, amely GPS-koordináták sorozataként a járat útvonalát tartalmazza.
 
 \medskip
 
@@ -125,7 +127,7 @@ Ez a tábla azt tárolja, hogy egy viszonylat egy járata egy megállóba mikor 
 
 \bigskip
 
-\begin{tabular}{|p{3cm}|p{10cm}|}
+\begin{tabular}{|p{3.5cm}|p{9.5cm}|}
 \hline
 \texttt{stop\_id} & Idegen kulcs, a megálló azonosítója. \\
 \hline
@@ -157,8 +159,8 @@ Itt úgynevezett szolgáltatásokat lehet megadni. Egy szolgáltatás azt mondja
 Az értéke lehet:
 \begin{itemize}
 \item 0, ha az adott napon nem közlekedik, és
-\item 1, ha az adott napon közlekedik a járat.}
-\end{itemize}
+\item 1, ha az adott napon közlekedik a járat.
+\end{itemize}}
 \\
 \cline{1-1}
 \texttt{tuesday} & \\
@@ -181,11 +183,13 @@ Az értéke lehet:
 
 \Section{Opcionális táblák}
 
+Az adatbázis tartalmaz néhány opcionális táblát. Ezeket a következő szakaszok részletezik.
+
 \SubSection{shapes}
 
 A járatok útvonalát tartalmazza a tábla. Egy útvonal több pontból áll, amelyek ugyanazzal a \texttt{shape\_id}-val vannak ellátva.
 
-\medskip
+\newpage
 
 \noindent Kötelező mezők:
 
@@ -232,6 +236,8 @@ Például: ha egy járat közlekedik hétfőnként, de egy ünnep hétfőre esik
 \hline
 \end{tabular}
 
+\newpage
+
 \SubSection{fare\_attributes}
 
 A különböző viteldíjtípusok megadására szolgál.
@@ -274,7 +280,7 @@ Lehetséges értékei:
 
 A táblával megadható, hogy a \texttt{fare\_attributes} táblában található viteldíjak hogyan vonatkozzanak az útvonalakra.
 
-\medskip
+\newpage
 
 \noindent Kötelező mező:
 
@@ -295,7 +301,7 @@ A táblával megadható, hogy a \texttt{fare\_attributes} táblában található
 
 % TODO: Az utolsó három jobb oldali mező össze van vonva!
 
-\begin{tabular}{|p{3cm}|p{10cm}|}
+\begin{tabular}{|p{3.5cm}|p{9.5cm}|}
 \hline
 \texttt{route\_id} & Idegen kulcs, a viszonylat azonosítója. Ha több viszonylathoz is ugyanaz a viteldíj tartozik, akkor minden egyes viszonylatot külön rekordként kell felvinni a táblában. \\
 \hline
@@ -309,7 +315,7 @@ A táblával megadható, hogy a \texttt{fare\_attributes} táblában található
 
 \SubSection{frequencies}
 
-Ha egy járat szerepel ebben a táblában, akkor az útvonaltervező figyelmen kívül hagyja a \texttt{stop\_times} tábla \texttt{arrival\_time} és \texttt{departure\_time} mezőjét. Ehelyett a \texttt{stop\_times} tábla a megállók sorrendjét és az egyes megállók közötti időkülönbséget határozza meg.
+Ha egy járat szerepel ebben a táblában, akkor az útvonaltervező figyelmen kívül hagyja a \texttt{stop\_times} tábla \texttt{arrival\_time} és \texttt{departure\_time} mezőjét. Ehelyett a  \texttt{stop\_\-times} tábla a megállók sorrendjét és az egyes megállók közötti időkülönbséget határozza meg.
 
 \medskip
 
@@ -333,7 +339,7 @@ Ha egy járat szerepel ebben a táblában, akkor az útvonaltervező figyelmen k
 
 Útvonaltervezők általában az átszállási pontokat az egyes viszonylatok megállóinak a távolságai alapján számítják ki. Az esetlegesen kétértelmű megállópárok egyértelműsítésére vagy egy konkrét csatlakozási lehetőség megadására szolgál ez a tábla.
 
-\medskip
+\newpage
 
 \noindent Kötelező mezők:
 
@@ -367,7 +373,7 @@ Ez a tábla az adatokat publikáló szervezetről tartalmaz információkat. Abb
 
 \bigskip
 
-\begin{tabular}{|p{4cm}|p{9cm}|}
+\begin{tabular}{|p{4.5cm}|p{8.5cm}|}
 \hline
 \texttt{feed\_publisher\_name} & Az adatokat szolgáltató szervezet teljes neve. Általában megegyezik az \texttt{agency} tábla \texttt{agency\_name} mezőével. \\
 \hline
@@ -399,7 +405,9 @@ db = database_load(gtfs_file, url=url)
 
 A GTFSDB-t Python 2.7-es verzióval ajánlott használni, így először én is azzal próbáltam. Ezáltal viszont a következő problémába ütköztem bele. Az adatbázis feltöltése közben hiba keletkezett, nem sikerült az ékezeteket tartalmazó szövegek feldolgozása. Témavezetőm azt tanácsolta, hogy próbáljam meg a Python hármas verziójával lefuttatni a kódot, és akkor valószínűleg az ékezetes betűkből adódó karakterkódolási hiba meg fog szűnni. Ahhoz, hogy a GTDSDB működjön Python 3-mal, ahhoz a forráskódjában néhány sort át kellett írni. A következőkben ezeket a változtatásokat ismertetem.
 
-gtfsdb/config.py
+\newpage
+
+\noindent \texttt{gtfsdb/config.py}
 
 1. sor:
 \begin{python}
@@ -407,7 +415,11 @@ gtfsdb/config.py
 +from configparser import ConfigParser
 \end{python}
 
-gtfsdb/model/base.py
+\bigskip
+
+\bigskip
+
+\noindent \texttt{gtfsdb/model/base.py}
 
 33. sor:
 \begin{python}
@@ -427,7 +439,9 @@ gtfsdb/model/base.py
 +except Exception as e:
 \end{python}
 
-gtfsdb/model/db.py
+\bigskip
+
+\noindent \texttt{gtfsdb/model/db.py}
 
 82. sor:
 \begin{python}
@@ -435,7 +449,9 @@ gtfsdb/model/db.py
 +except Exception as e:
 \end{python}
 
-gtfsdb/model/gtfs.py
+\bigskip
+
+\noindent \texttt{gtfsdb/model/gtfs.py}
 
 6. sor:
 \begin{python}
@@ -449,7 +465,9 @@ gtfsdb/model/gtfs.py
 +except Exception as e:
 \end{python}
 
-gtfsdb/model/route\_stop.py
+\newpage
+
+\noindent \texttt{gtfsdb/model/route\_stop.py}
 
 260. sor:
 \begin{python}
@@ -457,12 +475,15 @@ gtfsdb/model/route\_stop.py
 +print(unique_stops)
 \end{python}
 
-gtfsdb/model/stop\_time.py
+\bigskip
+
+\noindent \texttt{gtfsdb/model/stop\_time.py}
 
 75. sor:
 \begin{python}
 -except Exception, e:
 +except Exception as e:
 \end{python}
+
 
 Ezekkel a változtatásokkal, Python 3 alatt, sikeresen lefutott a \texttt{database\_load} függvény ékezetes karaktereket tartalmazó forrásfájlok esetén is.
