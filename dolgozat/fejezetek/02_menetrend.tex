@@ -6,7 +6,7 @@
 % Az adatok hozzáférhetőségével, és az alkalmazások közötti adatátvitellel kapcsolatban is érdemes összeszedni pár dolgot.
 
 Szinte mindegyik közlekedési vállalat közzéteszi az interneten a helyi menetrendi adatait. Az viszont, hogy ezt milyen formában teszik, már sokféle lehet. Vannak a felhasználók igényeit kielégítő, jól kezelhető alkalmazások, de vannak sajnos kevésbé felhasználóbarát megoldások is. Ezek közül szeretnék néhányat bemutatni.
-Elsőként a szülővárosom helyi tömegközlekedésének menetrendjét említeném meg, melyet középiskolás éveim során napi szinten használtam. Ez az Észak-magyarországi Közlekedési Központ Zrt. által kiadott ózdi menetrend \cite{emkk}. Véleményem szerint az ÉMKK Zrt. által használt megoldás egyáltalán nem felhasználóbarát. A weboldalukon csupán PDF-formátumban vannak feltöltve a menetrendadatok. Annyi választási lehetőségünk van, hogy egy nagy PDF-ben az összes viszonylat menetrendjét böngésszük, vagy egy listából kiválasztva csak egy viszonylatét akarjuk megnyitni. A menetrend formátuma szintén nehezen olvasható. Egy táblázatban az adott viszonylat által érintett megállók, a menetidő és a megtett kilométer van feltüntetve. A táblázat alatt irányokra lebontva az indulási idők találhatók. Szerintem a legrosszabb megoldást itt alkalmazzák: az indulási idők előtt különböző jelek találhatók, ezek mondják meg, hogy az adott indulási idő mely napokon érvényes. Legalul egy jelmagyarázat van, amely alapján értelmezni tudjuk a fenti jeleket. Mindez megfigyelhető \aref{fig:EMKK_menetrend}. ábrán.
+Elsőként a szülővárosom helyi tömegközlekedésének menetrendjét említeném meg, melyet középiskolás éveim során napi szinten használtam. Ez az Észak-magyarországi Közlekedési Központ Zrt. által kiadott ózdi menetrend \cite{emkk}. Véleményem szerint az ÉMKK Zrt. által használt megoldás egyáltalán nem felhasználóbarát. A weboldalukon csupán PDF-formátumban vannak feltöltve a menetrendadatok. Annyi választási lehetőségünk van, hogy egy nagy PDF-ben az összes viszonylat menetrendjét böngésszük, vagy egy listából kiválasztva csak egy viszonylatét akarjuk megnyitni. A menetrend formátuma szintén nehezen olvasható. Egy táblázatban az adott viszonylat által érintett megállók, a menetidő és a megtett kilométer van feltüntetve. A táblázat alatt irányokra lebontva az indulási idők találhatók. Szerintem a legrosszabb megoldást itt alkalmazzák: az indulási idők előtt különböző jelek találhatók, ezek mondják meg, hogy az adott indulási idő mely napokon érvényes. Legalul egy jelmagyarázat van, amely alapján értelmezni tudjuk a fenti jeleket. Mindez megfigyelhető \aref{fig:EMKK_menetrend}. ábrán. Szerintem ez a megoldás nagyon nehezen használható, körülményes ilyen módon megkeresni a kívánt információt.
 
 \begin{figure}[h!]
 \centering
@@ -14,8 +14,6 @@ Elsőként a szülővárosom helyi tömegközlekedésének menetrendjét említe
 \caption{Egy járat menetrendje az ÉMKK Zrt. oldalán}
 \label{fig:EMKK_menetrend}
 \end{figure}
-
-Szerintem ez a megoldás nagyon nehezen használható, körülményes ilyen módon megkeresni a kívánt információt.
 
 Az útvonaltervezés nem támogatott, térképes megjelenítés van ugyan, de annak a használhatósága is erősen megkérdőjelezhető. A vonalhálózati térképet tekinthetjük meg egy képen, amin az összes járat megtalálható. Ezt ábrázolja \aref{fig:EMKK_vonalhalozat}. ábra. Szerintem nagyon átláthatatlan, sokkal használhatóbb lenne például egy Google Mapsen megjelenített változat, amelyben lehetne keresni is, és csak a kiválasztott vonalak útvonalát látni.
 
