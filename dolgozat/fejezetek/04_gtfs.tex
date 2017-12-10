@@ -121,7 +121,7 @@ Az egyes megállókat tárolja névvel és földrajzi koordinátákkal.
 
 Ez a tábla azt tárolja, hogy egy viszonylat egy járata egy megállóba mikor érkezik meg, mikor indul el onnan, és ez hányadik megállója az adott járatnak.
 
-\medskip
+\newpage
 
 \noindent Kötelező mezők:
 
@@ -189,7 +189,7 @@ Az adatbázis tartalmaz néhány opcionális táblát. Ezeket a következő szak
 
 A járatok útvonalát tartalmazza a tábla. Egy útvonal több pontból áll, amelyek ugyanazzal a \texttt{shape\_id}-val vannak ellátva.
 
-\newpage
+\bigskip
 
 \noindent Kötelező mezők:
 
@@ -485,5 +485,6 @@ A GTFSDB-t Python 2.7-es verzióval ajánlott használni, így először én is 
 +except Exception as e:
 \end{python}
 
+\bigskip
 
 Ezekkel a változtatásokkal, Python 3 alatt, sikeresen lefutott a \texttt{database\_load} függvény ékezetes karaktereket tartalmazó forrásfájlok esetén is.

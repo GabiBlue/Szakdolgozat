@@ -14,7 +14,7 @@ C_{i, j} = \begin{cases}
 \end{cases}
 $$
 
-Az ábrázolásra használt mátrixot \textit{szomszédsági mátrix}nak nevezzük (másnéven \textit{adjacencia} vagy \textit{csúcsmátrix}). Irányítatlan gráf esetén a mátrix szemmetrikus.
+Az ábrázolásra használt mátrixot \textit{szomszédsági mátrix}nak nevezzük (másnéven \textit{adjacencia} vagy \textit{csúcsmátrix}). Irányítatlan gráf esetén a mátrix szimmetrikus.
 
 \begin{figure}
 \centering
@@ -42,7 +42,7 @@ $
 
 Súlyozott gráf esetén a súlyok tárolása is a mátrixban történik. Ahol az előző megoldásban 1-es található, tehát létezik az adott él, oda az él költsége kerül.
 
-Az ábrázolás helyfoglalása a mátrix méretének négyzetével, vagyis $n^2$-tel arányos, független az élek számától.
+Az ábrázolás helyfoglalása a mátrix méretének négyzetével, vagyis $n^2$-tel arányos, függetlenül az élek számától.
 
 \SubSection{Szomszédsági lista}
 
@@ -132,7 +132,7 @@ A különbség az algoritmusok közt, hogy a Warshall-algoritmus csak arra ad me
 \begin{algorithm}
 \caption{Floyd-Warshall-algoritmus}
 \begin{algorithmic}[1]
-\STATE $dist \in \mathbb{R}^{|V| \times |V|}, \text{dist} \gets \{\infty\}^{|V| \times |V|}$
+\STATE $\text{dist} \in \mathbb{R}^{|V| \times |V|}, \text{dist} \gets \{\infty\}^{|V| \times |V|}$
 \FOR {$i \gets 1$ \TO $|V|$}
     \STATE $\text{dist}_{i, i} \gets 0$
 \ENDFOR
@@ -293,4 +293,4 @@ Az átalakítás után, az előző példánál maradva, ha kipróbáljuk a \text
 }]
 \end{verbatim}
 
-Az eredményt szintén egy listában adja vissza, azonban a listában most már nem csak pusztán a megállók nevei vannak, hanem dictionary-kben név és viszonylat kulcs-érték párok. Jól látható, hogy a \textit{Balassa utcából} a \textit{3-as} viszonylaton elindulva, a \textit{Búza tér/Zsolcai kapu megállóban} az \textit{1-es} viszonylatra átszállva juthatunk el a \textit{Vologda városrészbe}.
+Az eredményt szintén egy listában adja vissza, azonban a listában most már nem csak pusztán a megállók nevei vannak, hanem dictionary-kben név és viszonylat kulcs-érték párok. Jól látható, hogy a \textit{Balassa utcából} a \textit{3}-as viszonylaton elindulva, a \textit{Búza tér/Zsolcai kapu} megállóban az \textit{1}-es viszonylatra átszállva juthatunk el a \textit{Vologda városrész}be.
