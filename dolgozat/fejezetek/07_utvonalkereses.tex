@@ -42,7 +42,7 @@ $
 
 Súlyozott gráf esetén a súlyok tárolása is a mátrixban történik. Ahol az előző megoldásban 1-es található, tehát létezik az adott él, oda az él költsége kerül.
 
-Az ábrázolás helyfoglalása a mátrix méretének négyzetével, vagyis $n^2$-tel arányos, független az élek számától
+Az ábrázolás helyfoglalása a mátrix méretének négyzetével, vagyis $n^2$-tel arányos, független az élek számától.
 
 \SubSection{Szomszédsági lista}
 
@@ -59,7 +59,7 @@ Irányított gráf esetén az éleket az éllisták listaelemei reprezentálják
 \label{fig:ellista_iranyitott}
 \end{figure}
 
-Irányítatlan gráf esetében egy élnek két listaelemet is megfeleltetünk. Élsúlyozott gráf esetén az él súlyát is a listaelemben fogjuk tárolni.
+Irányítatlan gráf esetében egy élnek két listaelemet is megfeleltetünk. Élsúlyozott gráf esetén az él súlyát is a listaelemben tároljuk.
 
 Az ilyen típusú ábrázolás helyfoglalása irányítatlan gráfok esetében a csúcsok számával ($Adj$ tömb) és az élek számával (az éllista elemeinek a számával) arányos, ami összesen $(n + e)$. Irányított gráfoknál az élszám duplájával kell számolni, azaz $(n + 2e)$-vel arányos a helyfoglalás.
 
@@ -189,7 +189,7 @@ Egy részlet az így felépített gráfból:
 }
 \end{verbatim}
 
-Jól látható, hogy az AUCHAN Borsod megállóból egyedül a Szondi György utca megállóba tudunk eljutni, 300 másodperc alatt. Ezzel szemben például az Alsó-Majláth megállóból indulva eljuthatunk 120 másodperc alatt Felső-Majláth, Diósgyőr városközpont és a Móra Ferenc utca megállókba, 60 másodperc alatt pedig a Bölcs utcába.
+Jól látható, hogy az \textit{AUCHAN Borsod} megállóból egyedül a \textit{Szondi György utca} megállóba tudunk eljutni, 300 másodperc alatt. Ezzel szemben például az \textit{Alsó-Majláth} megállóból indulva eljuthatunk 120 másodperc alatt \textit{Felső-Majláth}, \textit{Diósgyőr városközpont} és a \textit{Móra Ferenc utca} megállókba, 60 másodperc alatt pedig a \textit{Bölcs utcába}.
 
 Miután a gráfgeneráló algoritmust elkészítettem, a Dijkstra-algoritmus implementálása következett.
 
@@ -218,7 +218,7 @@ A függvény által kiszámolt út (\texttt{path} tartalma):
 
 Az eredményt egy listában adja vissza, amely a megállók neveit tartalmazza. A \texttt{cost} értéke pedig 420 ebben az esetben.
 
-Miután ezzel elkészültem, a gráfot kibővítettem, hiszen nem elegendő csak annyit tudni, hogy egy megállóból mely másikakba vezet út. Azt is el kell tárolni, hogy ez a kapcsolat melyik viszonylaton érhető el. Olyan is előfordulhat, hogy A-ból B-be több viszonylaton is el lehet jutni, az optimális útvonal megtervezéséhez ezt is figyelembe kell venni, nem elég csupán egy viszonylatot eltárolni.
+Miután ezzel elkészültem, a gráfot kibővítettem, hiszen nem elegendő csak annyit tudni, hogy egy megállóból mely másikakba vezet út. Azt is el kell tárolni, hogy ez a kapcsolat melyik viszonylaton érhető el. Olyan is előfordulhat, hogy \textit{A}-ból \textit{B}-be több viszonylaton is el lehet jutni, az optimális útvonal megtervezéséhez ezt is figyelembe kell venni, nem elég csupán egy viszonylatot eltárolni.
 Mindezek figyelembevételével átalakítottam a gráf struktúráját. Továbbra is egy dictionary-ről van szó, ahol a kulcsok a megállók nevei, az értékek azonban listák. A listákban dictionary-k vannak, mindegyik dictionary-ben pedig három kulcs-érték pár. A \texttt{name}-hez tartozó érték a megálló neve, a \texttt{cost} a költség, a \texttt{route} pedig a viszonylatot azonosítja.
 Részlet a kibővített gráfról:
 
@@ -265,11 +265,11 @@ Részlet a kibővített gráfról:
 }
 \end{verbatim}
 
-Az Aba utca megállóhoz tartozó bejegyzést, ha jobban szemügyre vesszük, könnyen megérthetjük, hogy milyen változás történt. Míg az előző változatban annyi információt tároltunk csak el, hogy a Zoltán utca és a Szent Anna tér megállókba lehet innen eljutni 60 és 120 másodperc alatt ('Aba utca': {'Zoltán utca': 60.0, 'Szent Anna tér': 120.0}), addig a kibővített gráf sokkal több információt tartalmaz. Láthatjuk, hogy mindkét irányba három viszonylaton is (1, 1É, 54) eljuthatunk. Így a gráf mérete a többszörösére növekedett, azonban ez a változtatás elengedhetetlen volt, hiszen az útvonaltervezésnek csak úgy van értelme, ha a viszonylatokat is figyelembe vesszük.
+Ha jobban szemügyre vesszük az \textit{Aba utca} megállóhoz tartozó bejegyzést, könnyen megérthetjük, hogy milyen változás történt. Míg az előző változatban annyi információt tároltunk csak el, hogy a \textit{Zoltán utca} és a \textit{Szent Anna tér} megállókba lehet innen eljutni 60 és 120 másodperc alatt ('Aba utca': {'Zoltán utca': 60.0, 'Szent Anna tér': 120.0}), addig a kibővített gráf sokkal több információt tartalmaz. Láthatjuk, hogy mindkét irányba három viszonylaton is (1, 1É, 54) eljuthatunk. Így a gráf mérete a többszörösére növekedett, azonban ez a változtatás elengedhetetlen volt, hiszen az útvonaltervezésnek csak úgy van értelme, ha a viszonylatokat is figyelembe vesszük.
 
 Ezután természetesen az útvonaltervező algoritmust és át kellett írni, hogy kezelni tudja az átalakított struktúrájú gráfot.
 
-Az átalakítás után, az előző példánál maradva, ha kipróbáljuk a Balassa utca és a Vologda városrész megállókkal az algoritmust, akkor a \texttt{path} eredménye a következő lesz:
+Az átalakítás után, az előző példánál maradva, ha kipróbáljuk a \textit{Balassa utca} és a \textit{Vologda városrész} megállókkal az algoritmust, akkor a \texttt{path} eredménye a következő lesz:
 
 \begin{verbatim}
 [{
@@ -293,4 +293,4 @@ Az átalakítás után, az előző példánál maradva, ha kipróbáljuk a Balas
 }]
 \end{verbatim}
 
-Az eredményt szintén egy listában adja vissza, azonban a listában most már nem csak pusztán a megállók nevei vannak, hanem dictionary-kben név és viszonylat kulcs-érték párok. Jól látható, hogy a Balassa utcából a 3-as viszonylaton elindulva, a Búza tér/Zsolcai kapu megállóban az 1-es viszonylatra átszállva juthatunk el a Vologda városrészbe.
+Az eredményt szintén egy listában adja vissza, azonban a listában most már nem csak pusztán a megállók nevei vannak, hanem dictionary-kben név és viszonylat kulcs-érték párok. Jól látható, hogy a \textit{Balassa utcából} a \textit{3-as} viszonylaton elindulva, a \textit{Búza tér/Zsolcai kapu megállóban} az \textit{1-es} viszonylatra átszállva juthatunk el a Vologda városrészbe.
