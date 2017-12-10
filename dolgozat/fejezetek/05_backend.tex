@@ -29,9 +29,9 @@ A villamosvonalakat adja vissza. A fent említett függvényt hívja meg, 0-t ad
 Egy viszonylat egy irányának egy adott napi indulási idejeit adja vissza.
 Paraméterek:
 \begin{itemize}
-\item \texttt{route\_short\_name}: a viszonylatot határozza meg
-\item \texttt{direction\_id}: az irányt határozza meg
-\item \texttt{date}: a dátumot határozza meg
+\item \texttt{route\_short\_name}: a viszonylatot határozza meg,
+\item \texttt{direction\_id}: az irányt határozza meg,
+\item \texttt{date}: a dátumot határozza meg.
 \end{itemize}
 A függvény először a paraméterek helyességét vizsgálja. Ha a \texttt{direction\_id} értéke nem 0 vagy 1, vagy ha egy járat sem található a megadott \texttt{route\_short\_name} és \texttt{direction\_id} értékekkel, akkor 404-es hibakóddal tér vissza. Ennek az az oka, hogy ez normál használat során nem fordulhat elő, csak ha kézzel át lett írva az URL.
 Ha helyesek a paraméterek, akkor a \texttt{query\_trips\_schedule()} függvény segítségével lekérdezi a paramétereknek megfelelő járatokat. Ha egyet sem talál, akkor az adott napon nem közlekedik a viszonylat. Ellenkező esetben a \texttt{generate\_schedule\_dictionary()}  függvénnyel elkészíti az aznapi indulási időket tartalmazó dictionary-t. \\
