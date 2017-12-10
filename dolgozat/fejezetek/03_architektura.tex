@@ -8,6 +8,8 @@
 
 \Section{Az alkalmazott technológiák bemutatása}
 
+Egy webalkalmazás fejlesztése során különféle technológiák egyidejű használatára van szükség. A következő szakaszok ezek közül mutatják be a lényegesebbeket.
+
 % TODO: Minden részhez kellenek majd olyan észrevételek, amelyekből rögtön látszik, hogy miért arra esett a választás, mi készült el vele, és úgy általában milyen módon kapcsolódik a dolgozat többi részéhez.
 
 \SubSection{Python}
@@ -75,7 +77,7 @@ Az alkalmazás forráskódja az alábbi linken megtekinthető és letölthető:
 
 \Section{Az alkalmazás fő részei}
 
-Az alkalmazás szerveroldalon a Python / Flask keretrendszert, kliensoldalon pedig An\-gu\-lar\-JS-t használ. A nyers GTFS-adatok feldolgozására és adatbázisba való betöltésére a GTFSDB csomagot használom. Az adatbázisból a lekérdezéseket az SQLAlcehmy ORM-en keresztül végzem. Létrehoztam egy menetrend nevű csomagot, ami tulajdonképpen egy wrapperként szolgál a GTFSDB felé. A wrapper egy alacsonyabb szintű programészre épülve magasabb szintű funkciókat valósít meg, elfedve a technikai részleteket, ezáltal egyszerűbbé téve azt. Az alkalmazás logikai felépítést szemlélteti \aref{fig:architecture}. ábra.
+Az alkalmazás szerveroldalon a Python/Flask keretrendszert, kliensoldalon pedig An\-gu\-lar\-JS-t használ. A nyers GTFS-adatok feldolgozására és adatbázisba való betöltésére a GTFSDB csomagot használom. Az adatbázisból a lekérdezéseket az SQLAlcehmy ORM-en keresztül végzem. Létrehoztam egy menetrend nevű csomagot, ami tulajdonképpen egy wrapperként szolgál a GTFSDB felé. A wrapper egy alacsonyabb szintű programészre épülve magasabb szintű funkciókat valósít meg, elfedve a technikai részleteket, ezáltal egyszerűbbé téve azt. Az alkalmazás logikai felépítést szemlélteti \aref{fig:architecture}. ábra.
 
 \begin{figure}[htb]
 \centering

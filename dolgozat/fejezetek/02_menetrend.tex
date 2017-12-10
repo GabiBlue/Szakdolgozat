@@ -8,9 +8,9 @@
 Szinte mindegyik közlekedési vállalat közzéteszi az interneten a helyi menetrendi adatait. Az viszont, hogy ezt milyen formában teszik, már sokféle lehet. Vannak a felhasználók igényeit kielégítő, jól kezelhető alkalmazások, de vannak sajnos kevésbé felhasználóbarát megoldások is. Ezek közül szeretnék néhányat bemutatni.
 Elsőként a szülővárosom helyi tömegközlekedésének menetrendjét említeném meg, melyet középiskolás éveim során napi szinten használtam. Ez az Észak-magyarországi Közlekedési Központ Zrt. által kiadott ózdi menetrend \cite{emkk}. Véleményem szerint az ÉMKK Zrt. által használt megoldás egyáltalán nem felhasználóbarát. A weboldalukon csupán PDF-formátumban vannak feltöltve a menetrendadatok. Annyi választási lehetőségünk van, hogy egy nagy PDF-ben az összes viszonylat menetrendjét böngésszük, vagy egy listából kiválasztva csak egy viszonylatét akarjuk megnyitni. A menetrend formátuma szintén nehezen olvasható. Egy táblázatban az adott viszonylat által érintett megállók, a menetidő és a megtett kilométer van feltüntetve. A táblázat alatt irányokra lebontva az indulási idők találhatók. Szerintem a legrosszabb megoldást itt alkalmazzák: az indulási idők előtt különböző jelek találhatók, ezek mondják meg, hogy az adott indulási idő mely napokon érvényes. Legalul egy jelmagyarázat van, amely alapján értelmezni tudjuk a fenti jeleket. Mindez megfigyelhető \aref{fig:EMKK_menetrend}. ábrán. Szerintem ez a megoldás nagyon nehezen használható, körülményes ilyen módon megkeresni a kívánt információt.
 
-\begin{figure}[h!]
+\begin{figure}[htb]
 \centering
-\includegraphics[scale=0.7]{kepek/EMKK_menetrend.jpg}
+\includegraphics[scale=0.75]{kepek/EMKK_menetrend.jpg}
 \caption{Egy járat menetrendje az ÉMKK Zrt. oldalán}
 \label{fig:EMKK_menetrend}
 \end{figure}
@@ -28,7 +28,7 @@ Másodikként a Miskolc Városi Közlekedési Zrt. weboldalán található menet
 
 Az ÉMKK Zrt.-nél bemutatott vonalhálózati térkép fellelhető az MVK Zrt.-nél is, szerintem ez itt sem használható igazán, azonban ezek mellett sok más kényelmi funkció elérhető még az oldalukon. Lehetőség van a menetrend megtekintésére különböző szűrőfeltételek megadásával. Két oszlop jelenik meg a felületen, villamos- és autóbuszvonalakra csoportosítva a viszonylatokat. Ezt mutatja \aref{fig:MVK_menetrend}. ábra. Vonalszám, irány, megálló és egy dátum kiválasztása után a Keresés gombra kattintva megjelenik egy táblázat a megadott szűrőfeltételek eredményének megfelelő indulási időket tartalmazva. Az indulási időkre kattintva az adott járat részletes menetrendje jelenik meg, a járat által érintett megállókat, a menetidőket az adott megállókig, és a megállókból történtő indulási időket tartalmazva. A táblázat alatt Google Mapsen a járat útvonala is megjelenik.
 
-\begin{figure}[h!]
+\begin{figure}[htb]
 \centering
 \includegraphics[scale=0.7]{kepek/MVK_menetrend.jpg}
 \caption{Keresés a menetrendben az MVK Zrt. oldalán}
