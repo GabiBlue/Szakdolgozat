@@ -133,9 +133,9 @@ Ez a tábla azt tárolja, hogy egy viszonylat egy járata egy megállóba mikor 
 \hline
 \texttt{trip\_id} & Idegen kulcs, a járat azonosítója. \\
 \hline
-\texttt{arrival\_time} & Érkezési idő, a járat mikor érkezik meg a megállóba. HH:MM:SS formátumban kell megadni. \\
+\texttt{arrival\_time} & Érkezési idő, a járat mikor érkezik meg a megállóba. \texttt{HH:MM:SS} formátumban kell megadni. \\
 \hline
-\texttt{departure\_time} & Indulási idő, a járat mikor indul a megállóból. HH:MM:SS formátumban kell megadni. \\
+\texttt{departure\_time} & Indulási idő, a járat mikor indul a megállóból. \texttt{HH:MM:SS} formátumban kell megadni. \\
 \hline
 \texttt{stop\_sequence} & Azt tartalmazza, hogy hányadik megállója ez a járatnak. Nemnegatív egésznek kell lennie. \\
 \hline
@@ -175,9 +175,9 @@ Az értéke lehet:
 \cline{1-1}
 \texttt{sunday} & \\
 \hline
-\texttt{start\_date} & A szolgáltatás kezdő érvényességi ideje. Az értéket YYYYMMDD formátumban kell megadni. \\
+\texttt{start\_date} & A szolgáltatás kezdő érvényességi ideje. Az értéket \texttt{YYYYMMDD} formátumban kell megadni. \\
 \hline
-\texttt{end\_date} & A szolgáltatás érvényességi idejének a vége. Az értéket YYYYMMDD formátumban kell megadni. \\
+\texttt{end\_date} & A szolgáltatás érvényességi idejének a vége. Az értéket \texttt{YYYYMMDD} formátumban kell megadni. \\
 \hline
 \end{tabular}
 
@@ -225,7 +225,7 @@ Alternatív: A calendar táblát kihagyva, csak ezt a táblát használni, az ö
 \hline
 \texttt{service\_id} & A szolgáltatás azonosítója. Egy \texttt{(service\_id, date)} páros csak egyszer szerepelhet. \\
 \hline
-\texttt{date} & Egy dátumot tartalmaz, formátuma: YYYYMMDD. \\
+\texttt{date} & Egy dátumot tartalmaz, formátuma: \texttt{YYYYMMDD}. \\
 \hline
 \texttt{exception\_type} & Lehetséges értékei:
 \begin{itemize}
@@ -356,7 +356,7 @@ Lehetséges értékek:
 \begin{itemize}
 \item 0 vagy üres: Ajánlott átszállási pont a viszonylatok között.
 \item 1: Időzített átszállási pont két viszonylat között. Az induló jármű megvárja az érkezőt, elegendő időt biztosítva az utasok számára az átszálláshoz.
-\item 2: Az átszállás biztosításához bizonyos idő szükséges. Az ehhez szükséges időt a min\_transfer\_time mező tartalmazza.
+\item 2: Az átszállás biztosításához bizonyos idő szükséges. Az ehhez szükséges időt a \texttt{min\_transfer\_time} mező tartalmazza.
 \item 3: Az adott helyen átszállás nem lehetséges a viszonylatok között.
 \end{itemize}
 \\
@@ -387,7 +387,7 @@ Ez a tábla az adatokat publikáló szervezetről tartalmaz információkat. Abb
 
 A nyers GTFS-adatok feldolgozásához először a Google TransitFeed modulját kezdtem el használni. Ennek segítségével a memóriába be tudtam tölteni az adatokat, amiknek a lekérdezésére és a módosítására is lehetőség volt. Azonban hamar arra a következtetésre jutottam, hogy ez számomra nem lesz tökéletesen megfelelő, hiszen én mindenféleképpen adatbázisban szeretném tárolni az adatokat. A Google által kifejlesztett API segítségével is lehet az adatokat lekérdezni és módosítani, azonban úgy gondoltam, hogy az adatbázisban történő tárolással több és jobb lehetőség nyílik erre. A másik ok, amiért erre a következtetésre jutottam, hogy az adatokat ezáltal perzisztensen tudom tárolni.
 
-Elkezdtem ilyen megoldás után kutakodni, így találtam rá az OpenTransitTools GTFSDB nevű könyvtárára. A projekt célja, hogy a GTFS-adatokat programozható kontextusba helyezze szoftverfejlesztők számára. Ennek igen nagy létjogosultsága van, hiszen a GTFS-adatokkal foglalkozó alkalmazások készítésénél általában az első lépés a nyers adatok lekérdezhetővé, feldolgozhatóvá tétele. A GTFSDB könyvtár segítségével PostgreSQL, Oracle, MySQL és SQLite adatbázisokat hozhatunk létre a nyers adatokból. A projekt forráskódja elérhető GitHubon:
+Elkezdtem ilyen megoldás után kutakodni, így találtam rá az OpenTransitTools GTFSDB nevű könyvtárára. A projekt célja, hogy a GTFS-adatokat programozható kontextusba helyezze szoftverfejlesztők számára. Ennek nagy létjogosultsága van, hiszen a GTFS-adatokkal foglalkozó alkalmazások készítésénél általában az első lépés a nyers adatok lekérdezhetővé, feldolgozhatóvá tétele. A GTFSDB könyvtár segítségével PostgreSQL, Oracle, MySQL és SQLite adatbázisokat hozhatunk létre a nyers adatokból. A projekt forráskódja elérhető GitHubon:
 
 \begin{center}
 \url{https://github.com/OpenTransitTools/gtfsdb}
